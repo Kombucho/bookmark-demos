@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jev as an embedder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <p class="kicker"><span class="mark">01</span> How to use jev</p>
+    <h1>As an embedder</h1>
+    <p class="lede">
+      A host page with an empty slot. Drop in a tiny panel.
+      It answers from canned examples, and every number has a name.
+    </p>
+    <p id="status" class="status" role="status"></p>
+  </header>
+
+  <main class="stage">
+    <section class="host" aria-labelledby="host-title">
+      <div class="block-head">
+        <span>Host page</span>
+        <h2 id="host-title">Inbox</h2>
+      </div>
+      <p class="legend" id="legend" hidden>
+        <span class="tone tone-customer">is_customer</span>
+        <span class="tone tone-urgent">urgent</span>
+        <span class="tone tone-billing">about_billing</span>
+        <span class="tone tone-reply">needs_reply</span>
+      </p>
+      <ul id="docs" class="docs"></ul>
+    </section>
+
+    <div class="side">
+      <section class="slot-col" aria-labelledby="slot-title">
+        <div class="block-head">
+          <span>Slot</span>
+          <h2 id="slot-title">Where the panel lands</h2>
+        </div>
+        <div id="slot" class="slot" data-empty="true">
+          <p id="slot-hint" class="slot-hint">
+            <strong>Empty slot</strong>
+            Drop the panel here.
+          </p>
+        </div>
+      </section>
+
+      <section class="tray" id="tray" aria-label="Loose panel">
+        <p class="tray-label" id="tray-label">Loose panel. Not on the page yet.</p>
+        <article id="panel" class="panel">
+          <header class="panel-head">
+            <div class="grip" id="grip" title="Drag into the slot" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="panel-id">
+              <strong>jev</strong>
+              <span class="badge" id="badge">loose</span>
+            </div>
+          </header>
+          <p class="panel-note">Same four questions for every note. The scores are the embedding.</p>
+          <div class="ask">
+            <p class="ask-label">Canned examples</p>
+            <div id="examples"></div>
+            <button type="button" id="search-btn" class="search">
+              Search “billing issues from customers”
+            </button>
+          </div>
+          <div id="answer" class="answer" aria-live="polite"></div>
+          <button type="button" id="drop-btn" class="drop">Drop into slot</button>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <p>Canned scores. No model, no server. Inspired by Kieran Klaassen, “How to use jev #1: As an embedder.”</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
