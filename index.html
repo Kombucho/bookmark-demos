@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auction anything</title>
+  <meta name="description" content="A local demo of a proxy auction: private maximum, public price, 10% steps, and an anti-snipe close.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="tape" role="status" aria-live="off">
+    <div class="tape-track" id="tape"></div>
+  </div>
+
+  <header class="top">
+    <p class="wordmark">Auction anything</p>
+    <p class="quiet">Demo · bids stay in this tab</p>
+  </header>
+
+  <section class="intro">
+    <h1>One lot.<br>Forty-eight hours.<br>Highest reserved maximum wins.</h1>
+    <ul class="rules">
+      <li>
+        <strong>Private maximum</strong>
+        <span>Reserve a ceiling. The public price is the only number the room sees.</span>
+      </li>
+      <li>
+        <strong>10% steps</strong>
+        <span>The standing bid is one step above the next-highest maximum.</span>
+      </li>
+      <li>
+        <strong>Earlier tie</strong>
+        <span>The same maximum stays with the bidder who reserved it first.</span>
+      </li>
+      <li>
+        <strong>Anti-snipe</strong>
+        <span>On a real lot, a bid in the last 10 minutes adds 10. This clock uses 15 seconds so you can watch it.</span>
+      </li>
+    </ul>
+  </section>
+
+  <main class="stage">
+    <label class="poster">
+      <span class="eyebrow">The lot</span>
+      <input id="lot" maxlength="48" value="You?" aria-label="Name the lot" autocomplete="off">
+      <span class="caption">Name anything. The bids price it.</span>
+    </label>
+
+    <section class="facts" aria-label="Auction">
+      <p class="eyebrow" id="count">Current bid</p>
+      <p class="price" id="price">—</p>
+      <p class="leader" id="leader"></p>
+      <p class="floor" id="floor"></p>
+      <p class="status" id="status" role="status"></p>
+      <div class="actions">
+        <button type="button" class="solid" id="bid-open">Make a bid</button>
+        <button type="button" class="ghost" id="jump">Jump to the last 15 seconds</button>
+        <div class="clock" id="clock-wrap">
+          <span class="eyebrow">Demo close</span>
+          <time id="clock">00:00</time>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="board" aria-label="Public price">
+    <div class="section-head">
+      <h2>Public price</h2>
+      <p class="legend"><span class="swatch"></span> Standing bid <span class="swatch dashed"></span> Your maximum, on this screen</p>
+    </div>
+    <svg id="chart" role="img" aria-label="Standing bid over the course of the demo"></svg>
+    <div class="private" id="private" hidden></div>
+    <ol class="standing" id="standing"></ol>
+  </section>
+
+  <section class="log-wrap" aria-label="Bid history">
+    <div class="section-head">
+      <h2>Bid history</h2>
+      <button type="button" class="text" id="replay">Replay</button>
+    </div>
+    <ol class="log" id="log"></ol>
+  </section>
+
+  <footer>
+    <p>A compressed local sketch of the 48-hour proxy auction.</p>
+    <p>
+      <a href="https://github.com/visualizevalue/auctionanything">visualizevalue/auctionanything</a>
+      <a href="https://x.com/jackbutcher/status/2100973800120517104">Note</a>
+    </p>
+  </footer>
+
+  <dialog id="sheet" aria-labelledby="sheet-title">
+    <form id="bid-form" method="dialog">
+      <button type="button" class="text close" id="bid-cancel">Close</button>
+      <h2 id="sheet-title">Make a bid</h2>
+      <p class="quiet">Set the most you will pay. The room sees the public price. Your ceiling stays in this tab.</p>
+      <label>Your name <input id="bidder" name="bidder" maxlength="40" required autocomplete="nickname"></label>
+      <label>Your maximum, USD <input id="maximum" name="maximum" inputmode="decimal" required placeholder="120"></label>
+      <p class="quiet" id="minimum-hint"></p>
+      <p class="form-error" id="form-error" role="alert"></p>
+      <button type="submit" class="solid" id="bid-submit">Place bid</button>
+    </form>
+  </dialog>
+
+  <script src="engine.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
