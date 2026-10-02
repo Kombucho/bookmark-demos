@@ -5,7 +5,7 @@
 
   var SUCCESS_RE = /(\d+\s*%|\bpercent\b|\bsuccess\b|\bgoal\b|\bkpi\b|\btarget\b|\bfewer\b|\bfaster\b|\bunder\b|\bwithin\b|\bat least\b|\bsame day\b|\breduce\b|\bincrease\b)/i;
 
-  var ROLE_WORDS = toSet("user users customer customers client clients admin admins manager managers team teams buyer buyers people person staff folks parent parents teacher teachers student students kid kids employee employees");
+  var ROLE_WORDS = toSet("user users customer customers client clients admin admins manager managers team teams buyer buyers people person staff folks parent parents teacher teachers student students kid kids employee employees designer designers engineer engineers founder founders seller sellers rep reps analyst analysts");
 
   var STOP_WORDS = toSet("a an the our their my your its we i they them he she you some all any each every mostly other another this that these those and or but if so because when while than then for of to in on with from into by at as not no nor just really basically honestly literally kinda kind ok okay um uh tbh anyway who what which is are was were be been being has have had do does did doing can could will would should keep keeps kept lose loses losing get gets got want wants wanted need needs hate hates make makes making take takes taking send sends wait waits email emails build building ship shipping reset resetting complain complains use uses using try tries see sees go goes work works let lets help helps ask asks call calls give gives feel feels know knows come comes");
 
