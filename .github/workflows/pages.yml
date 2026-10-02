@@ -1,0 +1,54 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the static site
+        run: |
+          test -f index.html
+          test -f styles.css
+          test -f .nojekyll
+          test -f auction-demo/index.html
+          test -f auction-demo/engine.js
+          test -f requirements-demo/index.html
+          test -f requirements-demo/engine.js
+          test -f jev-embed-demo/index.html
+          test -f jev-embed-demo/engine.js
+          test ! -f engine.js
+          test ! -f main.js
+      - name: Run rule tests
+        run: node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js
+
+  deploy:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

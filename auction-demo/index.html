@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auction anything</title>
+  <meta name="description" content="Run a multi-bidder proxy auction: private maxima, 10% steps, earlier ties, a 48-hour clock, and a 10-minute anti-snipe.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="bar">
+    <a class="home" href="../index.html">All demos</a>
+    <label class="lot">Lot
+      <input id="lot" maxlength="60" value="Untitled lot" autocomplete="off">
+    </label>
+    <p class="ruleline">48 hours · one offer per bidder · 10% steps · earlier tie · last 10 minutes add 10</p>
+  </header>
+
+  <section class="board" aria-label="Auction board">
+    <div class="price-block">
+      <p class="eyebrow" id="phase">Waiting for the first bid</p>
+      <p class="price" id="price">—</p>
+      <p class="leader" id="leader">Opening bid $1. The ceiling stays in the book.</p>
+      <p class="next" id="next-step"></p>
+    </div>
+    <div class="clock-block">
+      <p class="eyebrow">Time left</p>
+      <p class="clock" id="clock">48:00:00</p>
+      <p class="close" id="close-label"></p>
+      <div class="clock-controls">
+        <button type="button" id="run">Run clock</button>
+        <label>Speed
+          <select id="speed">
+            <option value="1">1×</option>
+            <option value="60" selected>60×</option>
+            <option value="3600">3,600×</option>
+          </select>
+        </label>
+        <button type="button" id="jump">Jump to last 10 minutes</button>
+        <button type="button" id="plus-min">+1 min</button>
+        <button type="button" id="plus-ten">+10 min</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="desk">
+    <form id="bid-form" class="panel bid">
+      <h2>Place a bid</h2>
+      <label>Bidder
+        <input id="bidder" maxlength="40" required autocomplete="off" placeholder="Northwind">
+      </label>
+      <label>Private maximum, USD
+        <input id="maximum" inputmode="decimal" required placeholder="80" autocomplete="off">
+      </label>
+      <p id="hint" class="hint"></p>
+      <p id="form-error" class="error" role="alert"></p>
+      <button type="submit" id="submit">Place bid</button>
+      <div class="row">
+        <button type="button" id="sample">Load sample book</button>
+        <button type="button" id="reset">Reset auction</button>
+      </div>
+    </form>
+
+    <section class="panel why" aria-live="polite">
+      <h2>Why this price</h2>
+      <p id="formula"></p>
+    </section>
+
+    <section class="panel book">
+      <h2>Bid book</h2>
+      <p class="note">Private maxima stay in this book. The board above is the public price.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Bidder</th>
+              <th>Admitted</th>
+              <th>Private maximum</th>
+              <th>Position</th>
+            </tr>
+          </thead>
+          <tbody id="book-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel log">
+      <div>
+        <h2>What the room sees</h2>
+        <ol id="room"></ol>
+      </div>
+      <div>
+        <h2>Clerk’s trace</h2>
+        <ol id="clerk"></ol>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>Rules from <a href="https://github.com/visualizevalue/auctionanything">visualizevalue/auctionanything</a>. Amounts are integer cents. The opening bid is $1. The close starts 48 hours out. A bid in the last 10 minutes adds 10 minutes when that new close is still ahead. Equal maxima keep the earlier admission. Bids stay in this tab.</p>
+    <p><a href="https://x.com/jackbutcher/status/2100973800120517104">Jack Butcher’s note</a></p>
+  </footer>
+  <script src="engine.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

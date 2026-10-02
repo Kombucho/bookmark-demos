@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Requirements review</title>
+  <meta name="description" content="Paste a note and see which of the 18 requirements characteristics fail, including catalogue checks such as verb and object duplicates.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="bar">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <h1>Requirements review</h1>
+      <p>Paste a note. Each line is checked against the 18 characteristics, then the whole set is checked together.</p>
+    </div>
+  </header>
+
+  <main class="desk">
+    <section class="editor">
+      <label for="scope">Scope or purpose</label>
+      <input id="scope" placeholder="Checkout redesign to reduce cart abandonment">
+      <label for="note">Note</label>
+      <textarea id="note" spellcheck="true" placeholder="Paste requirements, a meeting note, or a mix of both."></textarea>
+      <div class="row">
+        <button type="button" id="catalogue">Load a flawed catalogue</button>
+        <button type="button" id="messy">Load a messy note</button>
+        <button type="button" id="clear">Clear</button>
+      </div>
+      <p class="fine">A Scope: line inside the note is added to the scope field. Nothing leaves the browser.</p>
+    </section>
+
+    <section class="report" id="report" aria-live="polite"></section>
+  </main>
+
+  <footer>
+    <p>Checks follow <a href="https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md">make-requirements-great</a>. Per-item checks look at one statement. Unique, consistent, conformant, current, modifiable, traceable, categorised, and complete look across the catalogue. Verb + object duplicates are the unique check.</p>
+    <p><a href="https://x.com/nurijanian/status/2103846806660825532">George Nurijanian’s note</a></p>
+  </footer>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
