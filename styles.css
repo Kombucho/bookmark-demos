@@ -285,6 +285,10 @@ a { color: inherit; }
 
 .swatch.dashed { border-top-style: dashed; }
 
+.legend-you { display: contents; }
+
+.legend-you[hidden] { display: none; }
+
 #chart {
   display: block;
   width: 100%;
@@ -421,8 +425,15 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.72); }
   .rules, .stage { grid-template-columns: 1fr; }
   .poster { min-height: 320px; }
   .clock { margin-left: 0; text-align: left; }
-  .standing li, .log li { grid-template-columns: 1fr auto; }
-  .standing .tag, .log .note { grid-column: 1 / -1; }
+  .standing li, .log li {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "name amount"
+      "meta meta";
+  }
+  .standing li strong, .log li strong { grid-area: name; }
+  .standing .tag, .log .note { grid-area: meta; }
+  .amount { grid-area: amount; }
   footer { flex-direction: column; }
   footer a { margin-left: 0; margin-right: 16px; }
 }

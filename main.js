@@ -18,6 +18,7 @@
   const replayBtn = document.querySelector('#replay');
   const chart = document.querySelector('#chart');
   const privateEl = document.querySelector('#private');
+  const legendYou = document.querySelector('#legend-you');
   const standingEl = document.querySelector('#standing');
   const logEl = document.querySelector('#log');
   const sheet = document.querySelector('#sheet');
@@ -101,10 +102,10 @@
   }
 
   function historyLine(event) {
-    if (event.verb === 'opened') return `${event.actor} opened the bidding`;
-    if (event.verb === 'raised') return `${event.actor} raised a private maximum`;
-    if (event.verb === 'answered') return `${event.actor} bid · ${event.leader} answered`;
-    return `${event.leader} leads`;
+    if (event.verb === 'opened') return 'Opened the bidding';
+    if (event.verb === 'raised') return 'Raised a private maximum';
+    if (event.verb === 'answered') return `Bid · ${event.leader} answered`;
+    return 'Leads';
   }
 
   function classify(before, after, actorId, actorName, raised) {
@@ -252,11 +253,11 @@
         'stroke-width': 1.5,
       });
       const label = add('text', {
-        x: width - 10,
-        y: Math.max(14, y - 6),
+        x: 12,
+        y: y < 24 ? y + 14 : y - 8,
         fill: '#9a978e',
         'font-size': 11,
-        'text-anchor': 'end',
+        'text-anchor': 'start',
         'font-family': 'Liberation Sans, Helvetica, sans-serif',
       });
       label.textContent = `your max ${engine.money(yours.max)}`;
@@ -327,6 +328,7 @@
     clockEl.textContent = clockText();
     clockEl.dateTime = new Date(state.closesAt).toISOString();
 
+    legendYou.hidden = !yours;
     if (yours) {
       privateEl.hidden = false;
       privateEl.textContent = '';
@@ -346,7 +348,7 @@
     renderChart();
     renderLists();
     fillTape();
-    document.title = `${high} · Auction anything`;
+    document.title = `${high} · ${lotInput.value.trim() || 'Auction anything'}`;
 
     if (isClosed && current.leader && !state.note.startsWith('Closed.')) {
       state.note = `Closed. ${current.leader.name} wins at ${engine.money(current.price)}.`;

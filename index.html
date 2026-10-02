@@ -6,6 +6,7 @@
   <title>Auction anything</title>
   <meta name="description" content="A local demo of a proxy auction: private maximum, public price, 10% steps, and an anti-snipe close.">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico" sizes="16x16">
 </head>
 <body>
   <div class="tape" role="status" aria-live="off">
@@ -66,7 +67,7 @@
   <section class="board" aria-label="Public price">
     <div class="section-head">
       <h2>Public price</h2>
-      <p class="legend"><span class="swatch"></span> Standing bid <span class="swatch dashed"></span> Your maximum, on this screen</p>
+      <p class="legend"><span class="swatch"></span> Standing bid <span class="legend-you" id="legend-you" hidden><span class="swatch dashed"></span> Your maximum, on this screen</span></p>
     </div>
     <svg id="chart" role="img" aria-label="Standing bid over the course of the demo"></svg>
     <div class="private" id="private" hidden></div>
