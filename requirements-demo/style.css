@@ -1,0 +1,333 @@
+:root {
+  --ink: #241c16;
+  --muted: #5c5348;
+  --paper: #efe4d2;
+  --card: #fbf6ee;
+  --line: #d7c7ae;
+  --stamp: #b4332a;
+  --shadow: #c46a32;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 1px 1px, rgba(36, 28, 22, 0.05) 1px, transparent 0) 0 0 / 16px 16px,
+    var(--paper);
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  line-height: 1.45;
+}
+
+main {
+  width: min(1040px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2.5rem 0 3rem;
+}
+
+.mast {
+  position: relative;
+  max-width: 40rem;
+  margin-bottom: 1.75rem;
+  padding-right: 6.5rem;
+}
+
+.kicker {
+  margin: 0 0 0.35rem;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--stamp);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 0.95;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.deck {
+  margin: 0.8rem 0 0;
+  font-size: 1.12rem;
+  color: var(--muted);
+}
+
+.stamp {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.35rem 0.5rem 0.28rem;
+  border: 3px solid var(--stamp);
+  border-radius: 4px;
+  color: var(--stamp);
+  font-family: "Arial Narrow", "Franklin Gothic Medium", Impact, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.05;
+  text-align: center;
+  text-transform: uppercase;
+  transform: rotate(8deg);
+}
+
+.desk {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.note-panel,
+.result,
+.rules {
+  background: var(--card);
+  border: 2px solid var(--ink);
+}
+
+.note-panel,
+.result {
+  padding: 1rem 1rem 1.1rem;
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+
+label,
+.result-head h2,
+.rules summary,
+button,
+#status,
+.index {
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+textarea {
+  width: 100%;
+  min-height: 18rem;
+  padding: 0.7rem 0.75rem;
+  border: 2px solid var(--line);
+  background-color: #fffaf3;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(1.7rem - 1px),
+    rgba(180, 140, 90, 0.45) calc(1.7rem - 1px),
+    rgba(180, 140, 90, 0.45) 1.7rem
+  );
+  background-attachment: local;
+  color: var(--ink);
+  font: 1.05rem/1.7rem Georgia, "Iowan Old Style", Palatino, serif;
+  resize: vertical;
+}
+
+textarea:focus {
+  border-color: var(--ink);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+button {
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  padding: 0.45rem 0.7rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #fff;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+button.primary {
+  background: var(--ink);
+  color: #f6f0e6;
+  box-shadow: 4px 4px 0 var(--stamp);
+}
+
+button.primary:hover {
+  background: #3a2e26;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--stamp);
+}
+
+button.primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--stamp);
+}
+
+:focus-visible {
+  outline: 3px solid var(--stamp);
+  outline-offset: 2px;
+}
+
+#status {
+  min-height: 1.4rem;
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.result-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.result-head h2 {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+article {
+  margin: 0;
+  padding: 0.7rem 0.75rem 0.8rem;
+  border: 2px solid var(--line);
+  background: #fffaf3;
+  min-height: 8.5rem;
+}
+
+article.is-filled {
+  border-color: var(--ink);
+}
+
+.index {
+  margin: 0;
+  color: var(--stamp);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+h3 {
+  margin: 0.1rem 0 0.45rem;
+  font-size: 1.25rem;
+  line-height: 1.1;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+li {
+  margin: 0.28rem 0;
+}
+
+li.empty {
+  padding: 0;
+  list-style: none;
+  margin-left: -1.1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.rules {
+  margin-top: 1.4rem;
+  padding: 0.8rem 1rem 0.2rem;
+}
+
+.rules summary {
+  cursor: pointer;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.rules ol {
+  margin: 0 0 0.6rem;
+  padding-left: 1.2rem;
+}
+
+.rules li {
+  margin: 0.4rem 0;
+}
+
+.rules p,
+footer p {
+  color: var(--muted);
+}
+
+footer p {
+  margin: 1rem 0 0;
+  font-size: 0.98rem;
+}
+
+a {
+  color: var(--stamp);
+}
+
+.cmd {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.92em;
+}
+
+noscript {
+  display: block;
+  width: min(1040px, calc(100% - 2rem));
+  margin: 1rem auto;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+@media (max-width: 800px) {
+  .mast {
+    padding-right: 0;
+  }
+
+  .stamp {
+    position: static;
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    transform: rotate(-2deg);
+  }
+
+  .desk,
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  textarea {
+    min-height: 14rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button.primary:hover,
+  button.primary:active {
+    transform: none;
+  }
+}

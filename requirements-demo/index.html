@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Make requirements great</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header class="mast">
+      <p class="stamp" aria-hidden="true">Templates<br>R.I.P.</p>
+      <p class="kicker">A tiny demo</p>
+      <h1>Make requirements great</h1>
+      <p class="deck">Paste a messy product note. Four blunt rules sort it into a tight list: problem, users, success, and out of scope.</p>
+    </header>
+
+    <div class="desk">
+      <form id="sharpener" class="note-panel">
+        <label for="note">Messy product note</label>
+        <textarea id="note" name="note" rows="12" placeholder="our sales team loses deals because quotes take forever. customers want them the same day. we are not building a CRM."></textarea>
+        <div class="actions">
+          <button type="submit" class="primary">Sharpen the note</button>
+          <button type="button" id="sample">Load a messy sample</button>
+          <button type="button" id="clear">Clear</button>
+        </div>
+        <p id="status" role="status">Waiting for a messy note.</p>
+      </form>
+
+      <section id="result" class="result" aria-live="polite">
+        <div class="result-head">
+          <h2>The tight list</h2>
+          <button type="button" id="copy" disabled>Copy list</button>
+        </div>
+        <div class="cards">
+          <article>
+            <p class="index">01</p>
+            <h3>Problem</h3>
+            <ul id="problem-list"></ul>
+          </article>
+          <article>
+            <p class="index">02</p>
+            <h3>Users</h3>
+            <ul id="users-list"></ul>
+          </article>
+          <article>
+            <p class="index">03</p>
+            <h3>Success</h3>
+            <ul id="success-list"></ul>
+          </article>
+          <article>
+            <p class="index">04</p>
+            <h3>Out of scope</h3>
+            <ul id="out-list"></ul>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <details class="rules">
+      <summary>The four rules this page actually uses</summary>
+      <ol>
+        <li><strong>Out of scope.</strong> A sentence with won’t, don’t, not a, not the, later, never, skip, or “can wait” is a no. Hedge words get stripped so “we are not building a full CRM” becomes “A full CRM.”</li>
+        <li><strong>Success.</strong> A sentence with a percent, or words like success, goal, fewer, faster, or under, is the finish line.</li>
+        <li><strong>Users.</strong> A role word (team, customer, manager, person, parent, teacher, kid, and similar) is plucked out, plus up to three words in front. Small words such as the, our, for, and because stop the grab. A role word that only describes the next word (“parent social network”) is skipped.</li>
+        <li><strong>Problem.</strong> Whatever is left, minus fluff like basically, honestly, just, and really, is the problem.</li>
+      </ol>
+      <p>One sentence lands in one pile. Users are pulled from every sentence. Nothing is sent anywhere.</p>
+    </details>
+
+    <footer>
+      <p>Inspired by <a href="https://x.com/nurijanian/status/2103846806660825532">George Nurijanian’s note</a> that soft PRD templates are dead, and that <span class="cmd">/make-requirements-great</span> is free. This page only play-acts a smaller version in the browser.</p>
+    </footer>
+  </main>
+  <noscript>This demo needs JavaScript. It still never leaves the browser.</noscript>
+  <script src="app.js"></script>
+</body>
+</html>
