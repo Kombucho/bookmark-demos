@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Named embeddings</title>
+  <meta name="description" content="Edit named questions, document scores, and a query vector. Cosine ranking updates in the browser, and each match shows the dimensions that produced it.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="bar">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <h1>Named embeddings</h1>
+      <p>Each question is a dimension. The answers are the vector. Rank is cosine similarity, and every number keeps its name.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="presets" id="presets"></div>
+    <p id="preset-note" class="note"></p>
+
+    <section class="query panel">
+      <label>Query name
+        <input id="query-label" autocomplete="off">
+      </label>
+      <p class="note">The name is a label. Rank follows the numbers.</p>
+      <div id="query-vector" class="vector"></div>
+      <p id="vector-readout" class="readout"></p>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <h2>Questions and documents</h2>
+        <form id="add-question" class="inline">
+          <label>New question
+            <input id="question-name" placeholder="mentions_refund" autocomplete="off">
+          </label>
+          <button type="submit">Add question</button>
+        </form>
+      </div>
+      <div id="docs"></div>
+      <button type="button" id="add-doc">Add document</button>
+    </section>
+
+    <section class="panel" aria-live="polite">
+      <h2>Ranking</h2>
+      <p class="legend"><span class="swatch doc"></span> Document answer <span class="swatch query"></span> Query value</p>
+      <div id="ranking"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>No model and no server. Cosine is dot(query, document) / (|query| × |document|). A new question adds a dimension. A different query vector changes the order.</p>
+    <p><a href="https://x.com/kieranklaassen/status/2103522599414501550">Kieran Klaassen on non-black-box embeddings</a></p>
+  </footer>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

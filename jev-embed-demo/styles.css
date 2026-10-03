@@ -1,0 +1,135 @@
+:root {
+  color-scheme: light;
+  --bg: #f3efe6;
+  --ink: #1c1917;
+  --muted: #5e564c;
+  --line: #ddd3c4;
+  --paper: #fffdf8;
+  --fill: #1f4b3a;
+  --tick: #9f2d14;
+  --gold: #f6ead0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.45 "Segoe UI", system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.bar {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  padding: 16px 16px 8px;
+}
+
+.home { color: var(--ink); font-size: 14px; white-space: nowrap; }
+h1 { margin: 0; font-size: 28px; letter-spacing: -0.03em; }
+h2 { margin: 0; font-size: 18px; }
+.bar p, .note, footer { color: var(--muted); }
+.bar p { margin: 4px 0 0; max-width: 68ch; }
+
+main { padding: 8px 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+
+.presets, .section-head, .inline, .doc-head, .score-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: end;
+}
+
+.section-head, .doc-head { justify-content: space-between; align-items: center; }
+
+button, input { font: inherit; }
+button { cursor: pointer; min-height: 40px; border-radius: 4px; border: 1px solid var(--ink); background: transparent; padding: 8px 10px; }
+button.primary, button[aria-pressed="true"] { background: var(--ink); color: #f6f1e7; }
+button.quiet { border-color: transparent; color: var(--tick); padding-inline: 6px; }
+
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+}
+
+label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 650; }
+input[type="text"], input[type="number"], #query-label {
+  font-weight: 450;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 8px;
+  min-height: 40px;
+  background: white;
+  color: var(--ink);
+}
+input[type="number"] { width: 5.2rem; }
+input[type="range"] { width: min(180px, 40vw); accent-color: var(--fill); }
+
+.vector { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.q-col { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 650; min-width: 180px; }
+.readout { font-variant-numeric: tabular-nums; margin: 8px 0 0; }
+
+.doc {
+  border-top: 1px solid var(--line);
+  padding: 12px 0;
+}
+.doc:first-child { border-top: 0; padding-top: 0; }
+.doc-title { min-width: min(240px, 100%); flex: 1; }
+.doc-text { width: 100%; margin-top: 8px; }
+.scores { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.score-line { align-items: center; }
+.score-line span { min-width: 11rem; font-variant-numeric: tabular-nums; }
+
+#add-doc { margin-top: 8px; }
+
+.match {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 14px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.match:first-child { border-top: 0; }
+.rank {
+  font-size: 28px;
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+  min-width: 2ch;
+}
+.match h3 { margin: 0; font-size: 16px; }
+.cosine { font-variant-numeric: tabular-nums; color: var(--muted); margin: 0; }
+.reason { margin: 6px 0; }
+.dims { display: flex; flex-direction: column; gap: 6px; }
+.dim { display: grid; grid-template-columns: minmax(8rem, 14rem) 1fr auto; gap: 8px; align-items: center; font-size: 14px; }
+.bar { position: relative; height: 10px; background: #efe7da; border-radius: 99px; }
+.bar i { display: block; height: 100%; background: var(--fill); border-radius: 99px; }
+.bar b {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 16px;
+  background: var(--tick);
+}
+.legend { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.swatch { width: 14px; height: 10px; display: inline-block; border-radius: 99px; }
+.swatch.doc { background: var(--fill); }
+.swatch.query { width: 2px; height: 14px; background: var(--tick); border-radius: 0; }
+
+.top { background: var(--gold); margin: 0 -14px; padding: 12px 14px; }
+
+footer { padding: 0 16px 28px; font-size: 14px; }
+footer a { color: var(--ink); }
+
+@media (max-width: 720px) {
+  .bar { flex-direction: column; align-items: flex-start; }
+  .dim { grid-template-columns: 1fr; }
+  .match { grid-template-columns: 1fr; }
+}
