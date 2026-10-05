@@ -192,10 +192,12 @@ float hash(vec2 p) {
 vec3 graded(vec2 uv) {
   vec4 sampleA = texture2D(tScene, uv);
   if (sampleA.a < 0.5) return uBg;
+  vec3 base = grade(sampleA.r);
   vec2 ca = (uv - 0.5) * uCa;
   float r = texture2D(tScene, uv + ca).r;
   float b = texture2D(tScene, uv - ca).r;
-  return vec3(grade(r).r, grade(sampleA.r).g, grade(b).b);
+  vec3 fringed = vec3(grade(r).r, base.g, grade(b).b);
+  return mix(base, fringed, 0.85);
 }
 
 void main() {
@@ -527,7 +529,8 @@ function pickDpr() {
 }
 
 function linear(hex) {
-  return new THREE.Color(hex);
+  const color = new THREE.Color(hex);
+  return new THREE.Vector3(color.r, color.g, color.b);
 }
 
 function sectionMix(t) {
