@@ -31,10 +31,14 @@ jobs:
           test -f requirements-demo/engine.js
           test -f jev-embed-demo/index.html
           test -f jev-embed-demo/engine.js
+          test -f fui-demo/index.html
+          test -f fui-demo/main.js
+          test -f change-requests-demo/index.html
+          test -f change-requests-demo/engine.js
           test ! -f engine.js
           test ! -f main.js
       - name: Run rule tests
-        run: node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js
+        run: node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js
 
   deploy:
     needs: test

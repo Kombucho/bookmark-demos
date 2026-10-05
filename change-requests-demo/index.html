@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Agent change requests</title>
+  <meta name="description" content="Review scripted agent edits to typed records. Each edit is a change request with a field diff, an author, and comments.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="bar">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <h1>Agent change requests</h1>
+      <p>Typed rows stay canonical until a change request is approved. Quartermaster and Ledger only propose.</p>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <button type="button" id="agent">Propose next</button>
+    <p id="agent-line"></p>
+    <label>Reviewer
+      <input id="reviewer" value="You" maxlength="80" autocomplete="name">
+    </label>
+    <button type="button" id="reset">Reset</button>
+  </div>
+  <p id="error" class="error" role="alert"></p>
+  <p id="storage" class="note"></p>
+
+  <div class="layout">
+    <section class="panel" aria-labelledby="base-heading">
+      <h2 id="base-heading">Operations</h2>
+      <p id="schema" class="note"></p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Stage</th>
+              <th>Priority</th>
+              <th>Due</th>
+              <th>Owner</th>
+              <th>Open</th>
+            </tr>
+          </thead>
+          <tbody id="records"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="record-heading">
+      <h2 id="record-heading">Record</h2>
+      <p id="history-banner" class="note"></p>
+      <dl id="fields"></dl>
+      <div id="commits" class="commits"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="inbox-heading">
+      <h2 id="inbox-heading">Inbox</h2>
+      <div id="inbox"></div>
+      <div id="request"></div>
+    </section>
+  </div>
+
+  <section class="panel audit" aria-labelledby="audit-heading">
+    <h2 id="audit-heading">Audit</h2>
+    <ol id="audit"></ol>
+  </section>
+
+  <footer>
+    <p>A change request holds the diff, the author, and the comments. Approving adds a commit and an audit event. Two open requests that set the same field to different values conflict; the second one has to be revised onto the new head before it can be approved.</p>
+    <p>Vocabulary from <a href="https://github.com/busabase/busabase">busabase/busabase</a>. <a href="https://x.com/DanKornas/status/2105783312350421009">Dan Kornas on Busabase</a>. The agent is a fixed script. This page stores the workspace in the browser.</p>
+  </footer>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

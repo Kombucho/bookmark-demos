@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Cinematic FUI</title>
+  <meta name="description" content="Scroll a cinematic HUD. Instanced quads blend into a black-and-white mask, then a shader grades it.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="view" aria-hidden="true"></canvas>
+  <header class="chrome">
+    <div class="brand">
+      <a href="../index.html">All demos</a>
+      <strong>Cinematic FUI</strong>
+    </div>
+    <div class="controls">
+      <button type="button" id="mask" aria-pressed="false">Show mask</button>
+      <label>Palette
+        <select id="palette">
+          <option value="amber" selected>Amber</option>
+          <option value="phosphor">Phosphor</option>
+          <option value="ice">Ice</option>
+          <option value="signal">Signal</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <div class="caption">
+    <p id="section" aria-live="polite">Approach</p>
+    <p id="telemetry">014° · range 2.40</p>
+    <p id="mode">Graded output</p>
+    <div class="pips" role="group" aria-label="Sections">
+      <button type="button" data-section="approach">Approach</button>
+      <button type="button" data-section="lock">Lock</button>
+      <button type="button" data-section="sweep">Sweep</button>
+      <button type="button" data-section="hold">Hold</button>
+    </div>
+    <a href="https://x.com/bzor/status/2106094467992224005">kc’s post</a>
+  </div>
+  <div id="track">
+    <section id="approach" aria-label="Approach"></section>
+    <section id="lock" aria-label="Lock"></section>
+    <section id="sweep" aria-label="Sweep"></section>
+    <section id="hold" aria-label="Hold"></section>
+  </div>
+  <p id="fail" hidden>This demo did not start.</p>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+    }
+  }
+  </script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
