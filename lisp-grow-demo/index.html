@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>A Lisp image</title>
+  <meta name="description" content="Grow a running Lisp application by evaluating forms. Redefining a function changes the picture immediately. The world stays.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Live image</p>
+      <h1>A Lisp image</h1>
+      <p class="deck">Ask for a behavior. A form lands in the running image. Redefining a function changes it now, with no reload. <code>*world*</code> is a different binding, so the count, the trail, and the marks stay.</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <section class="stage-wrap" aria-labelledby="stage-heading">
+      <div class="stage-meta">
+        <h2 id="stage-heading" class="run-label" data-running="true"><span class="dot" aria-hidden="true"></span> <span id="run-label">Running</span></h2>
+        <span>480 × 280</span>
+      </div>
+      <div class="viewport">
+        <canvas id="stage" width="480" height="280" aria-label="Live Lisp image"></canvas>
+      </div>
+      <p id="runtime" class="runtime" role="alert"></p>
+    </section>
+
+    <section class="env" aria-labelledby="env-heading">
+      <div class="env-head">
+        <h2 id="env-heading">Environment</h2>
+        <p id="fn-count">No functions yet</p>
+      </div>
+      <div id="functions"></div>
+      <h3>*world*</h3>
+      <dl id="world"><div><dt>value</dt><dd>nil</dd></div></dl>
+      <details class="host">
+        <summary>Host primitives</summary>
+        <p>+ − * / mod wrap abs min max floor sin cos = &lt; &gt; list cons car cdr nth length append reverse take mapcar</p>
+        <p>str concat upcase downcase string-reverse</p>
+        <p>clear rect circle line ring text</p>
+        <p>world plist-get plist-put setq *world*</p>
+      </details>
+    </section>
+
+    <section class="talk" aria-labelledby="talk-heading">
+      <h2 id="talk-heading" class="visually-hidden">Conversation</h2>
+      <article class="next" id="next-card">
+        <p class="step-kicker" id="step-kicker">Step 1 of 7</p>
+        <p class="say" id="step-say"></p>
+        <div class="row">
+          <button type="button" class="primary" id="next-step">Evaluate this form</button>
+          <button type="button" class="ghost" id="pause" aria-pressed="false">Pause</button>
+          <button type="button" class="ghost" id="reset">Reset image</button>
+        </div>
+        <pre id="step-form"></pre>
+      </article>
+
+      <form id="repl" class="repl">
+        <label for="source">Or type a form</label>
+        <textarea id="source" rows="5" spellcheck="false" autocapitalize="none" autocorrect="off" maxlength="8000" placeholder="(body-color)"></textarea>
+        <div class="row">
+          <button type="submit" class="primary" id="eval">Eval</button>
+          <span class="hint">Ctrl or ⌘ Enter</span>
+        </div>
+        <div class="chips" role="group" aria-label="Example forms">
+          <button type="button" data-form="(world 'count)">(world 'count)</button>
+          <button type="button" data-form="(shout-backwards &quot;harbor&quot;)">(shout-backwards "harbor")</button>
+          <button type="button" data-form="(defun body-color () &quot;#e15a3a&quot;)">(defun body-color () "#e15a3a")</button>
+          <button type="button" data-form="(setq *world* (plist-put *world* 'name &quot;Lumen&quot;))">rename to Lumen</button>
+        </div>
+      </form>
+      <p id="reply" class="reply" aria-live="polite"></p>
+      <div id="transcript" class="transcript"></div>
+    </section>
+  </div>
+
+  <footer>
+    <p>Inspired by Geoffrey Huntley’s <a href="https://ghuntley.com/lisp/">an application in lisp you grow by talking to it</a>. The composition in the sixth step is the one from the article: uppercase, then reverse, saved as <code>shout-backwards</code>. <a href="https://x.com/GeoffreyHuntley/status/2107080798209794317">The post</a>. This page has no model. The conversation is a script, and the Lisp is evaluated here.</p>
+  </footer>
+  <script src="lisp.js"></script>
+  <script src="steps.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
