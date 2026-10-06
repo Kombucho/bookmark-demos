@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Theme studio</title>
+  <meta name="description" content="Dial a visual language. Hue, contrast, roundness, density, type, and shadow write CSS tokens, and a component gallery restyles live.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Visual language</p>
+      <h1>Theme studio</h1>
+      <p class="deck">A few dials write the tokens. The gallery is ordinary markup — buttons, a field, a card, tabs, a toggle, a badge, and a tile — restyled live. Copy the variables and a brief a coding agent can follow.</p>
+    </div>
+  </header>
+
+  <div class="studio">
+    <aside class="desk" aria-labelledby="desk-heading">
+      <div class="desk-head">
+        <h2 id="desk-heading">Dials</h2>
+        <p id="preset-note">Night market</p>
+      </div>
+      <div class="preset-grid" id="presets"></div>
+      <div class="dials">
+        <label class="slider">
+          <span class="slider-top"><span>Hue</span><output id="out-hue" for="hue">318°</output></span>
+          <input id="hue" class="hue" type="range" min="0" max="360" value="318" aria-label="Hue">
+        </label>
+        <label class="slider">
+          <span class="slider-top"><span>Contrast</span><output id="out-contrast" for="contrast">80</output></span>
+          <input id="contrast" type="range" min="0" max="100" value="80" aria-label="Contrast">
+        </label>
+        <label class="slider">
+          <span class="slider-top"><span>Roundness</span><output id="out-roundness" for="roundness">20</output></span>
+          <input id="roundness" type="range" min="0" max="100" value="20" aria-label="Roundness">
+        </label>
+        <label class="slider">
+          <span class="slider-top"><span>Density</span><output id="out-density" for="density">48</output></span>
+          <input id="density" type="range" min="0" max="100" value="48" aria-label="Density">
+        </label>
+        <label class="slider">
+          <span class="slider-top"><span>Shadow depth</span><output id="out-shadow" for="shadow">82</output></span>
+          <input id="shadow" type="range" min="0" max="100" value="82" aria-label="Shadow depth">
+        </label>
+        <label class="choice">Type personality
+          <select id="type">
+            <option value="editorial">Editorial</option>
+            <option value="technical">Technical</option>
+            <option value="soft">Soft</option>
+            <option value="poster" selected>Poster</option>
+          </select>
+        </label>
+        <div class="grounds" role="radiogroup" aria-label="Ground">
+          <button type="button" role="radio" data-ground="day" aria-checked="false">Day</button>
+          <button type="button" role="radio" data-ground="dusk" aria-checked="true">Dusk</button>
+          <button type="button" role="radio" data-ground="ink" aria-checked="false">Ink</button>
+        </div>
+      </div>
+      <div class="token-row" id="swatches" aria-hidden="true"></div>
+    </aside>
+
+    <div class="stage-col">
+      <div id="gallery">
+        <header class="g-top">
+          <div>
+            <p class="g-kicker">Field desk</p>
+            <h2 class="g-title">Harbor watch</h2>
+          </div>
+          <span class="g-badge" id="g-badge" data-state="open">Open</span>
+        </header>
+        <div class="g-tabs" role="tablist" aria-label="Harbor watch">
+          <button type="button" role="tab" id="tab-log" aria-selected="true" aria-controls="g-panel">Log</button>
+          <button type="button" role="tab" id="tab-map" aria-selected="false" aria-controls="g-panel">Map</button>
+          <button type="button" role="tab" id="tab-crew" aria-selected="false" aria-controls="g-panel">Crew</button>
+        </div>
+        <p class="g-panel" id="g-panel" role="tabpanel">Three notes are waiting on the evening tide.</p>
+        <div class="g-grid">
+          <article class="g-tile">
+            <p class="g-meta">Open signals</p>
+            <p class="g-metric">128</p>
+            <svg class="spark" viewBox="0 0 120 36" aria-hidden="true">
+              <polygon points="0,36 0,28 14,26 28,30 42,18 56,22 70,10 84,14 98,8 112,12 120,6 120,36"></polygon>
+              <polyline points="0,28 14,26 28,30 42,18 56,22 70,10 84,14 98,8 112,12 120,6"></polyline>
+            </svg>
+          </article>
+          <article class="g-card">
+            <h3 id="g-note-title">Evening note</h3>
+            <p id="g-note-body">Write a field note and it stays on the card.</p>
+            <button type="button" class="btn primary" id="g-file">File note</button>
+          </article>
+        </div>
+        <label class="g-field">Search the log
+          <input id="g-input" type="text" placeholder="buoy, weather, crew" autocomplete="off">
+        </label>
+        <div class="g-row">
+          <button type="button" class="btn primary" id="g-save">Save watch</button>
+          <button type="button" class="btn quiet" id="g-hold">Hold</button>
+          <button type="button" class="btn danger" id="g-discard">Discard</button>
+          <button type="button" class="g-toggle" id="g-toggle" aria-pressed="false">
+            <span class="g-knob" aria-hidden="true"></span>
+            <span id="g-toggle-label">Share with the crew</span>
+          </button>
+        </div>
+        <p class="g-status" id="g-status" aria-live="polite"></p>
+      </div>
+
+      <section class="export" aria-labelledby="export-heading">
+        <div class="export-head">
+          <h2 id="export-heading">Export for your coding agent</h2>
+          <button type="button" class="copy" id="copy">Copy</button>
+        </div>
+        <p id="copy-status" class="copy-status" aria-live="polite"></p>
+        <pre id="export-text" tabindex="0"></pre>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <p>Inspired by Josh Puckett’s <a href="https://graphicalui.com">Graphical</a>, a tool for designing visual languages and handing them to coding agents. <a href="https://x.com/joshpuckett/status/2107175379903594714">The post</a>. Tokens are computed in the page. Nothing is uploaded.</p>
+  </footer>
+  <script src="theme.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
