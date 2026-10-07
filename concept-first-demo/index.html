@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Concept first</title>
+  <meta name="description" content="Pick an app, leave the template, choose one of three directions, and run a critique that measures the screen.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Screens</p>
+      <h1>Concept first</h1>
+      <p class="deck">Pick an app. The template home screen is the one every generator reaches for. Three directions are other worlds. Choose one, run the critique, and refine what the checks flag.</p>
+    </div>
+  </header>
+
+  <div class="studio" id="studio">
+    <div id="apps" class="apps" role="group" aria-label="Apps"></div>
+    <p id="concept-line" class="concept-line"></p>
+
+    <div class="toolbar">
+      <button type="button" id="reveal" hidden>Show three directions</button>
+      <button type="button" id="critique" disabled>Run critique</button>
+      <button type="button" id="refine" disabled>Refine</button>
+      <span class="scale" role="group" aria-label="Phone size">
+        <button type="button" id="fit" aria-pressed="true">Fit</button>
+        <button type="button" id="full" aria-pressed="false">390 wide</button>
+      </span>
+      <button type="button" id="reset">Reset</button>
+    </div>
+    <ol id="steps" class="steps"></ol>
+
+    <section id="generic-section" hidden aria-labelledby="template-heading">
+      <h2 id="template-heading">Template</h2>
+      <div id="generic" class="phone-row"></div>
+    </section>
+
+    <section id="direction-section" hidden aria-labelledby="direction-heading">
+      <h2 id="direction-heading">Three directions</h2>
+      <p class="note">Each screen is laid out at 390 × 780. Fit scales it so the three sit side by side. 390 wide is the layout width.</p>
+      <div id="directions" class="phone-row"></div>
+    </section>
+
+    <section id="check-section" class="panel" hidden aria-labelledby="check-heading">
+      <h2 id="check-heading">Critique</h2>
+      <p class="note">Each line measures the screen description: repeated card patterns, gradients, shared radius, distinct type sizes, spacing on a 4px scale, and whether the layout is a dashboard.</p>
+      <ol id="checks" class="checks"></ol>
+    </section>
+  </div>
+
+  <footer>
+    <p>The template is the same dashboard with the accent swapped. A direction is a different structure. Refine only changes fields the critique flagged, and the phone draws from that description.</p>
+    <p>From <a href="https://x.com/tobiadonadon_/status/2106430529113301163">Tobia Donadon, How to Stop Making your Apps Look Like AI Slop</a>. This page does not call a model.</p>
+  </footer>
+  <script src="concept.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
