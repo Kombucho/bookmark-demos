@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Constraint gate</title>
+  <meta name="description" content="Twelve diffs from an agent and a hurried human. Toggle the type checker, lint, tests, a locked abstraction, and alerts, and watch what ships.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Gates</p>
+      <h1>Constraint gate</h1>
+      <p class="deck">Twelve diffs, from an agent and from a hurried human. Each constraint is a rule on the diff. Turn one off and the next change can walk past the gate that would have stopped it. Review has 16 minutes for the whole queue.</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="panel" aria-labelledby="constraint-heading">
+      <h2 id="constraint-heading">Constraints</h2>
+      <div id="toggles"></div>
+      <div class="row">
+        <button type="button" id="all-on">All on</button>
+        <button type="button" id="all-off">All off</button>
+      </div>
+      <h2 id="review-heading">Review</h2>
+      <p id="budget-line" class="note"></p>
+      <div id="pips" class="pips" aria-hidden="true"></div>
+    </aside>
+
+    <div class="main">
+      <div class="toolbar">
+        <button type="button" id="next">Send next</button>
+        <button type="button" id="batch">Send the rest</button>
+        <button type="button" id="reset">Reset</button>
+        <p id="progress" class="note"></p>
+      </div>
+
+      <article id="current" class="panel ticket" aria-live="polite"></article>
+      <ol id="pipeline" class="pipeline"></ol>
+      <p id="narration" class="narration" role="status"></p>
+      <dl id="counts" class="counts"></dl>
+
+      <div class="split">
+        <section class="panel" aria-labelledby="log-heading">
+          <h2 id="log-heading">Diffs</h2>
+          <ol id="log" class="log"></ol>
+        </section>
+        <section class="panel" aria-labelledby="incident-heading">
+          <h2 id="incident-heading">Incidents</h2>
+          <div id="incidents"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>A diff carries properties. The type checker, a lint rule, the locked module surface, the test gate, and the alert check each look for one. The first match stops it and returns the evidence. What gets through spends a person’s minutes, or ships.</p>
+    <p>From <a href="https://x.com/poteto/status/2106916667599278365">Lauren Tan on constraints</a>. The agent is a fixed script. This page does not call a model.</p>
+  </footer>
+  <script src="gate.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
