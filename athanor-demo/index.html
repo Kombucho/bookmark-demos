@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Athanor</title>
+  <meta name="description" content="An alchemical desktop in the browser: planetary hours, a host-key sigil, four pigment stages, a Floyd-Steinberg plate, and a roguelike status line.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Alchemical layer</p>
+      <h1>Athanor</h1>
+      <p class="deck">Sunrise splits the day and the night into twelve unequal hours. Each hour keeps a planet and a Golden Dawn trump. The furnace has four colors, a sigil cut from a key, and a status line along the bottom.</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <section class="plate-panel" aria-labelledby="plate-heading">
+      <h2 id="plate-heading" class="sr">Plate</h2>
+      <div class="window" id="drop">
+        <p class="notch" id="plate-title">Dlvl 1 · Saturn</p>
+        <canvas id="plate" width="960" height="540" aria-label="Floyd-Steinberg plate, two tones, each pixel doubled"></canvas>
+      </div>
+      <p class="plate-note" id="plate-note"></p>
+      <div class="plate-actions">
+        <label class="file">Choose an image
+          <input id="file" type="file" accept="image/*">
+        </label>
+        <button type="button" id="reset-plate">Drawn plate</button>
+      </div>
+      <div class="levels" id="levels" role="group" aria-label="Dungeon level"></div>
+    </section>
+
+    <div class="side">
+      <section class="panel" aria-labelledby="hour-heading">
+        <div class="section-head">
+          <h2 id="hour-heading">Planetary hour</h2>
+          <p id="date-line"></p>
+        </div>
+        <div class="place-row">
+          <label>Place
+            <select id="place"></select>
+          </label>
+          <button type="button" id="locate">Use my location</button>
+        </div>
+        <p class="sun" id="sun-line"></p>
+        <p class="now" id="now-line"></p>
+        <p id="hour-live" class="sr" aria-live="polite"></p>
+        <div class="track">
+          <div class="hours" id="hours"></div>
+          <div class="needle" id="needle" hidden></div>
+        </div>
+        <p class="detail" id="hour-detail"></p>
+      </section>
+
+      <section class="panel" aria-labelledby="work-heading">
+        <h2 id="work-heading">The work</h2>
+        <div class="stages" id="stages" role="group" aria-label="Color stage"></div>
+        <div class="work-row">
+          <button type="button" class="primary" id="transmute">Transmute</button>
+          <label class="check"><input id="follow" type="checkbox"> Follow the sun</label>
+        </div>
+        <p class="hint" id="stage-hint"></p>
+        <table class="ratios" id="contrast">
+          <caption>Measured contrast</caption>
+          <thead>
+            <tr><th scope="col">Role</th><th scope="col">Ratio</th><th scope="col">Mark</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section class="panel" aria-labelledby="read-heading">
+        <h2 id="read-heading">Reading</h2>
+        <label class="seed-label">Host key
+          <input id="seed" type="text" spellcheck="false" autocomplete="off" value="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAthanorFurnaceKey">
+        </label>
+        <button type="button" id="mint">Mint a key</button>
+        <p class="finger" id="finger"></p>
+        <canvas id="sigil" width="154" height="154" aria-label="Sigil generated from the host key"></canvas>
+        <div id="day-card"></div>
+        <div class="spread" id="spread"></div>
+      </section>
+    </div>
+  </div>
+
+  <footer class="status">
+    <button type="button" id="message" class="message"></button>
+    <p id="stats" class="stats"></p>
+  </footer>
+
+  <script src="alchemy.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
