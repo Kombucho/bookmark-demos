@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Paper Mono</title>
+  <meta name="description" content="A type bench for Paper Mono: variable weight, coding ligatures, duospace, a narrow space, small arrows, a single-story a, a slashed zero, and fractions.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Variable mono · v1.000</p>
+    <h1>Paper Mono</h1>
+    <p class="deck">The weight axis runs from 100 to 800. The coding ligatures, the wide M and W, the narrow space, the small arrows, the single-story a, the slashed zero, and the fractions are real OpenType features in the vendored font. Turn one on and the drawing changes.</p>
+  </header>
+
+  <div class="bench">
+    <aside class="controls" aria-labelledby="control-heading">
+      <h2 id="control-heading">Bench</h2>
+      <label class="slider">Weight
+        <span class="slider-top"><input id="weight" type="range" min="100" max="800" value="400" step="1" aria-valuemin="100" aria-valuemax="800"><output id="weight-out" for="weight">400</output></span>
+      </label>
+      <div class="toggles" role="group" aria-label="OpenType features">
+        <button type="button" data-feat="ss01" aria-pressed="false">ss01 ligatures</button>
+        <button type="button" data-feat="ss02" aria-pressed="false">ss02 duospace</button>
+        <button type="button" data-feat="ss03" aria-pressed="false">ss03 narrow space</button>
+        <button type="button" data-feat="ss04" aria-pressed="false">ss04 small arrows</button>
+        <button type="button" data-feat="cv01" aria-pressed="false">cv01 single-story a</button>
+        <button type="button" data-feat="zero" aria-pressed="false">zero slashed</button>
+        <button type="button" data-feat="frac" aria-pressed="false">frac fractions</button>
+      </div>
+      <div class="presets" role="group" aria-label="Text presets">
+        <button type="button" data-preset="code">Code</button>
+        <button type="button" data-preset="prose">Prose</button>
+        <button type="button" data-preset="specimen">Boxes &amp; keys</button>
+      </div>
+      <p class="note">Features start off, the way the font ships. The pairs below stay on the page so each one can be compared without the editor.</p>
+    </aside>
+
+    <div class="stage-col">
+      <label class="editor-label" for="editor">Editable text</label>
+      <textarea id="editor" spellcheck="false" autocapitalize="off"></textarea>
+      <p id="proof" class="proof" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <main>
+    <section aria-labelledby="liga-heading">
+      <h2 id="liga-heading">ss01 coding ligatures</h2>
+      <p class="lead">=== !== &lt;= =&gt; -&gt; :: and the rest. The advance of the run stays monospace. The glyphs join.</p>
+      <div class="pair">
+        <figure>
+          <figcaption>off</figcaption>
+          <pre class="sample liga" data-feat="off">===  !==  &lt;=  =&gt;  -&gt;  ::
+&lt;-  &gt;=  !=  ==  |&gt;  &lt;|
+&gt;&gt;  &lt;&lt;  :::  :=  &lt;=&gt;  --&gt;</pre>
+        </figure>
+        <figure>
+          <figcaption>ss01 on</figcaption>
+          <pre class="sample liga" data-feat="ss01">===  !==  &lt;=  =&gt;  -&gt;  ::
+&lt;-  &gt;=  !=  ==  |&gt;  &lt;|
+&gt;&gt;  &lt;&lt;  :::  :=  &lt;=&gt;  --&gt;</pre>
+        </figure>
+      </div>
+    </section>
+
+    <section aria-labelledby="duo-heading">
+      <h2 id="duo-heading">ss02 duospace</h2>
+      <p class="lead">Strict mono gives every letter the same step. Duospace widens M, W, m, w, Æ, Œ, æ, and œ, so the line breaks in a different place.</p>
+      <div class="pair">
+        <figure>
+          <figcaption>strict mono <span id="mono-width"></span></figcaption>
+          <pre class="sample rhythm" id="mono-col" data-feat="off"></pre>
+        </figure>
+        <figure>
+          <figcaption>duospace <span id="duo-width"></span></figcaption>
+          <pre class="sample rhythm" id="duo-col" data-feat="ss02"></pre>
+        </figure>
+      </div>
+      <p class="meters" id="cell-meters"></p>
+    </section>
+
+    <section aria-labelledby="rest-heading">
+      <h2 id="rest-heading">Space, arrows, a, zero, figures</h2>
+      <div class="grid">
+        <figure>
+          <figcaption>ss03 narrow space</figcaption>
+          <pre class="sample" data-feat="off">off  a a a a a</pre>
+          <pre class="sample" data-feat="ss03">on   a a a a a</pre>
+          <p class="meters" id="space-meter"></p>
+        </figure>
+        <figure>
+          <figcaption>ss04 small arrows</figcaption>
+          <pre class="sample arrows" data-feat="off">← ↑ → ↓ ↔ ↕ ↖ ↗ ↘ ↙</pre>
+          <pre class="sample arrows" data-feat="ss04">← ↑ → ↓ ↔ ↕ ↖ ↗ ↘ ↙</pre>
+        </figure>
+        <figure>
+          <figcaption>cv01 single-story a</figcaption>
+          <pre class="sample big" data-feat="off">a alphabet</pre>
+          <pre class="sample big" data-feat="cv01">a alphabet</pre>
+        </figure>
+        <figure>
+          <figcaption>zero slashed zero</figcaption>
+          <pre class="sample big" data-feat="off">0O 100 080</pre>
+          <pre class="sample big" data-feat="zero">0O 100 080</pre>
+        </figure>
+        <figure>
+          <figcaption>frac</figcaption>
+          <pre class="sample" data-feat="off">1/2 1/3 1/4 3/4 1/8 3/8 5/8 7/8</pre>
+          <pre class="sample" data-feat="frac">1/2 1/3 1/4 3/4 1/8 3/8 5/8 7/8</pre>
+          <p class="meters" id="frac-meter"></p>
+        </figure>
+        <figure>
+          <figcaption>sups and subs</figcaption>
+          <pre class="sample" id="digit-off">H2O  E=mc2  n1</pre>
+          <pre class="sample" id="digit-sup">H2O  E=mc2  n1</pre>
+          <pre class="sample" id="digit-sub">H2O  E=mc2  n1</pre>
+          <p class="meters">Lining, then superiors, then inferiors. Only the digits move.</p>
+        </figure>
+      </div>
+    </section>
+
+    <p class="colophon">Paper Mono is used here under the SIL Open Font License 1.1. <a href="OFL.txt">OFL.txt</a></p>
+  </main>
+
+  <span id="probe" aria-hidden="true"></span>
+  <script src="app.js"></script>
+</body>
+</html>

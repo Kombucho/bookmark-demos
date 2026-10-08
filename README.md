@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Nine static tools:
+Eleven static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -11,6 +11,8 @@ Nine static tools:
 - [Theme studio](theme-studio-demo/) — hue, contrast, roundness, density, type, and shadow write CSS variables. A component gallery restyles live, and the page exports tokens plus a short design brief. From [Josh Puckett’s post](https://x.com/joshpuckett/status/2107175379903594714) about [Graphical](https://graphicalui.com).
 - [Constraint gate](constraint-gate-demo/) — an agent and a hurried human send twelve diffs. Toggle the type checker, lint rules, tests, a locked abstraction, and alerts. Each rule stops a diff, or it ships and an incident follows. From [Lauren Tan’s post](https://x.com/poteto/status/2106916667599278365). No model is called.
 - [Concept first](concept-first-demo/) — pick a running app, a sleep app, a plant app, or an Italian deck. Leave the template, choose one of three directions, and run a critique that counts the tells. Refine changes the phone screen. From [Tobia Donadon’s article](https://x.com/tobiadonadon_/status/2106430529113301163). No model is called.
+- [Athanor](athanor-demo/) — planetary hours from sunrise and sunset, a sigil and a three-card spread from a host-key stand-in, four pigment stages with measured contrast, a Floyd-Steinberg plate, and a roguelike status line. From [Panat’s post](https://x.com/ptaranat/status/2106851920371741074) about [athanor](https://github.com/script-wizards/athanor).
+- [Paper Mono](paper-mono-demo/) — a type bench for [Paper Mono](https://github.com/paper-design/paper-mono) v1.000 (SIL OFL 1.1): variable weight, coding ligatures, duospace, a narrow space, small arrows, a single-story a, a slashed zero, and fractions. From [Paper’s post](https://x.com/paper/status/2107867860349735284).
 
 ## Open locally
 
@@ -25,7 +27,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js
 ```
 
 ## GitHub Pages
@@ -43,3 +45,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/theme-studio-demo/
 - https://kombucho.github.io/bookmark-demos/constraint-gate-demo/
 - https://kombucho.github.io/bookmark-demos/concept-first-demo/
+- https://kombucho.github.io/bookmark-demos/athanor-demo/
+- https://kombucho.github.io/bookmark-demos/paper-mono-demo/
