@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Brand bot</title>
+  <meta name="description" content="A simulated community manager for Mothglass, a fictional lantern. Mentions stream into amplify, product feedback, needs attention, and ignore.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Community desk</p>
+    <h1>Brand bot</h1>
+    <p class="deck">Mentions of Mothglass, a fictional lantern, arrive on a timer. A rule book on the page sorts each one and names the words that decided the lane. Edit a word, or write a post, and the cards move. Every post here was written for this page. Nothing is read from X.</p>
+  </header>
+
+  <div class="desk">
+    <div class="floor">
+      <section class="composer" aria-labelledby="composer-heading">
+        <div class="composer-head">
+          <h2 id="composer-heading">Write a mention</h2>
+          <p class="duty"><span class="dot" id="dot" aria-hidden="true"></span> <span id="duty-label">On duty</span></p>
+        </div>
+        <form id="composer">
+          <label for="handle">Handle</label>
+          <input id="handle" type="text" maxlength="32" value="@guest.sample" autocomplete="off" spellcheck="false" autocapitalize="off">
+          <label for="post">Post</label>
+          <textarea id="post" maxlength="280" required placeholder="Say something about Mothglass."></textarea>
+          <p id="chars" class="chars">0 / 280</p>
+          <div class="composer-actions">
+            <button type="submit" class="primary">Route this post</button>
+            <div class="starters" role="group" aria-label="Sample posts you can route">
+              <button type="button" data-starter="rave">Try a rave</button>
+              <button type="button" data-starter="wish">Try a wish</button>
+              <button type="button" data-starter="complaint">Try a complaint</button>
+            </div>
+          </div>
+        </form>
+        <div class="toolbar">
+          <button type="button" id="pause" aria-pressed="false">Pause</button>
+          <button type="button" id="next">Next mention</button>
+          <button type="button" id="replay">Replay samples</button>
+          <p id="progress">Waiting for the first mention.</p>
+        </div>
+        <p id="verdict" class="verdict" role="status">The desk is open.</p>
+      </section>
+
+      <div class="lanes">
+        <section class="lane" data-lane="amplify" aria-labelledby="label-amplify">
+          <header>
+            <div>
+              <h2 id="label-amplify">Amplify</h2>
+              <p class="blurb">Praise worth repeating.</p>
+            </div>
+            <p class="count"><span id="count-amplify">0</span> <span class="unit">posts</span></p>
+          </header>
+          <div class="stack" id="stack-amplify"></div>
+          <p class="empty" id="empty-amplify">Nothing in this lane yet.</p>
+        </section>
+        <section class="lane" data-lane="feedback" aria-labelledby="label-feedback">
+          <header>
+            <div>
+              <h2 id="label-feedback">Product feedback</h2>
+              <p class="blurb">Wishes and rough edges.</p>
+            </div>
+            <p class="count"><span id="count-feedback">0</span> <span class="unit">posts</span></p>
+          </header>
+          <div class="stack" id="stack-feedback"></div>
+          <p class="empty" id="empty-feedback">Nothing in this lane yet.</p>
+        </section>
+        <section class="lane" data-lane="attention" aria-labelledby="label-attention">
+          <header>
+            <div>
+              <h2 id="label-attention">Needs attention</h2>
+              <p class="blurb">A person should see this.</p>
+            </div>
+            <p class="count"><span id="count-attention">0</span> <span class="unit">posts</span></p>
+          </header>
+          <div class="stack" id="stack-attention"></div>
+          <p class="empty" id="empty-attention">Nothing in this lane yet.</p>
+        </section>
+        <section class="lane" data-lane="ignore" aria-labelledby="label-ignore">
+          <header>
+            <div>
+              <h2 id="label-ignore">Ignore</h2>
+              <p class="blurb">Spam, or nothing to do.</p>
+            </div>
+            <p class="count"><span id="count-ignore">0</span> <span class="unit">posts</span></p>
+          </header>
+          <div class="stack" id="stack-ignore"></div>
+          <p class="empty" id="empty-ignore">Nothing in this lane yet.</p>
+        </section>
+      </div>
+    </div>
+
+    <aside class="rules" aria-labelledby="rules-heading">
+      <h2 id="rules-heading">Rule book</h2>
+      <p class="note">One word or phrase per line. Edits apply as you type. A complaint outranks spam. Spam outranks a wish. A wish outranks praise. No brand name, and the post stays in Ignore.</p>
+      <label for="rule-brand">Brand names</label>
+      <textarea id="rule-brand" class="short" spellcheck="false" autocapitalize="off"></textarea>
+      <label for="rule-amplify">Amplify</label>
+      <textarea id="rule-amplify" spellcheck="false" autocapitalize="off"></textarea>
+      <label for="rule-feedback">Product feedback</label>
+      <textarea id="rule-feedback" spellcheck="false" autocapitalize="off"></textarea>
+      <label for="rule-attention">Needs attention</label>
+      <textarea id="rule-attention" spellcheck="false" autocapitalize="off"></textarea>
+      <label for="rule-ignore">Ignore</label>
+      <textarea id="rule-ignore" spellcheck="false" autocapitalize="off"></textarea>
+      <button type="button" id="restore">Restore starter rules</button>
+    </aside>
+  </div>
+
+  <p class="colophon">Mothglass is not a real company, and the handles are not real accounts. The desk is a rule book in the browser. No model is called. From <a href="https://x.com/ishverduzco/status/2107998499891728837">@ishverduzco’s post</a> about a community-manager bot for a brand account.</p>
+  <noscript><p class="deck">This page needs JavaScript. The sorting still happens in the browser, with no account and no feed.</p></noscript>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

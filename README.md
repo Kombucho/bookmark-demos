@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Eleven static tools:
+Thirteen static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -13,6 +13,8 @@ Eleven static tools:
 - [Concept first](concept-first-demo/) — pick a running app, a sleep app, a plant app, or an Italian deck. Leave the template, choose one of three directions, and run a critique that counts the tells. Refine changes the phone screen. From [Tobia Donadon’s article](https://x.com/tobiadonadon_/status/2106430529113301163). No model is called.
 - [Athanor](athanor-demo/) — planetary hours from sunrise and sunset, a sigil and a three-card spread from a host-key stand-in, four pigment stages with measured contrast, a Floyd-Steinberg plate, and a roguelike status line. From [Panat’s post](https://x.com/ptaranat/status/2106851920371741074) about [athanor](https://github.com/script-wizards/athanor).
 - [Paper Mono](paper-mono-demo/) — a type bench for [Paper Mono](https://github.com/paper-design/paper-mono) v1.000 (SIL OFL 1.1): variable weight, coding ligatures, duospace, a narrow space, small arrows, a single-story a, a slashed zero, and fractions. From [Paper’s post](https://x.com/paper/status/2107867860349735284).
+- [ASCII stage](ascii-stage-demo/) — a gallery and a live embed editor for [ascii.rest](https://ascii.rest) (MIT, by @bas3line). Pick a piece, edit the tag, and hold the first frame the way the library does for reduced motion. From [@inlovewithgo’s post](https://x.com/inlovewithgo/status/2107800389395636271).
+- [Brand bot](brand-bot-demo/) — sample mentions of Mothglass, a fictional lantern, stream into four lanes. A rule book you can edit sorts them into amplify, product feedback, needs attention, and ignore, and names the words that matched. From [@ishverduzco’s post](https://x.com/ishverduzco/status/2107998499891728837). No model is called. No live account is read.
 
 ## Open locally
 
@@ -27,7 +29,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js
 ```
 
 ## GitHub Pages
@@ -47,3 +49,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/concept-first-demo/
 - https://kombucho.github.io/bookmark-demos/athanor-demo/
 - https://kombucho.github.io/bookmark-demos/paper-mono-demo/
+- https://kombucho.github.io/bookmark-demos/ascii-stage-demo/
+- https://kombucho.github.io/bookmark-demos/brand-bot-demo/
