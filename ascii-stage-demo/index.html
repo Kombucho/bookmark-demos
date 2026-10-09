@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>ASCII stage</title>
+  <meta name="description" content="A stage for ascii.rest. Pick a piece, edit the embed tag, and hold the first frame the way the library does for reduced motion.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">ascii.rest</p>
+    <h1>ASCII stage</h1>
+    <p class="deck">Eight pieces play in the wells. Pick one, or edit the tag, and the stage cues it. The switch holds the first frame, which is what the library does when a browser asks for reduced motion.</p>
+  </header>
+
+  <div class="layout">
+    <section class="stage-col" aria-labelledby="stage-heading">
+      <h2 id="stage-heading" class="sr">Stage</h2>
+      <div class="proscenium">
+        <p class="now">
+          <span class="lamp" id="lamp" aria-hidden="true"></span>
+          <span id="now-label">Now playing</span>
+          <span id="now-name">donut</span>
+        </p>
+        <div class="art-slot" id="art-slot">
+          <ascii-art id="hero" piece="donut" label="Donut, a spinning torus">···</ascii-art>
+          <pre id="fallback" hidden aria-label="A hand-drawn ASCII ring, shown when ascii.rest does not load"></pre>
+        </div>
+      </div>
+      <p id="status" class="status" role="status">Loading donut from ascii.rest.</p>
+    </section>
+
+    <aside class="panel" aria-labelledby="control-heading">
+      <h2 id="control-heading">Controls</h2>
+      <button type="button" id="motion" aria-pressed="false" aria-describedby="motion-note">
+        Hold the first frame
+        <span id="motion-state">Off</span>
+      </button>
+      <p id="motion-note" class="note">ascii.rest checks <span class="code">prefers-reduced-motion</span> and, when it matches, draws the first frame and stops. This switch flips that check for every piece on the page.</p>
+      <label class="find-label" for="find">Find a piece</label>
+      <input id="find" type="search" autocomplete="off" spellcheck="false" autocapitalize="off" placeholder="whale, rust, gauge" aria-describedby="find-hint">
+      <p id="find-hint" class="note">Enter cues an exact match.</p>
+      <div id="hits" class="hits"></div>
+    </aside>
+  </div>
+
+  <section class="block" aria-labelledby="gallery-heading">
+    <h2 id="gallery-heading">Gallery</h2>
+    <div id="gallery" class="gallery"></div>
+  </section>
+
+  <section class="block" aria-labelledby="editor-heading">
+    <h2 id="editor-heading">Embed</h2>
+    <p class="note">The tag the stage is using. <span class="code">piece</span>, <span class="code">fps</span>, <span class="code">options</span>, <span class="code">label</span>, and <span class="code">mono</span> are read from it. <span class="code">options='{"text":"hi"}'</span> on <span class="code">big-text</span>, or <span class="code">fps="12"</span>.</p>
+    <label class="sr" for="editor">Embed snippet</label>
+    <textarea id="editor" spellcheck="false" autocapitalize="off"></textarea>
+    <div class="editor-row">
+      <button type="button" id="cue">Cue the stage</button>
+      <p id="cue-note" class="note"></p>
+    </div>
+  </section>
+
+  <p class="colophon">Pieces load from <a href="https://ascii.rest">ascii.rest</a>, MIT licensed, written by @bas3line. If that script does not arrive, the ring on stage is drawn here. The bookmark is <a href="https://x.com/inlovewithgo/status/2107800389395636271">@inlovewithgo’s post</a>.</p>
+
+  <noscript><p class="deck">This page needs JavaScript. The pieces come from ascii.rest, and the stand-in ring is drawn here if that script does not arrive.</p></noscript>
+
+  <script src="pieces.js"></script>
+  <script src="snippet.js"></script>
+  <script src="boot.js"></script>
+  <script type="module" src="https://ascii.rest/ascii.js" id="ascii-src"></script>
+  <script src="app.js"></script>
+</body>
+</html>
