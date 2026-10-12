@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Solana accounts</title>
+  <meta name="description" content="A simulated Solana ledger. Accounts are memory regions. Compose a transaction, then turn signer, owner, type, overflow, and program-id checks off and see which attack drains the vault.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Simulated ledger</p>
+      <h1>Solana accounts</h1>
+      <p class="deck">Each card is an account: an address, lamports, an owner, an executable flag, and data. Send a transaction and the cards move. Then turn a check off and run an attack.</p>
+      <p class="banner">Local simulation. No RPC, no wallet, no cluster. System, loader, and SPL Token ids are the real ones. Every other address is a stand-in.</p>
+    </div>
+  </header>
+
+  <section class="checks" aria-labelledby="check-heading">
+    <div class="check-head">
+      <h2 id="check-heading">Till’s checks</h2>
+      <button type="button" id="reset">Reset ledger</button>
+    </div>
+    <div id="toggles" class="toggles"></div>
+    <p class="aside">The runtime stays on. It still rejects a missing signature, a program that is not executable, and a debit by anyone but the owner. The switches are the checks a program has to remember.</p>
+  </section>
+
+  <div class="workspace">
+    <div id="ledger" class="ledger"></div>
+    <aside class="composer" aria-labelledby="tx-heading">
+      <h2 id="tx-heading">Transaction</h2>
+      <div id="scenarios" class="scenarios"></div>
+      <p id="blurb" class="blurb"></p>
+      <p id="payer" class="payer"></p>
+      <div id="steps"></div>
+      <label class="amount" id="amount-label" for="amount">Amount in lamports
+        <input id="amount" type="number" min="1" step="1" inputmode="numeric">
+      </label>
+      <button type="button" id="send" class="send">Send transaction</button>
+      <div id="receipt" class="receipt" aria-live="polite"></div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>Helius describes Solana as a global key/value store. The public key is the key. The account is a memory region that holds programs and balances, and a transaction updates it. <code>is_signer</code> and <code>is_writable</code> come from that transaction, not from the account. One lamport is one-billionth of a SOL. A transaction here is atomic: if an instruction fails, only the 5,000 lamport fee remains.</p>
+    <p>The attacks are the five in <a href="https://blog.neodyme.io/posts/solana_common_pitfalls">Neodyme’s common pitfalls</a>: missing owner check, missing signer check, integer wrap, an unchecked program id on invoke, and account confusion. The exemption floor is a stand-in for two years at 3,480 lamports per byte-year. This page does not collect rent and does not contact a cluster.</p>
+    <p>From <a href="https://x.com/Helius/status/1637656477510012928">Helius on accounts</a> and <a href="https://x.com/Helius/status/1724085702013395183">the programming model</a>.</p>
+  </footer>
+  <script src="ledger.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
