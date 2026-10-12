@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Thirteen static tools:
+Fifteen static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -15,6 +15,8 @@ Thirteen static tools:
 - [Paper Mono](paper-mono-demo/) — a type bench for [Paper Mono](https://github.com/paper-design/paper-mono) v1.000 (SIL OFL 1.1): variable weight, coding ligatures, duospace, a narrow space, small arrows, a single-story a, a slashed zero, and fractions. From [Paper’s post](https://x.com/paper/status/2107867860349735284).
 - [ASCII stage](ascii-stage-demo/) — a gallery and a live embed editor for [ascii.rest](https://ascii.rest) (MIT, by @bas3line). Pick a piece, edit the tag, and hold the first frame the way the library does for reduced motion. From [@inlovewithgo’s post](https://x.com/inlovewithgo/status/2107800389395636271).
 - [Brand bot](brand-bot-demo/) — sample mentions of Mothglass, a fictional lantern, stream into four lanes. A rule book you can edit sorts them into amplify, product feedback, needs attention, and ignore, and names the words that matched. From [@ishverduzco’s post](https://x.com/ishverduzco/status/2107998499891728837). No model is called. No live account is read.
+- [Animation cost](animation-cost-demo/) — run the same toast tray twice, with a large blur, an animated box-shadow, and a CSS variable rewritten every frame beside a small blur, a shadow layer faded with opacity, and a transform, and watch a requestAnimationFrame frame-time readout. From [Emil Kowalski’s post](https://x.com/emilkowalski/status/2109277388437868623) on the [animation-performance skill](https://github.com/emilkowalski/skills/blob/main/skills/animation-performance/SKILL.md).
+- [Solana accounts](solana-accounts-demo/) — inspect a simulated ledger of accounts, send a toy transaction, then turn signer, owner, type, overflow, and program-id checks off and run the attacks from the pitfalls list. From [Helius on the account model](https://x.com/Helius/status/1637656477510012928) and [the programming model](https://x.com/Helius/status/1724085702013395183), and from [Neodyme’s common pitfalls](https://blog.neodyme.io/posts/solana_common_pitfalls). No cluster is contacted.
 
 ## Open locally
 
@@ -29,7 +31,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js
 ```
 
 ## GitHub Pages
@@ -51,3 +53,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/paper-mono-demo/
 - https://kombucho.github.io/bookmark-demos/ascii-stage-demo/
 - https://kombucho.github.io/bookmark-demos/brand-bot-demo/
+- https://kombucho.github.io/bookmark-demos/animation-cost-demo/
+- https://kombucho.github.io/bookmark-demos/solana-accounts-demo/

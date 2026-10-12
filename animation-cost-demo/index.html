@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Animation cost</title>
+  <meta name="description" content="The same toast tray twice: a large blur, an animated box-shadow, and a CSS variable written every frame, beside a small blur, a fading shadow layer, and a transform. Frame time comes from requestAnimationFrame.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Frame bench</p>
+      <h1>Animation cost</h1>
+      <p class="deck">The same tray of toasts, run two ways. The left tray breaks a rule. The right tray follows it. Raise the count until the frame time moves, then turn a rule off to see which cost it was.</p>
+    </div>
+  </header>
+
+  <section class="controls" aria-label="Bench controls">
+    <fieldset>
+      <legend>Contrast</legend>
+      <label class="check"><input type="checkbox" id="rule-blur" checked> <span>Blur <small>under 20px, soften at 2–5</small></span></label>
+      <label class="check"><input type="checkbox" id="rule-shadow" checked> <span>Shadow <small>opacity, not box-shadow</small></span></label>
+      <label class="check"><input type="checkbox" id="rule-variable" checked> <span>Motion <small>transform, not a CSS variable</small></span></label>
+    </fieldset>
+    <div class="count-block">
+      <label for="count">Elements <output id="count-out">20</output></label>
+      <input id="count" type="range" min="4" max="80" value="20" step="1">
+    </div>
+    <fieldset>
+      <legend>In the frame</legend>
+      <label class="check"><input type="radio" name="measure" value="both" checked> <span>Both trays</span></label>
+      <label class="check"><input type="radio" name="measure" value="hot"> <span>Expensive only</span></label>
+      <label class="check"><input type="radio" name="measure" value="cool"> <span>Rule-following only</span></label>
+    </fieldset>
+    <button type="button" id="pause">Pause</button>
+  </section>
+
+  <section class="readout" aria-live="polite">
+    <div class="figures">
+      <p><b id="fps">–</b><span>fps</span></p>
+      <p><b id="frame-ms">–</b><span>ms / frame</span></p>
+      <p><b id="hot-ms">–</b><span>ms expensive write</span></p>
+      <p><b id="cool-ms">–</b><span>ms rule-following write</span></p>
+    </div>
+    <div class="meter-wrap">
+      <canvas id="spark" width="640" height="72" aria-hidden="true"></canvas>
+      <p id="meter-caption" class="caption"></p>
+    </div>
+    <p id="device-note" class="device"></p>
+  </section>
+
+  <div class="split">
+    <section id="hot-stage" class="stage stage-hot" aria-labelledby="hot-title"></section>
+    <section id="cool-stage" class="stage stage-cool" aria-labelledby="cool-title"></section>
+  </div>
+
+  <footer>
+    <p>Checked rules are broken on the left and followed on the right. Uncheck one and both trays follow it, so the frame time is down to the rules you left on. “Expensive only” and “Rule-following only” freeze the other tray, which makes the number easier to blame.</p>
+    <p>From <a href="https://x.com/emilkowalski/status/2109277388437868623">Emil Kowalski’s post</a> on the <a href="https://github.com/emilkowalski/skills/blob/main/skills/animation-performance/SKILL.md">animation-performance skill</a>. Animated <code>blur()</code> stays under 20px, and 2–5px is enough to soften a crossfade. <code>box-shadow</code> repaints; the skill’s swap is <code>filter: drop-shadow()</code>. This bench fades a shadow that was painted once, which is <code>opacity</code>. An inherited custom property is not rewritten every frame. <code>will-change</code> is not set: the skill adds it only after a one-pixel shift. Nothing here uses <code>transition: all</code>.</p>
+  </footer>
+  <script src="bench.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
