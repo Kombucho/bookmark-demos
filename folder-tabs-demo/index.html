@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Secret files</title>
+  <meta name="description" content="Six hanging folders on a cabinet rail. Choose a tab and that jacket comes forward with a title, a date stamp, and a few lines of notes.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Hanging folders</p>
+    <h1>Secret files</h1>
+    <p class="deck">Six jackets on one rail. Choose a tab, or press the arrow keys, and that folder comes forward with the note that was in it.</p>
+  </header>
+
+  <div class="cabinet">
+    <div class="bezel">
+      <span class="screw" aria-hidden="true"></span>
+      <p class="plate">Drawer 2 <span>internal</span></p>
+      <span class="screw" aria-hidden="true"></span>
+    </div>
+    <div class="rod" aria-hidden="true"><span></span></div>
+
+    <div class="tabs" id="tabs" role="tablist" aria-label="Secret files">
+      <button type="button" role="tab" id="tab-ledger" aria-selected="true" aria-controls="panel-ledger" tabindex="0" style="--tint:#e6c98a; --tab-ink:#2c2112; --slot:0">Ledger</button>
+      <button type="button" role="tab" id="tab-cipher" aria-selected="false" aria-controls="panel-cipher" tabindex="-1" style="--tint:#d4653c; --tab-ink:#2a120c; --slot:1">Cipher</button>
+      <button type="button" role="tab" id="tab-harbor" aria-selected="false" aria-controls="panel-harbor" tabindex="-1" style="--tint:#6e9b80; --tab-ink:#102018; --slot:2">Harbor</button>
+      <button type="button" role="tab" id="tab-witness" aria-selected="false" aria-controls="panel-witness" tabindex="-1" style="--tint:#e7d3b0; --tab-ink:#332818; --slot:3">Witness</button>
+      <button type="button" role="tab" id="tab-night" aria-selected="false" aria-controls="panel-night" tabindex="-1" style="--tint:#3c4e70; --tab-ink:#f4efe6; --slot:4">Night</button>
+      <button type="button" role="tab" id="tab-cinnabar" aria-selected="false" aria-controls="panel-cinnabar" tabindex="-1" style="--tint:#7a2e3c; --tab-ink:#fff5f3; --slot:5">Cinnabar</button>
+    </div>
+
+    <div class="well" id="well">
+      <article class="folder is-front" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger" tabindex="0" style="--tint:#e6c98a">
+        <div class="jacket">
+          <div class="under under-a" aria-hidden="true"></div>
+          <div class="under under-b" aria-hidden="true"></div>
+          <div class="sheet">
+            <p class="file-id">SF–014</p>
+            <div class="sheet-head">
+              <h2>Night-market ledger</h2>
+              <p class="stamp">Restricted</p>
+            </div>
+            <p class="date">14 Mar 1978</p>
+            <ul class="notes">
+              <li>Stall 12 paid in coin, not scrip.</li>
+              <li>The scale was light by a thumb’s width.</li>
+              <li>Do not file this under the shop’s real name.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="folder" id="panel-cipher" role="tabpanel" aria-labelledby="tab-cipher" tabindex="-1" aria-hidden="true" inert style="--tint:#d4653c">
+        <div class="jacket">
+          <div class="under under-a" aria-hidden="true"></div>
+          <div class="under under-b" aria-hidden="true"></div>
+          <div class="sheet">
+            <p class="file-id">SF–031</p>
+            <div class="sheet-head">
+              <h2>Key rotation</h2>
+              <p class="stamp">Eyes only</p>
+            </div>
+            <p class="date">02 Nov 1984</p>
+            <ul class="notes">
+              <li>The Tuesday key is a river name, spelled backward.</li>
+              <li>Burn the Monday strip after the second bell.</li>
+              <li>If the ink smears, the page was copied.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="folder" id="panel-harbor" role="tabpanel" aria-labelledby="tab-harbor" tabindex="-1" aria-hidden="true" inert style="--tint:#6e9b80">
+        <div class="jacket">
+          <div class="under under-a" aria-hidden="true"></div>
+          <div class="under under-b" aria-hidden="true"></div>
+          <div class="sheet">
+            <p class="file-id">SF–008</p>
+            <div class="sheet-head">
+              <h2>Berth assignments</h2>
+              <p class="stamp">Internal</p>
+            </div>
+            <p class="date">19 Jun 1966</p>
+            <ul class="notes">
+              <li>Pier 3 keeps the unlisted skiff.</li>
+              <li>The harbormaster answers to “Aunt Nell.”</li>
+              <li>Fog means wait. A clear bell means come in dark.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="folder" id="panel-witness" role="tabpanel" aria-labelledby="tab-witness" tabindex="-1" aria-hidden="true" inert style="--tint:#e7d3b0">
+        <div class="jacket">
+          <div class="under under-a" aria-hidden="true"></div>
+          <div class="under under-b" aria-hidden="true"></div>
+          <div class="sheet">
+            <p class="file-id">SF–052</p>
+            <div class="sheet-head">
+              <h2>Three who saw it</h2>
+              <p class="stamp">Unlisted</p>
+            </div>
+            <p class="date">08 Jan 1991</p>
+            <ul class="notes">
+              <li>The baker, the night clerk, the woman with the red umbrella.</li>
+              <li>None of them agree on the color of the car.</li>
+              <li>The umbrella was blue. She will not say so.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="folder" id="panel-night" role="tabpanel" aria-labelledby="tab-night" tabindex="-1" aria-hidden="true" inert style="--tint:#3c4e70">
+        <div class="jacket">
+          <div class="under under-a" aria-hidden="true"></div>
+          <div class="under under-b" aria-hidden="true"></div>
+          <div class="sheet">
+            <p class="file-id">SF–019</p>
+            <div class="sheet-head">
+              <h2>Dead-drop hours</h2>
+              <p class="stamp">After hours</p>
+            </div>
+            <p class="date">27 Aug 1972</p>
+            <ul class="notes">
+              <li>The clock in the underpass runs four minutes fast.</li>
+              <li>Leave the book open to page 40.</li>
+              <li>If the ribbon is gone, walk past and do not look back.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="folder" id="panel-cinnabar" role="tabpanel" aria-labelledby="tab-cinnabar" tabindex="-1" aria-hidden="true" inert style="--tint:#7a2e3c">
+        <div class="jacket">
+          <div class="under under-a" aria-hidden="true"></div>
+          <div class="under under-b" aria-hidden="true"></div>
+          <div class="sheet">
+            <p class="file-id">SF–003</p>
+            <div class="sheet-head">
+              <h2>Pigment recipe</h2>
+              <p class="stamp">Workshop</p>
+            </div>
+            <p class="date">11 Feb 1955</p>
+            <ul class="notes">
+              <li>Two parts crushed ore, one part oil of clove.</li>
+              <li>Grind until the sound changes.</li>
+              <li>This red cannot be matched from a catalog.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="lip" aria-hidden="true"><span class="handle"></span></div>
+  </div>
+
+  <p id="status" class="status" role="status">Ledger is open.</p>
+  <p class="hint">The other jackets stay on the rail. Hover a tab to feel it lift. Arrow keys, Home, and End move the selection.</p>
+
+  <p class="colophon">A hanging-file rail, after <a href="https://x.com/samdape/status/1846447101779018087">@samdape’s skeuomorphic folders</a>, via the <a href="https://x.com/kombaiselects/status/2103227978180079804">Kombai Selects post</a> on secret-file tabs.</p>
+
+  <noscript><p class="deck">This page needs JavaScript to bring another folder forward. The ledger note is the file in front.</p></noscript>
+  <script src="script.js"></script>
+</body>
+</html>
