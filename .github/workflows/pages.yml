@@ -39,6 +39,12 @@ jobs:
           test -f constraint-gate-demo/gate.js
           test -f concept-first-demo/index.html
           test -f concept-first-demo/concept.js
+          test -f folder-tabs-demo/index.html
+          test -f folder-tabs-demo/styles.css
+          test -f folder-tabs-demo/script.js
+          test -f sharded-query-demo/index.html
+          test -f sharded-query-demo/styles.css
+          test -f sharded-query-demo/script.js
           test ! -f engine.js
           test ! -f main.js
       - name: Run rule tests

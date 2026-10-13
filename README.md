@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Fifteen static tools:
+Seventeen static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -17,6 +17,8 @@ Fifteen static tools:
 - [Brand bot](brand-bot-demo/) — sample mentions of Mothglass, a fictional lantern, stream into four lanes. A rule book you can edit sorts them into amplify, product feedback, needs attention, and ignore, and names the words that matched. From [@ishverduzco’s post](https://x.com/ishverduzco/status/2107998499891728837). No model is called. No live account is read.
 - [Animation cost](animation-cost-demo/) — run the same toast tray twice, with a large blur, an animated box-shadow, and a CSS variable rewritten every frame beside a small blur, a shadow layer faded with opacity, and a transform, and watch a requestAnimationFrame frame-time readout. From [Emil Kowalski’s post](https://x.com/emilkowalski/status/2109277388437868623) on the [animation-performance skill](https://github.com/emilkowalski/skills/blob/main/skills/animation-performance/SKILL.md).
 - [Solana accounts](solana-accounts-demo/) — inspect a simulated ledger of accounts, send a toy transaction, then turn signer, owner, type, overflow, and program-id checks off and run the attacks from the pitfalls list. From [Helius on the account model](https://x.com/Helius/status/1637656477510012928) and [the programming model](https://x.com/Helius/status/1724085702013395183), and from [Neodyme’s common pitfalls](https://blog.neodyme.io/posts/solana_common_pitfalls). No cluster is contacted.
+- [Secret files](folder-tabs-demo/) — six hanging folders on a cabinet rail. Choose a tab and that jacket comes forward with a title, a date stamp, and a few lines of notes. From [@samdape’s hanging folders](https://x.com/samdape/status/1846447101779018087), via the [Kombai Selects post](https://x.com/kombaiselects/status/2103227978180079804).
+- [Sharded query](sharded-query-demo/) — one join crosses a router and four Postgres shards. Step from auth to the rows coming back, then shard orders by customer so each shard joins locally. From [PlanetScale’s account of a sharded join](https://planetscale.com/blog/the-lifecycle-of-a-sharded-postgres-query), via @samlambert. No database is contacted.
 
 ## Open locally
 
@@ -55,3 +57,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/brand-bot-demo/
 - https://kombucho.github.io/bookmark-demos/animation-cost-demo/
 - https://kombucho.github.io/bookmark-demos/solana-accounts-demo/
+- https://kombucho.github.io/bookmark-demos/folder-tabs-demo/
+- https://kombucho.github.io/bookmark-demos/sharded-query-demo/

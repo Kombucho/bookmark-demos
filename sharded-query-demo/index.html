@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Sharded query</title>
+  <meta name="description" content="One join crosses a router and four Postgres shards. Step from auth to the rows coming back, then shard orders by customer so each shard can join on its own.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">One join, four shards</p>
+      <h1>Sharded query</h1>
+      <p class="deck">A router pretends to be Postgres. Follow one join from the handshake to the rows coming back, then move orders onto the customer’s shard and watch the router join disappear.</p>
+    </div>
+  </header>
+
+  <section class="query-block" aria-labelledby="query-heading">
+    <div class="query-copy">
+      <h2 id="query-heading">The statement</h2>
+      <p>Customer name, order total, and placement time for recent orders. <code>$1</code> is the cutoff, 9 Sep 2026 in this walkthrough.</p>
+    </div>
+    <pre class="sql"><code>SELECT customers.name, orders.total, orders.created_at
+FROM customers
+JOIN orders ON orders.customer_id = customers.id
+WHERE orders.created_at &gt;= $1;</code></pre>
+  </section>
+
+  <section class="schema" aria-label="Schema">
+    <article>
+      <h2>customers</h2>
+      <p>id, name, email, country, created_at</p>
+      <p class="key">Shard key <code>customers.id</code></p>
+    </article>
+    <article>
+      <h2>orders</h2>
+      <p>id, customer_id, total, status, created_at</p>
+      <p class="key" id="order-key">Shard key <code>orders.id</code></p>
+    </article>
+  </section>
+
+  <section class="controls" aria-label="Walkthrough">
+    <fieldset>
+      <legend>Where orders live</legend>
+      <label class="check"><input type="radio" name="topology" value="naive" checked> <span>By <code>orders.id</code> <small>not co-located with the customer</small></span></label>
+      <label class="check"><input type="radio" name="topology" value="colocated"> <span>By <code>customer_id</code> <small>same hash, same shard as the customer</small></span></label>
+    </fieldset>
+    <div class="transport">
+      <p class="step-label" id="step-label">Step 1 of 7</p>
+      <div class="transport-buttons">
+        <button type="button" id="prev">Back</button>
+        <button type="button" id="play" aria-pressed="false">Play</button>
+        <button type="button" id="next">Next</button>
+      </div>
+      <ol class="stages" id="stage-list">
+        <li><button type="button" data-stage="0">Auth</button></li>
+        <li><button type="button" data-stage="1">Protocol</button></li>
+        <li><button type="button" data-stage="2">Parse</button></li>
+        <li><button type="button" data-stage="3">Plan</button></li>
+        <li><button type="button" data-stage="4">Sidecar</button></li>
+        <li><button type="button" data-stage="5">Postgres</button></li>
+        <li><button type="button" data-stage="6">Results</button></li>
+      </ol>
+    </div>
+  </section>
+
+  <p id="stage-copy" class="stage-copy"></p>
+  <p id="placement" class="placement"></p>
+
+  <div class="cluster">
+    <section class="router" aria-labelledby="router-heading">
+      <div class="router-head">
+        <h2 id="router-heading">Router</h2>
+        <p id="router-kicker"></p>
+      </div>
+      <div id="router-body"></div>
+    </section>
+    <div class="shard-wrap">
+      <div class="shards" id="shards" aria-label="Shards"></div>
+      <p class="legend"><span class="swatch customer"></span> customer <span class="swatch order"></span> order on its customer’s shard <span class="swatch apart"></span> order somewhere else <span class="swatch old"></span> before the cutoff</p>
+    </div>
+  </div>
+
+  <section class="estimate" aria-labelledby="estimate-heading">
+    <div class="estimate-head">
+      <h2 id="estimate-heading">What the planner counts</h2>
+      <p id="qualifying"></p>
+    </div>
+    <div class="sliders">
+      <label>Customers <output id="cust-out" for="cust"></output>
+        <input id="cust" type="range" min="0" max="1000" value="755" aria-describedby="estimate-note">
+      </label>
+      <label>Orders <output id="orders-out" for="orders"></output>
+        <input id="orders" type="range" min="0" max="1000" value="878" aria-describedby="estimate-note">
+      </label>
+      <label>Recent <output id="select-out" for="select"></output>
+        <input id="select" type="range" min="2" max="80" value="33" aria-describedby="estimate-note">
+      </label>
+    </div>
+    <div class="versus" id="versus"></div>
+    <ul class="options" id="options"></ul>
+    <p id="estimate-note" class="note"></p>
+  </section>
+
+  <section class="results" aria-labelledby="results-heading">
+    <h2 id="results-heading">Rows the client can read</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>total</th>
+            <th>created_at</th>
+            <th>came from</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+    <p id="results-empty" class="note">The table fills on the Results step. Recent orders only.</p>
+  </section>
+
+  <p id="live" class="sr" aria-live="polite"></p>
+
+  <footer>
+    <p>Eight customers and twelve orders are drawn on the shards so the placement is visible. The sliders are the statistics a planner would use, not the toy rows. A real router hashes the shard key and picks a range. Here the toy key is <code>id mod 4</code>, so a row’s shard is obvious.</p>
+    <p>The cost model is a sketch: a shard request is expensive, a row held in the router is not, until the build side is large. Nested loop from the orders side can win when only a few orders qualify, because a customer lookup hits one shard. Nested loop from the customers side almost never wins here: each probe still visits all four shards.</p>
+    <p>From <a href="https://planetscale.com/blog/the-lifecycle-of-a-sharded-postgres-query">PlanetScale’s account of a sharded join</a>, via @samlambert. The path is paraphrased: auth, protocol, parse, plan, sidecar, Postgres, results.</p>
+  </footer>
+
+  <noscript><p class="deck">This page needs JavaScript. The join above is the statement the walkthrough follows, from authentication through four shards and back.</p></noscript>
+  <script src="script.js"></script>
+</body>
+</html>
