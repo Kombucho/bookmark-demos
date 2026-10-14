@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Atomic compose</title>
+  <meta name="description" content="Flash-borrow, swap on two venues, and repay. One L1 lands or reverts the whole route. With one venue on an L2, the legs settle apart and a failed leg leaves a position. Nothing onchain is contacted.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">One state machine</p>
+      <h1>Atomic compose</h1>
+      <p class="deck">Borrow, buy SOL on venue A, sell it on venue B, repay. On one L1 those legs share a state. Put venue B on an L2 and they do not.</p>
+      <p class="banner">Local simulation. No wallet, no RPC, nothing onchain.</p>
+    </div>
+  </header>
+
+  <section class="controls" aria-label="Route settings">
+    <fieldset>
+      <legend>The gap</legend>
+      <label class="field" for="latency">Bridge <b id="latency-out">4 slots</b>
+        <input id="latency" type="range" min="0" max="12" step="1" value="4">
+      </label>
+      <label class="field" for="vol">Volatility <b id="vol-out">2.0%</b>
+        <input id="vol" type="range" min="0" max="8" step="0.5" value="2">
+      </label>
+      <label class="field" for="traders">Traders <b id="traders-out">3</b>
+        <input id="traders" type="range" min="0" max="12" step="1" value="3">
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>The route</legend>
+      <label class="field" for="borrow">Borrow <b id="borrow-out">400</b>
+        <input id="borrow" type="range" min="100" max="8000" step="50" value="400">
+      </label>
+      <label class="field" for="spread">Edge <b id="spread-out">3.0%</b>
+        <input id="spread" type="range" min="0" max="8" step="0.1" value="3">
+      </label>
+      <label class="field" for="slip">Slippage <b id="slip-out">1.00%</b>
+        <input id="slip" type="range" min="0" max="300" step="5" value="100">
+      </label>
+      <label class="field" for="margin">Margin <b id="margin-out">250</b>
+        <input id="margin" type="range" min="0" max="2000" step="25" value="250">
+      </label>
+    </fieldset>
+    <div class="actions">
+      <p id="quote" class="quote" aria-live="polite"></p>
+      <div class="buttons">
+        <button type="button" id="play" class="primary">Run one</button>
+        <button type="button" id="step">Step</button>
+        <label class="field trials" for="trials">Trials <b id="trials-out">80</b>
+          <input id="trials" type="range" min="20" max="300" step="10" value="80">
+        </label>
+        <button type="button" id="batch" class="primary">Run trials</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="worlds">
+    <section class="world l1" aria-labelledby="l1-heading">
+      <div class="world-head">
+        <h2 id="l1-heading">One L1</h2>
+        <p id="l1-status" class="status">Not sent</p>
+      </div>
+      <p class="where">Borrow, both swaps, and the repay are one transaction. A failed leg rolls all of them back.</p>
+      <ol id="l1-track" class="track"></ol>
+      <div id="l1-table"></div>
+    </section>
+    <section class="world split" aria-labelledby="split-heading">
+      <div class="world-head">
+        <h2 id="split-heading">Venue B on an L2</h2>
+        <p id="split-status" class="status">Not sent</p>
+      </div>
+      <p class="where">The buy commits on L1. SOL sits in the bridge while other people trade. The sell, if it fails, does not undo the buy.</p>
+      <ol id="split-track" class="track"></ol>
+      <p id="leg-detail" class="detail" aria-live="polite"></p>
+      <div id="split-table"></div>
+    </section>
+  </div>
+
+  <section class="tally" aria-labelledby="tally-heading">
+    <div class="tally-copy">
+      <h2 id="tally-heading">Many trials</h2>
+      <p id="tally-empty">Same books every time. Only the gap is random. The L1 column is one outcome. The split column is that route with time between the legs.</p>
+    </div>
+    <div id="tally-body" hidden>
+      <table>
+        <thead>
+          <tr><th></th><th>Landed</th><th>Reverted</th><th>Partial</th><th>Mean</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>One L1</th><td id="a-landed">0</td><td id="a-reverted">0</td><td id="a-partial">0</td><td id="a-mean">–</td></tr>
+          <tr><th>Split</th><td id="s-landed">0</td><td id="s-reverted">0</td><td id="s-partial">0</td><td id="s-mean">–</td></tr>
+        </tbody>
+      </table>
+      <p id="hist-caption" class="caption"></p>
+      <canvas id="hist" width="640" height="180" role="img" aria-labelledby="hist-caption"></canvas>
+    </div>
+  </section>
+
+  <footer>
+    <p>Venue A and venue B are constant-product pools. The fee on a swap stays out of the reserves, so each pool’s k is unchanged by the trade. The L1 transaction reverts unless every leg fills and the desk is not poorer. In the split world the opening borrow and buy are their own transaction. Slots in between move the fair price and let other traders push each venue toward it. The sell on B uses the limit from the original quote. Margin can cover a small miss. If it cannot, the loan is still open and the desk holds whatever the failed leg left.</p>
+    <p>Each competing trader takes about 1.2% of one pool. A bridge of zero slots, with the sell still inside the same moment, matches the L1 result.</p>
+    <p>From <a href="https://x.com/toly/status/1743132883697410186">toly’s post</a>: Solana’s aim is one global atomic state machine, as fast as the laws of physics allow. An L2, a side chain, or a validium is an external execution environment, and it cannot promise atomic composition with the rest of L1 state. Nothing here contacts a cluster.</p>
+  </footer>
+  <script src="compose.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

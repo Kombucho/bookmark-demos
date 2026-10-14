@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Pair token</title>
+  <meta name="description" content="Mint and redeem a share of a full-range ETH/NVDA pool. Run swap flow, compound trading fees with a 10% cut, and compare one share with a 50/50 hold and an uncompounded LP. Nothing onchain is contacted.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Full-range pool</p>
+      <h1>Pair token</h1>
+      <p class="deck">ETHNVDA is one share of a constant-product pool. Swap fees sit outside the curve until someone compounds them back in. Minting and redeeming are free. Compounding keeps 10%.</p>
+      <p class="banner">Local simulation. No wallet, no RPC, nothing onchain.</p>
+    </div>
+  </header>
+
+  <section class="figures" aria-label="Position">
+    <p><span>NVDA per ETH</span> <strong id="price">–</strong></p>
+    <p><span>k</span> <strong id="k">–</strong> <small id="k-note"></small></p>
+    <p><span>ETH per share</span> <strong id="ps0">–</strong> <small id="fee0"></small></p>
+    <p><span>NVDA per share</span> <strong id="ps1">–</strong> <small id="fee1"></small></p>
+    <p><span>Uncollected fees</span> <strong id="fees">–</strong> <small>not in k yet</small></p>
+    <p><span>Buyback cut</span> <strong id="cut">–</strong> <small>10% of compounded fees</small></p>
+  </section>
+
+  <section class="controls" aria-label="Flow">
+    <label class="field">Fee tier
+      <select id="fee">
+        <option value="5">0.05%</option>
+        <option value="30" selected>0.30%</option>
+        <option value="100">1.00%</option>
+      </select>
+    </label>
+    <label class="field" for="vol">Price shock <b id="vol-out">2.0%</b>
+      <input id="vol" type="range" min="0" max="8" step="0.5" value="2">
+    </label>
+    <label class="field" for="volume">Round trip <b id="volume-out">8%</b>
+      <input id="volume" type="range" min="0" max="25" step="1" value="8">
+    </label>
+    <div class="actions">
+      <button type="button" id="step">Step</button>
+      <button type="button" id="run" class="primary">Run</button>
+      <button type="button" id="compound" class="primary">Compound</button>
+      <label class="check"><input type="checkbox" id="auto"> <span>Auto-compound</span></label>
+      <button type="button" id="reset">Reset</button>
+    </div>
+  </section>
+
+  <p id="log" class="log" aria-live="polite"></p>
+
+  <section class="chart-block" aria-labelledby="chart-heading">
+    <div class="chart-copy">
+      <h2 id="chart-heading">Value of one share</h2>
+      <p id="story"></p>
+    </div>
+    <ul class="legend">
+      <li><i class="swatch pair"></i> Pair token <b id="leg-pair">1.00</b></li>
+      <li><i class="swatch hold"></i> 50/50 hold <b id="leg-hold">1.00</b></li>
+      <li><i class="swatch flat"></i> Uncompounded LP <b id="leg-flat">1.00</b></li>
+    </ul>
+    <p id="chart-caption" class="caption"></p>
+    <canvas id="chart" width="640" height="280" role="img" aria-labelledby="chart-caption"></canvas>
+  </section>
+
+  <section class="books" aria-label="Books">
+    <article>
+      <h2>Pair token</h2>
+      <p class="amt"><b id="live0">–</b> ETH</p>
+      <div class="meter" aria-hidden="true"><span id="bar-live0" class="fill eth"></span></div>
+      <p class="amt"><b id="live1">–</b> NVDA</p>
+      <div class="meter" aria-hidden="true"><span id="bar-live1" class="fill nvda"></span></div>
+      <p class="amt fee-line"><b id="live-fee">–</b> uncollected</p>
+      <div class="meter thin" aria-hidden="true"><span id="bar-live-fee" class="fill cut"></span></div>
+    </article>
+    <article>
+      <h2>Uncompounded LP</h2>
+      <p class="amt"><b id="flat0">–</b> ETH</p>
+      <div class="meter" aria-hidden="true"><span id="bar-flat0" class="fill eth"></span></div>
+      <p class="amt"><b id="flat1">–</b> NVDA</p>
+      <div class="meter" aria-hidden="true"><span id="bar-flat1" class="fill nvda"></span></div>
+      <p class="amt fee-line"><b id="flat-fee">–</b> still outside k</p>
+      <div class="meter thin" aria-hidden="true"><span id="bar-flat-fee" class="fill cut"></span></div>
+    </article>
+    <article>
+      <h2>50/50 hold</h2>
+      <p class="amt"><b id="hold0">–</b> ETH</p>
+      <p class="amt"><b id="hold1">–</b> NVDA</p>
+      <p class="note">The same tokens one share started with. Nothing is sold when the price moves.</p>
+    </article>
+  </section>
+
+  <section class="desk" aria-label="Mint and redeem">
+    <div class="desk-head">
+      <h2>Desk</h2>
+      <p id="desk-line"></p>
+    </div>
+    <form id="mint-form">
+      <label for="mint-eth">Mint with ETH</label>
+      <input id="mint-eth" type="number" min="0" step="any" value="5" inputmode="decimal">
+      <p id="mint-quote" class="quote"></p>
+      <button type="submit" id="mint-btn">Mint ETHNVDA</button>
+    </form>
+    <form id="redeem-form">
+      <label for="redeem-shares">Redeem shares</label>
+      <input id="redeem-shares" type="number" min="0" step="any" value="100" inputmode="decimal">
+      <p id="redeem-quote" class="quote"></p>
+      <button type="submit" id="redeem-btn">Redeem</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>A swap moves the reserves by the amount after the fee, so k does not change and the fee waits in its own bucket. Compound values those fees at the spot price, keeps 10%, and adds the rest in the pool’s ratio. The price stays put and k grows, which is the per-share backing. The mark dips by the cut, then the larger pool earns fees on fees.</p>
+    <p>The hold is the starting tokens, marked at the new price. The uncompounded LP sees the same price path and the same round trips, and never folds fees in. Minting and redeeming scale both books together, so one share’s mark does not jump.</p>
+    <p>From <a href="https://x.com/OxSimpleFarmer/status/2110063423799345571">@OxSimpleFarmer’s post</a> on Pair Tokens: an ERC-20 share of a full-range Uniswap v4 pool, ETH and NVDA fused into ETHNVDA, with a compound function anyone can call. In that setup the 10% cut buys back another token. This page keeps the cut and does not trade it. Nothing here contacts a chain.</p>
+  </footer>
+  <script src="pool.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
