@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Seventeen static tools:
+Nineteen static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -19,6 +19,8 @@ Seventeen static tools:
 - [Solana accounts](solana-accounts-demo/) — inspect a simulated ledger of accounts, send a toy transaction, then turn signer, owner, type, overflow, and program-id checks off and run the attacks from the pitfalls list. From [Helius on the account model](https://x.com/Helius/status/1637656477510012928) and [the programming model](https://x.com/Helius/status/1724085702013395183), and from [Neodyme’s common pitfalls](https://blog.neodyme.io/posts/solana_common_pitfalls). No cluster is contacted.
 - [Secret files](folder-tabs-demo/) — six hanging folders on a cabinet rail. Choose a tab and that jacket comes forward with a title, a date stamp, and a few lines of notes. From [@samdape’s hanging folders](https://x.com/samdape/status/1846447101779018087), via the [Kombai Selects post](https://x.com/kombaiselects/status/2103227978180079804).
 - [Sharded query](sharded-query-demo/) — one join crosses a router and four Postgres shards. Step from auth to the rows coming back, then shard orders by customer so each shard joins locally. From [PlanetScale’s account of a sharded join](https://planetscale.com/blog/the-lifecycle-of-a-sharded-postgres-query), via @samlambert. No database is contacted.
+- [Pair token](pair-token-demo/) — mint and redeem a share of a full-range ETH/NVDA pool, run swap flow, and compound trading fees with a 10% cut. The chart is one Pair Token against a 50/50 hold and an uncompounded LP. From [@OxSimpleFarmer’s post](https://x.com/OxSimpleFarmer/status/2110063423799345571). Nothing onchain is contacted.
+- [Atomic compose](atomic-compose-demo/) — flash-borrow, swap on two venues, and repay. One L1 lands or reverts the whole route. With one venue on an L2, the legs settle apart and a failed leg leaves a position. From [toly’s post](https://x.com/toly/status/1743132883697410186). Nothing onchain is contacted.
 
 ## Open locally
 
@@ -33,7 +35,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js
 ```
 
 ## GitHub Pages
@@ -59,3 +61,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/solana-accounts-demo/
 - https://kombucho.github.io/bookmark-demos/folder-tabs-demo/
 - https://kombucho.github.io/bookmark-demos/sharded-query-demo/
+- https://kombucho.github.io/bookmark-demos/pair-token-demo/
+- https://kombucho.github.io/bookmark-demos/atomic-compose-demo/

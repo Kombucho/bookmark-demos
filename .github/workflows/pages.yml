@@ -45,10 +45,14 @@ jobs:
           test -f sharded-query-demo/index.html
           test -f sharded-query-demo/styles.css
           test -f sharded-query-demo/script.js
+          test -f pair-token-demo/index.html
+          test -f pair-token-demo/pool.js
+          test -f atomic-compose-demo/index.html
+          test -f atomic-compose-demo/compose.js
           test ! -f engine.js
           test ! -f main.js
       - name: Run rule tests
-        run: node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js
+        run: node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js
 
   deploy:
     needs: test
