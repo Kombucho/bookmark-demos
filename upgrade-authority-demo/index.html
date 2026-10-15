@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Upgrade authority</title>
+  <meta name="description" content="Four fictional vaults. Switch the upgrade authority between a single key, a multisig, a council, and locked, then try to replace the binary with a drain. Local simulation only.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Who can replace the binary</p>
+      <h1>Upgrade authority</h1>
+      <p class="deck">Four fictional vaults. The upgrade authority can swap in a program that drains the deposits. Switch the mode, collect signatures, and try.</p>
+      <p class="banner">Local simulation. No RPC, no wallet, no real program ids. Every name on this board is made up.</p>
+    </div>
+  </header>
+
+  <section class="clock" aria-label="Timelock clock">
+    <p class="day">Day <strong id="day">0</strong></p>
+    <div class="clock-actions">
+      <button type="button" id="advance-1">Advance 1 day</button>
+      <button type="button" id="advance-2" class="primary">Advance 2 days</button>
+    </div>
+    <p id="summary" class="summary"></p>
+    <p id="clock-note" class="clock-note" aria-live="polite"></p>
+  </section>
+
+  <div id="board" class="board"></div>
+
+  <footer>
+    <p>On Solana the upgrade authority can replace the program binary. A single key signs, and the new code is what runs on the next transaction. A multisig needs enough members. A governance council needs enough weight. Setting the authority to None makes the program immutable. A timelock only delays a signature that already passed. Turning a key off later does not pull the queued binary back. Cancel does.</p>
+    <p>The drain instruction is fictional. It stands in for replacing a vault with a program that withdraws every deposit to the upgrader. The instructions that were already there did not have to be buggy. Auditing the current binary does not answer who can replace it.</p>
+    <p>From <a href="https://neodyme.io/de/blog/solana_upgrade_authority/">Neodyme’s discussion of upgrade authorities</a> and <a href="https://x.com/Neodyme/status/1591496755258040327">the bookmarked thread</a>. Hot key, cold key, multisig, DAO, and locked are the options they weigh. Nothing here contacts a cluster.</p>
+  </footer>
+  <script src="authority.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Nineteen static tools:
+Twenty-one static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -21,6 +21,8 @@ Nineteen static tools:
 - [Sharded query](sharded-query-demo/) — one join crosses a router and four Postgres shards. Step from auth to the rows coming back, then shard orders by customer so each shard joins locally. From [PlanetScale’s account of a sharded join](https://planetscale.com/blog/the-lifecycle-of-a-sharded-postgres-query), via @samlambert. No database is contacted.
 - [Pair token](pair-token-demo/) — mint and redeem a share of a full-range ETH/NVDA pool, run swap flow, and compound trading fees with a 10% cut. The chart is one Pair Token against a 50/50 hold and an uncompounded LP. From [@OxSimpleFarmer’s post](https://x.com/OxSimpleFarmer/status/2110063423799345571). Nothing onchain is contacted.
 - [Atomic compose](atomic-compose-demo/) — flash-borrow, swap on two venues, and repay. One L1 lands or reverts the whole route. With one venue on an L2, the legs settle apart and a failed leg leaves a position. From [toly’s post](https://x.com/toly/status/1743132883697410186). Nothing onchain is contacted.
+- [Flash motion](flash-motion-demo/) — press Record and drag a shape. The timeline stores the path as offsets from the base pose, so moving the shape later replays the same performance. Trim a clip from either end. From [tldraw’s post](https://x.com/tldraw/status/2098108244686192722) and [Introducing tldraw flash](https://tldraw.dev/blog/introducing-tldraw-flash). No SDK, and no video export.
+- [Upgrade authority](upgrade-authority-demo/) — four fictional vaults, each with a TVL and an upgrade authority: a single key, an N-of-M multisig, a governance council, or locked. Propose a drain and see which authorities let it land. A timelock queues a signature that already passed. From [Neodyme on upgrade authorities](https://neodyme.io/de/blog/solana_upgrade_authority/) and [the bookmarked thread](https://x.com/Neodyme/status/1591496755258040327). No cluster is contacted.
 
 ## Open locally
 
@@ -35,7 +37,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js
 ```
 
 ## GitHub Pages
@@ -63,3 +65,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/sharded-query-demo/
 - https://kombucho.github.io/bookmark-demos/pair-token-demo/
 - https://kombucho.github.io/bookmark-demos/atomic-compose-demo/
+- https://kombucho.github.io/bookmark-demos/flash-motion-demo/
+- https://kombucho.github.io/bookmark-demos/upgrade-authority-demo/

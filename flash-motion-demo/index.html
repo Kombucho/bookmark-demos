@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Flash motion</title>
+  <meta name="description" content="Press Record and drag a shape. The timeline stores the path as offsets from the base pose, so moving the shape later replays the same performance from the new spot.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Record a drag</p>
+      <h1>Flash motion</h1>
+      <p class="deck">Press Record and drag a shape. The timeline keeps that path as offsets from the base pose, so you can move the shape afterward and play the same performance from the new spot.</p>
+    </div>
+  </header>
+
+  <section class="toolbar" aria-label="Transport">
+    <div class="transport">
+      <button type="button" id="record" class="record" aria-pressed="false">Record</button>
+      <button type="button" id="play" class="primary">Play</button>
+      <button type="button" id="bounce">Drop in a bounce</button>
+    </div>
+    <div class="palette" role="group" aria-label="Shapes">
+      <button type="button" data-add="circle">Circle</button>
+      <button type="button" data-add="rect">Rect</button>
+      <button type="button" data-add="triangle">Triangle</button>
+      <button type="button" data-add="note">Note</button>
+      <button type="button" id="remove">Remove</button>
+    </div>
+    <p id="status" class="status" aria-live="polite">Press Record and drag. Or drop in a bounce, play it, then move the shape without recording.</p>
+  </section>
+
+  <div class="stage-wrap">
+    <div id="stage" class="stage">
+      <svg id="paths" class="paths" viewBox="0 0 720 400" aria-hidden="true"></svg>
+      <div id="world"></div>
+    </div>
+    <p class="caption">The pale mark is the base pose. The shape, while a clip is active, is the base plus the recorded offset. Arrow keys nudge the selected base. [ and ] rotate it.</p>
+  </div>
+
+  <section class="timeline-block" aria-labelledby="timeline-heading">
+    <div class="timeline-head">
+      <h2 id="timeline-heading">Timeline</h2>
+      <p id="clock">0.0s</p>
+    </div>
+    <div id="timeline"></div>
+    <p id="readout" class="readout"></p>
+  </section>
+
+  <footer>
+    <p>Record samples how far a shape has moved from the pose it had when you pressed Record: an x offset, a y offset, and a rotation offset. Play adds those offsets back onto whatever the base pose is now. Trim keeps a window of the samples and leaves the rest out. Dragging a shape while the tape is stopped writes a new base and does not rewrite the samples.</p>
+    <p>A take can move more than one shape. Each shape that actually travels becomes its own clip on the same clock. The next recording starts after the last trimmed sample.</p>
+    <p>From <a href="https://x.com/tldraw/status/2098108244686192722">tldraw’s post</a> introducing <a href="https://tldraw.dev/blog/introducing-tldraw-flash">tldraw flash</a>, by Max Drake, Audrey Leo, and Leo Knudsen. The performance stays attached to the shape, so moving it on the canvas does not mean recording again. This page does not use the tldraw SDK, and it does not export video.</p>
+  </footer>
+  <script src="motion.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
