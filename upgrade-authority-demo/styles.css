@@ -1,0 +1,313 @@
+:root {
+  color-scheme: light;
+  --bg: #efe8dc;
+  --ink: #1d1a16;
+  --muted: #5e564c;
+  --line: #ddd2c2;
+  --paper: #fffdf8;
+  --good: #1f6b45;
+  --rust: #9f2d14;
+  --amber: #8a5a12;
+  --amber-soft: #fff4df;
+  --good-soft: #e7f4ec;
+  --rust-soft: #fdecea;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(159, 45, 20, 0.05), transparent 240px),
+    var(--bg);
+  color: var(--ink);
+  font: 16px/1.45 "Segoe UI", system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.top, .clock, .board, footer {
+  width: min(1100px, calc(100% - 28px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.top {
+  display: flex;
+  gap: 18px;
+  align-items: baseline;
+  padding: 22px 0 8px;
+}
+
+.home {
+  color: var(--ink);
+  font-size: 14px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+h1 {
+  margin: 2px 0 0;
+  font-size: clamp(36px, 6vw, 58px);
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+h2 { margin: 0; font-size: 22px; letter-spacing: -0.03em; }
+
+.deck { max-width: 62ch; margin: 8px 0 0; color: var(--muted); }
+
+.banner {
+  margin: 10px 0 0;
+  max-width: 70ch;
+  padding: 8px 10px;
+  border-left: 3px solid var(--ink);
+  font-size: 14px;
+}
+
+.clock {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "day actions"
+    "summary summary"
+    "note note";
+  gap: 8px 16px;
+  align-items: center;
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.day { grid-area: day; margin: 0; font-size: 18px; }
+.day strong { font-variant-numeric: tabular-nums; font-size: 28px; letter-spacing: -0.04em; }
+.clock-actions { grid-area: actions; display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.summary { grid-area: summary; margin: 0; }
+.clock-note { grid-area: note; margin: 0; color: var(--muted); }
+
+button {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 15px/1.2 "Segoe UI", system-ui, sans-serif;
+  cursor: pointer;
+}
+
+button:disabled { opacity: 0.45; cursor: default; }
+
+button.primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+button.danger {
+  background: var(--rust);
+  border-color: var(--rust);
+  color: #fff8f5;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.card {
+  min-width: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--ink);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card.is-locked { border-top-color: var(--good); }
+.card.is-queued { border-top-color: var(--amber); background: var(--amber-soft); }
+.card.is-drained { border-top-color: var(--rust); background: var(--rust-soft); }
+
+.kicker-card {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.blurb, .aside { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+.aside { color: var(--ink); }
+
+.money {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 0;
+}
+
+.money p { margin: 0; }
+.money span {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.money strong {
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.money .taken strong { color: var(--rust); }
+
+.modes { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.modes button[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.check input { width: 18px; height: 18px; accent-color: var(--ink); }
+
+.signers { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.signers button[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.signers button small {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+.threshold {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.threshold select {
+  min-height: 44px;
+  font: 15px/1.2 "Segoe UI", system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 8px;
+}
+
+.meter {
+  position: relative;
+  height: 10px;
+  background: rgba(29, 26, 22, 0.08);
+  border-radius: 999px;
+}
+
+.meter span {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+}
+
+.meter i {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: var(--rust);
+}
+
+.binary {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.binary li {
+  font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  font-size: 12px;
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: rgba(29, 26, 22, 0.06);
+}
+
+.binary li.drain {
+  background: var(--rust);
+  color: #fff8f5;
+}
+
+.binary li.waiting {
+  background: transparent;
+  color: var(--amber);
+  border: 1px dashed var(--amber);
+}
+
+.verdict { margin: 0; font-size: 14px; }
+.result { margin: 0; min-height: 3.2em; font-size: 14px; }
+.card.is-drained .result { color: var(--rust); }
+.card.is-queued .result { color: var(--amber); }
+.card.is-safe .result { color: var(--good); }
+
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+
+.stamp {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--good);
+}
+
+footer {
+  padding: 28px 0 48px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+footer p { max-width: 74ch; }
+footer a { color: var(--ink); }
+
+@media (max-width: 800px) {
+  .top { flex-direction: column; gap: 8px; }
+  .board { grid-template-columns: 1fr; }
+  .clock { grid-template-columns: 1fr; grid-template-areas: "day" "actions" "summary" "note"; }
+  .clock-actions { justify-content: flex-start; }
+}
