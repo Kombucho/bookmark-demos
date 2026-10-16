@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Anchor gotchas</title>
+  <meta name="description" content="Four Anchor-specific gotchas. Colliding PDA seeds, unchecked remaining accounts, a CPI signed by a pool, and a mint supply that stays stale until reload. Each one starts vulnerable.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Anchor</p>
+      <h1>Anchor gotchas</h1>
+      <p class="deck">Anchor checks the accounts you name. These four paths step around those checks. Each one starts vulnerable. Turn the fix on and run it again.</p>
+      <p class="banner">Local simulation. No RPC, no wallet, no cluster. Addresses are stand-ins. Owner, signer, and overflow checks are in the Solana accounts demo.</p>
+    </div>
+  </header>
+
+  <div id="picker" class="picker" role="tablist" aria-label="Gotchas"></div>
+  <div id="stage"></div>
+
+  <footer>
+    <p>Seed bytes are hashed with no separator, so two arrays can derive one PDA. <code>ctx.remaining_accounts</code> skips Anchor’s account constraints. <code>invoke_signed</code> lends a PDA’s signature to whatever program id was passed. After a CPI, a deserialized account keeps its old fields until <code>reload()</code>.</p>
+    <p>From <a href="https://www.zellic.io/blog/the-vulnerabilities-youll-write-with-anchor">Zellic, The Vulnerabilities You’ll Write With Anchor</a>, via <a href="https://x.com/zellic_io/status/1559982414608248832">the bookmarked post</a>. Nothing here contacts a cluster.</p>
+  </footer>
+  <script src="gotchas.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

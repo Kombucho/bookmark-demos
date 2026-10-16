@@ -53,10 +53,14 @@ jobs:
           test -f flash-motion-demo/motion.js
           test -f upgrade-authority-demo/index.html
           test -f upgrade-authority-demo/authority.js
+          test -f design-ops-demo/index.html
+          test -f design-ops-demo/ops.js
+          test -f anchor-gotchas-demo/index.html
+          test -f anchor-gotchas-demo/gotchas.js
           test ! -f engine.js
           test ! -f main.js
       - name: Run rule tests
-        run: node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js
+        run: node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js
 
   deploy:
     needs: test
