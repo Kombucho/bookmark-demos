@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Design & engineering ops</title>
+  <meta name="description" content="Person A designs on a branch pulled from Gospel. Person B sends it back or merges it. Engineering pulls from its own Gospel, and the approved gospel becomes the app.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Gospel</p>
+      <h1>Design & engineering ops</h1>
+      <p class="deck">Person A designs on a branch pulled from Gospel. Person B sends it back or merges it. Engineering pulls from its own Gospel. The approved gospel becomes the app.</p>
+      <p class="banner">Harbor is a fictional tide card. The explorations are the work. No model is called. Figma is not in the loop.</p>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <p id="status" class="status" role="status"></p>
+    <div class="toolbar-actions">
+      <button type="button" id="next-task">Assign next task</button>
+      <button type="button" id="reset">Reset</button>
+    </div>
+  </div>
+
+  <div class="board">
+    <section class="lane design" aria-labelledby="design-heading">
+      <header class="lane-head">
+        <h2 id="design-heading">Design</h2>
+        <p id="design-task" class="lane-note"></p>
+      </header>
+      <ol id="design-steps" class="steps"></ol>
+      <div class="books">
+        <article id="design-gospel" class="book"></article>
+        <article id="design-branch" class="book"></article>
+      </div>
+      <div id="explorations" class="explorations"></div>
+      <div class="actions">
+        <button type="button" id="pull-design">Pull from Gospel</button>
+        <button type="button" id="submit">Submit</button>
+        <button type="button" id="feedback">Send feedback</button>
+        <button type="button" id="approve">Approve</button>
+        <button type="button" id="merge-design">Merge into Gospel</button>
+      </div>
+    </section>
+
+    <div class="handoff-col">
+      <p class="kicker">Hand off</p>
+      <div id="packet" class="packet"></div>
+      <button type="button" id="handoff">Hand off</button>
+    </div>
+
+    <section class="lane eng" aria-labelledby="eng-heading">
+      <header class="lane-head">
+        <h2 id="eng-heading">Engineering</h2>
+        <p id="eng-task" class="lane-note"></p>
+      </header>
+      <ol id="eng-steps" class="steps"></ol>
+      <div class="books">
+        <article id="eng-gospel" class="book"></article>
+        <article id="eng-branch" class="book"></article>
+      </div>
+      <ul id="reqs" class="reqs"></ul>
+      <div class="actions">
+        <button type="button" id="pull-eng">Pull from Gospel</button>
+        <button type="button" id="address">Address requirements</button>
+        <button type="button" id="apply">Apply changes</button>
+        <button type="button" id="merge-eng">Approve and merge</button>
+        <button type="button" id="deploy-eng">Deploy</button>
+      </div>
+    </section>
+  </div>
+
+  <section class="ship" aria-labelledby="app-heading">
+    <div class="ship-copy">
+      <p class="kicker">App</p>
+      <h2 id="app-heading">Approved gospel becomes production</h2>
+      <p id="ship-line"></p>
+      <button type="button" id="deploy">Deploy</button>
+    </div>
+    <div id="production" class="production"></div>
+  </section>
+
+  <footer>
+    <p>Design Gospel is the source of truth for the interface. Person A works on a branch. Person B reviews. A merge updates Design Gospel and leaves Engineering Gospel where it was. The handoff is the only crossing. Engineering merges into its own Gospel, and that gospel is what production runs.</p>
+    <p>From <a href="https://x.com/gregmwashington/status/2110405679982723243">Greg Washington’s diagram</a>, quoting <a href="https://x.com/gregmwashington/status/2107130016966623295">the operating model</a>. Codex, Claude, and Cursor are the tools he names. This page does not call a model.</p>
+  </footer>
+  <script src="ops.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

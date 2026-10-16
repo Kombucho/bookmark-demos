@@ -1,0 +1,334 @@
+:root {
+  color-scheme: dark;
+  --bg: #141226;
+  --ink: #f4efe4;
+  --muted: #b7adcc;
+  --line: #342b52;
+  --paper: #f6f1e6;
+  --paper-ink: #1c1730;
+  --mint: #1f8a70;
+  --gold: #e0a106;
+  --coral: #e15b48;
+  --violet: #8b7cf7;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(900px 420px at 0% -10%, rgba(139, 124, 247, 0.18), transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  font: 16px/1.45 Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.top, .picker, #stage, footer {
+  width: min(1100px, calc(100% - 28px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.top {
+  display: flex;
+  gap: 18px;
+  align-items: baseline;
+  padding: 22px 0 8px;
+}
+
+.home {
+  color: var(--ink);
+  font-size: 14px;
+  white-space: nowrap;
+  text-decoration: none;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.kicker {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+h1 {
+  margin: 2px 0 0;
+  font-size: clamp(36px, 6vw, 60px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+
+h2 {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+}
+
+.deck { max-width: 66ch; margin: 8px 0 0; color: var(--muted); }
+
+.banner {
+  margin: 10px 0 0;
+  max-width: 74ch;
+  padding: 8px 10px;
+  border-left: 3px solid var(--gold);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+}
+
+.picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.picker button, .actions button, .programs button, .switch {
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+button {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  font: 15px/1.2 "Segoe UI", system-ui, sans-serif;
+  cursor: pointer;
+}
+
+button:hover { border-color: var(--gold); }
+button:disabled { opacity: 0.45; cursor: default; }
+
+.picker button[aria-pressed="true"],
+.programs button[aria-pressed="true"] {
+  background: var(--paper);
+  color: var(--paper-ink);
+  border-color: var(--paper);
+}
+
+.lede {
+  margin: 14px 0 0;
+  max-width: 70ch;
+  color: var(--muted);
+}
+
+.fix-row, .actions, .programs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.switch {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+}
+
+.switch input { width: 18px; height: 18px; accent-color: var(--gold); }
+
+.badge {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.badge.is-open { color: var(--coral); }
+.badge.is-shut { color: var(--mint); }
+
+.split, .cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.cards.three { grid-template-columns: 1.2fr 1fr 1fr; }
+
+.account {
+  min-width: 0;
+  background: var(--paper);
+  color: var(--paper-ink);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 4px solid var(--paper-ink);
+}
+
+.account.is-hit { border-top-color: var(--coral); background: #fdecea; }
+.account.is-ok { border-top-color: var(--mint); }
+.account.is-stale { border-top-color: var(--gold); background: #fff4df; }
+.account.is-selected { box-shadow: inset 0 0 0 2px var(--paper-ink); }
+.account.is-drained { border-top-color: var(--coral); }
+
+.account h3 {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+}
+
+.formula, .hold, .addr, .owner, .same, .result, .share-line {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+}
+
+.formula, .owner { color: #5c5470; }
+
+.addr {
+  font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.seeds, .ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.seeds span, .ribbon span {
+  font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  font-size: 12px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: rgba(28, 23, 48, 0.08);
+}
+
+.ribbon span.cut {
+  box-shadow: inset 2px 0 0 var(--coral);
+}
+
+.money {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.money strong {
+  font-size: 28px;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(28, 23, 48, 0.1);
+  overflow: hidden;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--mint);
+  transition: width 0.45s ease;
+}
+
+.account.is-drained .bar span, .account.is-hit .bar span { background: var(--coral); }
+
+.pick {
+  align-self: flex-start;
+  background: transparent;
+  color: var(--paper-ink);
+  border-color: rgba(28, 23, 48, 0.2);
+}
+
+.pick[aria-pressed="true"] {
+  background: var(--paper-ink);
+  color: var(--paper);
+  border-color: var(--paper-ink);
+}
+
+.call {
+  margin: 12px 0 0;
+  font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  font-size: 14px;
+}
+
+.numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.numbers .account strong {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.account .hint {
+  margin: 0;
+  color: #5c5470;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 13px;
+}
+
+.result {
+  min-height: 2.8em;
+  margin-top: 12px;
+}
+
+.result.is-bad { color: #ffb1a6; }
+.result.is-ok { color: #9be7c9; }
+
+.same { margin-top: 10px; color: var(--muted); }
+.same.is-bad { color: #ffb1a6; }
+.same.is-ok { color: #9be7c9; }
+
+button.primary {
+  background: var(--paper);
+  color: var(--paper-ink);
+  border-color: var(--paper);
+}
+
+footer {
+  padding: 28px 0 48px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+footer p { max-width: 78ch; }
+footer a { color: var(--ink); }
+footer code {
+  font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  font-size: 0.92em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar span { transition: none; }
+}
+
+@media (max-width: 800px) {
+  .top { flex-direction: column; gap: 8px; }
+  .split, .cards, .cards.three, .numbers { grid-template-columns: 1fr; }
+}
