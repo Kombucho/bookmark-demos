@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>LLM knowledge base</title>
+  <meta name="description" content="Raw notes on three fictional companies compile into a linked wiki. A question is answered from those pages, and a new note updates only the pages it touches.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Research vault</p>
+      <h1>LLM knowledge base</h1>
+      <p class="deck">Raw notes stay as you wrote them. Compiling them builds a wiki: a page per note, a hub per company, backlinks, and an index. Ask a question and the answer names the pages it opened. A new note rewrites the pages it touches and leaves the rest.</p>
+      <p class="banner">Larkmill Ceramics, Brineharbor Works, and Vellum &amp; Wick are fictional. The numbers were written for this page. No model is called, and nothing is fetched.</p>
+    </div>
+  </header>
+
+  <section class="strip" aria-label="How a conflict is kept">
+    <p><b>Source rank.</b> An own note outranks a filing, a filing outranks a call, and a call outranks news. The hub keeps the higher source. The loser stays on the page as challenged, and on the article that quoted it.</p>
+    <p id="report" role="status">Four notes are already compiled. One is still sitting in raw.</p>
+  </section>
+
+  <section class="graph-panel" aria-labelledby="graph-heading">
+    <div class="graph-head">
+      <h2 id="graph-heading">Compiled pages</h2>
+      <label class="jump">Open
+        <select id="page-jump"></select>
+      </label>
+    </div>
+    <div id="graph" class="graph"></div>
+  </section>
+
+  <div class="vault">
+    <section class="col raw" aria-labelledby="raw-heading">
+      <header>
+        <h2 id="raw-heading">raw/</h2>
+        <p>Immutable. The compiler reads these and never edits them.</p>
+      </header>
+      <div id="raw-list"></div>
+      <form id="composer">
+        <h3>Add a note</h3>
+        <label>Title <input id="title" name="title" type="text" maxlength="80" required placeholder="Half the lamp order"></label>
+        <div class="pair">
+          <label>Ticker
+            <select id="ticker" name="ticker">
+              <option value="LARK.MX">LARK.MX</option>
+              <option value="BRINE.HX">BRINE.HX</option>
+              <option value="VELL.WY" selected>VELL.WY</option>
+            </select>
+          </label>
+          <label>Source
+            <select id="source" name="source">
+              <option value="own-note">Own note</option>
+              <option value="filing">Filing</option>
+              <option value="call">Call</option>
+              <option value="news">News</option>
+            </select>
+          </label>
+        </div>
+        <label>Date <input id="date" name="date" type="date" value="2026-10-01" required></label>
+        <label>Note
+          <textarea id="body" name="body" rows="7" required spellcheck="false" placeholder="Lamp order: 6000&#10;&#10;Say what changed, and name the other ticker if it matters."></textarea>
+        </label>
+        <p id="form-error" class="error" role="status"></p>
+        <div class="actions">
+          <button type="submit" class="primary">Compile this note</button>
+          <button type="button" id="fill-cut">Load a cancellation</button>
+          <button type="button" id="reset">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="col wiki" aria-labelledby="wiki-heading">
+      <header>
+        <h2 id="wiki-heading">Wiki/</h2>
+        <p id="wiki-path" class="path"></p>
+      </header>
+      <article id="page"></article>
+    </section>
+
+    <section class="col ask" aria-labelledby="ask-heading">
+      <header>
+        <h2 id="ask-heading">Ask</h2>
+        <p>The index is opened first. The reply can quote only the pages it retrieved.</p>
+      </header>
+      <div id="questions" class="questions"></div>
+      <form id="question-form">
+        <label for="question">Question</label>
+        <textarea id="question" rows="3" maxlength="240" spellcheck="false" placeholder="What is Larkmill kiln utilization?"></textarea>
+        <button type="submit" class="primary">Answer from the wiki</button>
+      </form>
+      <div id="answer" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <footer>
+    <p>Labeled lines such as <code>Kiln utilization: 81%</code> become key numbers. Naming another company in the prose writes a cross-check on that hub. <code>Wiki/log.md</code> appends a line for every ingest.</p>
+    <p>From <a href="https://x.com/SebKrog/status/2111837281568874577">Sebastian Krog’s post</a> and <a href="https://treasure-hunting.co/p/how-i-use-claude-as-my-second-brain">how he uses a second brain for stock research</a>, after <a href="https://x.com/karpathy/status/2039805659525644595">Andrej Karpathy’s LLM knowledge base</a>. The desk here is a compiler in the browser, not Claude, and the tickers are not listed anywhere.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript. The wiki is still built in the browser, with no account and no model.</p></noscript>
+  <script src="wiki.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

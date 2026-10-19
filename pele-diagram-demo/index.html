@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Flowchart bench</title>
+  <meta name="description" content="A live Mermaid flowchart subset. Edit nodes, edges, labels, and TD or LR, and the page draws SVG on every keystroke with its own render time.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Diagram bench</p>
+      <h1>Flowchart on a keystroke</h1>
+      <p class="deck">Type a small Mermaid flowchart. Nodes, edge labels, and TD or LR are drawn to SVG on every keystroke, and the clock is the time that keystroke spent drawing.</p>
+      <p class="banner">This renderer is a subset written for the page. It is not Pele, and the time is not a Pele or mermaid.js result. Pele’s published comparison is not measured or repeated here.</p>
+    </div>
+  </header>
+
+  <section class="controls" aria-label="Diagram controls">
+    <div class="time-card">
+      <p class="kicker">This render</p>
+      <p class="time"><b id="ms">0</b><span>ms</span></p>
+      <p id="budget" class="budget">Waiting for the first drawing.</p>
+    </div>
+    <div class="count-card">
+      <p><b id="node-count">0</b> <span>nodes</span></p>
+      <p><b id="edge-count">0</b> <span>edges</span></p>
+      <p><b id="render-count">0</b> <span>renders</span></p>
+    </div>
+    <fieldset>
+      <legend>Direction</legend>
+      <button type="button" id="dir-td" aria-pressed="true">TD</button>
+      <button type="button" id="dir-lr" aria-pressed="false">LR</button>
+    </fieldset>
+    <div class="stress">
+      <label for="stress">Stress graph <output id="stress-out">12</output></label>
+      <input id="stress" type="range" min="8" max="360" value="12" step="4">
+      <p class="hint">Replaces the editor with a generated lattice. Drag it until a keystroke misses a frame.</p>
+    </div>
+    <div class="extras">
+      <button type="button" id="starter">Starter</button>
+      <button type="button" id="bad">Insert a bad line</button>
+    </div>
+  </section>
+
+  <div class="split">
+    <section class="editor-wrap" aria-labelledby="editor-heading">
+      <h2 id="editor-heading">Mermaid subset</h2>
+      <textarea id="source" spellcheck="false" autocapitalize="off" aria-describedby="syntax-help"></textarea>
+      <p id="syntax-help" class="hint"><code>flowchart TD</code> or <code>LR</code>. <code>A[box]</code> <code>B(round)</code> <code>C([stadium])</code> <code>D((circle))</code> <code>E{diamond}</code>. <code>--&gt;</code> <code>--&gt;|yes|</code> <code>-- hold --&gt;</code> <code>---</code> <code>-.-&gt;</code>.</p>
+      <ul id="errors"></ul>
+    </section>
+    <section class="stage-wrap" aria-labelledby="stage-heading">
+      <h2 id="stage-heading">SVG</h2>
+      <div id="stage" class="stage" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <footer>
+    <p>The number includes parsing the text, laying out the ranks, building the SVG, and inserting it. A frame at 60Hz is 16.7ms. A fast machine hides a small graph. The slider grows the same drawing until the time is large enough to feel on a keystroke.</p>
+    <p>From <a href="https://x.com/kepano/status/2111472054293913749">kepano’s launch of Pele</a>. Pele is a separate Mermaid renderer. This page does not load it, does not load mermaid.js, and does not claim either library’s speed.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript. The drawing still happens in the browser.</p></noscript>
+  <script src="render.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
