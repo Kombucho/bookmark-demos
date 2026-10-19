@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Twenty-three static tools:
+Twenty-five static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -25,6 +25,8 @@ Twenty-three static tools:
 - [Upgrade authority](upgrade-authority-demo/) — four fictional vaults, each with a TVL and an upgrade authority: a single key, an N-of-M multisig, a governance council, or locked. Propose a drain and see which authorities let it land. A timelock queues a signature that already passed. From [Neodyme on upgrade authorities](https://neodyme.io/de/blog/solana_upgrade_authority/) and [the bookmarked thread](https://x.com/Neodyme/status/1591496755258040327). No cluster is contacted.
 - [Design & engineering ops](design-ops-demo/) — Person A pulls a branch from Gospel and submits an exploration. Person B sends it back, or it merges into Design Gospel. Engineering pulls from its own Gospel, and the approved gospel becomes the app. From [Greg Washington’s diagram](https://x.com/gregmwashington/status/2110405679982723243), quoting [the operating model](https://x.com/gregmwashington/status/2107130016966623295). No model is called.
 - [Anchor gotchas](anchor-gotchas-demo/) — colliding PDA seeds, a cash-out through `ctx.remaining_accounts`, a CPI signed with a pool PDA, and a mint supply that stays stale until `reload()`. Each case starts vulnerable. From [Zellic](https://www.zellic.io/blog/the-vulnerabilities-youll-write-with-anchor), via [the bookmarked post](https://x.com/zellic_io/status/1559982414608248832). No cluster is contacted.
+- [LLM knowledge base](llm-kb-demo/) — raw notes on three fictional companies compile into linked wiki pages, with backlinks and an index. A question is answered from the pages it opens. A new note updates the pages it touches. From [Sebastian Krog’s post](https://x.com/SebKrog/status/2111837281568874577) and [his write-up](https://treasure-hunting.co/p/how-i-use-claude-as-my-second-brain) of [Andrej Karpathy’s LLM knowledge base](https://x.com/karpathy/status/2039805659525644595). No model is called.
+- [Flowchart bench](pele-diagram-demo/) — a Mermaid subset (nodes, edges, labels, TD or LR) draws SVG on every keystroke and times that render. A slider builds a large graph. From [kepano’s launch of Pele](https://x.com/kepano/status/2111472054293913749). This page does not run Pele, and it does not report Pele’s or mermaid.js’s speed.
 
 ## Open locally
 
@@ -39,7 +41,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js
 ```
 
 ## GitHub Pages
@@ -71,3 +73,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/upgrade-authority-demo/
 - https://kombucho.github.io/bookmark-demos/design-ops-demo/
 - https://kombucho.github.io/bookmark-demos/anchor-gotchas-demo/
+- https://kombucho.github.io/bookmark-demos/llm-kb-demo/
+- https://kombucho.github.io/bookmark-demos/pele-diagram-demo/
