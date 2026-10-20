@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Twenty-five static tools:
+Twenty-seven static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -27,6 +27,8 @@ Twenty-five static tools:
 - [Anchor gotchas](anchor-gotchas-demo/) — colliding PDA seeds, a cash-out through `ctx.remaining_accounts`, a CPI signed with a pool PDA, and a mint supply that stays stale until `reload()`. Each case starts vulnerable. From [Zellic](https://www.zellic.io/blog/the-vulnerabilities-youll-write-with-anchor), via [the bookmarked post](https://x.com/zellic_io/status/1559982414608248832). No cluster is contacted.
 - [LLM knowledge base](llm-kb-demo/) — raw notes on three fictional companies compile into linked wiki pages, with backlinks and an index. A question is answered from the pages it opens. A new note updates the pages it touches. From [Sebastian Krog’s post](https://x.com/SebKrog/status/2111837281568874577) and [his write-up](https://treasure-hunting.co/p/how-i-use-claude-as-my-second-brain) of [Andrej Karpathy’s LLM knowledge base](https://x.com/karpathy/status/2039805659525644595). No model is called.
 - [Flowchart bench](pele-diagram-demo/) — a Mermaid subset (nodes, edges, labels, TD or LR) draws SVG on every keystroke and times that render. A slider builds a large graph. From [kepano’s launch of Pele](https://x.com/kepano/status/2111472054293913749). This page does not run Pele, and it does not report Pele’s or mermaid.js’s speed.
+- [Benchmark traps](benchmark-traps-demo/) — a simulated database bench where a cold cache, a working set that fits in RAM, uneven cores, a short run, a closed loop, or a mean headline changes which engine wins. From [Ben Dicken’s post](https://x.com/BenjDicken/status/2112251037587583410) and [PlanetScale’s On benchmarking](https://planetscale.com/blog/on-benchmarking). No database is contacted.
+- [Canvas chat](canvas-chat-demo/) — a scripted chat beside a canvas. Each reply is a plugin call that draws a map, a picture, a game, or a sortable ledger, and earlier canvases stay in the history. From [Dan Kornas’s post](https://x.com/DanKornas/status/2112419545889579016) about [MulmoChat](https://github.com/receptron/MulmoChat). No model is called.
 
 ## Open locally
 
@@ -41,7 +43,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js
 ```
 
 ## GitHub Pages
@@ -75,3 +77,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/anchor-gotchas-demo/
 - https://kombucho.github.io/bookmark-demos/llm-kb-demo/
 - https://kombucho.github.io/bookmark-demos/pele-diagram-demo/
+- https://kombucho.github.io/bookmark-demos/benchmark-traps-demo/
+- https://kombucho.github.io/bookmark-demos/canvas-chat-demo/

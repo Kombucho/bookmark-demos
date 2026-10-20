@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Benchmark traps</title>
+  <meta name="description" content="A simulated database benchmark. Toggles for cache warmup, working-set size, hardware, round trip, run length, closed loop, and a mean headline move which fictional engine wins. No database is contacted.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Simulated bench</p>
+      <h1>Benchmark traps</h1>
+      <p class="deck">Two fictional engines, Lumen and Harbor, share one simulated client. Change a pitfall from the benchmarking notes and the headline names a different winner. Throughput and the latency distribution stay on the page either way.</p>
+      <p class="banner">Every sample is computed in this page. No database is contacted. Lumen and Harbor are not products. The only figures taken from the article are the single-connection sketch, 1000 / (10 + 2.5) = 80 QPS and 1000 / (10 + 15) = 40 QPS, and the note that Geekbench on an r7g.2xlarge is about 15% lower than on an r8g.2xlarge. That 15% is applied here only when a CPU generation is handed to one engine. It is not a query score.</p>
+    </div>
+  </header>
+
+  <section class="sketch" aria-labelledby="sketch-heading">
+    <div class="sketch-copy">
+      <h2 id="sketch-heading">One query, one connection</h2>
+      <p>The article’s sketch: a query of about 10 ms, then the round trip. At 2.5 ms the single connection does 80 queries a second. At 15 ms it does 40. The same client, the same query. The buttons multiply that rate by 1, 10, 50, or 100 connections, the counts the article names, and they leave the server unsaturated. A fixed connection count does not grow to hide a slow round trip.</p>
+      <div class="conn-row" role="group" aria-label="Connections in the sketch">
+        <button type="button" data-sketch="1" aria-pressed="true">1</button>
+        <button type="button" data-sketch="10" aria-pressed="false">10</button>
+        <button type="button" data-sketch="50" aria-pressed="false">50</button>
+        <button type="button" data-sketch="100" aria-pressed="false">100</button>
+      </div>
+      <p id="sketch-read" class="sketch-read"></p>
+    </div>
+    <div id="sketch-chart" class="chart"></div>
+  </section>
+
+  <section class="presets" aria-label="Setups">
+    <h2>Try a setup</h2>
+    <div class="preset-row" id="presets"></div>
+  </section>
+
+  <div class="layout">
+    <form id="desk" class="controls">
+      <fieldset>
+        <legend>Workload</legend>
+        <label>Data
+          <select name="dataset">
+            <option value="spills">Both spill past RAM</option>
+            <option value="fits">Both fit in RAM</option>
+            <option value="lumen-fits">Only Lumen fits</option>
+            <option value="harbor-fits">Only Harbor fits</option>
+          </select>
+        </label>
+        <div class="choice" role="radiogroup" aria-label="Access pattern">
+          <label><input type="radio" name="pattern" value="zipfian" checked> Zipfian</label>
+          <label><input type="radio" name="pattern" value="uniform"> Uniform</label>
+        </div>
+        <label>Reads <output id="read-out" for="readRatio">100%</output>
+          <input id="readRatio" name="readRatio" type="range" min="0.5" max="1" step="0.05" value="1">
+        </label>
+        <label class="check"><input name="warmLumen" type="checkbox" checked> Lumen’s cache starts warm</label>
+        <label class="check"><input name="warmHarbor" type="checkbox" checked> Harbor’s cache starts warm</label>
+        <div class="choice" role="radiogroup" aria-label="Which seconds count">
+          <label><input type="radio" name="window" value="all" checked> All seconds</label>
+          <label><input type="radio" name="window" value="steady"> After warmup</label>
+          <label><input type="radio" name="window" value="warmup"> Warmup only</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Hardware</legend>
+        <div class="choice" role="radiogroup" aria-label="Lumen cores">
+          <span>Lumen</span>
+          <label><input type="radio" name="coresLumen" value="8" checked> 8 cores</label>
+          <label><input type="radio" name="coresLumen" value="16"> 16 cores</label>
+        </div>
+        <div class="choice" role="radiogroup" aria-label="Harbor cores">
+          <span>Harbor</span>
+          <label><input type="radio" name="coresHarbor" value="8" checked> 8 cores</label>
+          <label><input type="radio" name="coresHarbor" value="16"> 16 cores</label>
+        </div>
+        <label>Newer CPU generation
+          <select name="newerCpu">
+            <option value="none">Neither</option>
+            <option value="lumen">Lumen</option>
+            <option value="harbor">Harbor</option>
+          </select>
+        </label>
+        <p class="hint">The newer generation divides that engine’s service time by 1.15. The 15% is the article’s Geekbench comparison of an r8g.2xlarge with an r7g.2xlarge, both listed there as 8 vCPU and 64 GB.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Client and network</legend>
+        <label>Connections <output id="conn-out" for="connections">8</output>
+          <input id="connections" name="connections" type="range" min="1" max="64" step="1" value="8">
+        </label>
+        <div class="choice" role="radiogroup" aria-label="Shared round trip">
+          <label><input type="radio" name="rttMs" value="2.5" checked> 2.5 ms</label>
+          <label><input type="radio" name="rttMs" value="15"> 15 ms</label>
+        </div>
+        <label>Far link on one side
+          <select name="farSide">
+            <option value="none">Neither</option>
+            <option value="lumen">Lumen at 15 ms</option>
+            <option value="harbor">Harbor at 15 ms</option>
+          </select>
+        </label>
+        <label class="check"><input name="clientBottleneck" type="checkbox"> Client caps both at 400 QPS</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Loop, stall, checkpoint</legend>
+        <div class="choice" role="radiogroup" aria-label="Loop">
+          <label><input type="radio" name="loop" value="closed" checked> Closed</label>
+          <label><input type="radio" name="loop" value="open"> Open</label>
+        </div>
+        <label class="check"><input name="stall" type="checkbox"> Stall for 4 seconds at 36s</label>
+        <label>Checkpoint
+          <select name="checkpoint">
+            <option value="aligned">Aligned, no dip in the run</option>
+            <option value="lumen">Lumen flushes</option>
+            <option value="harbor">Harbor flushes</option>
+            <option value="both">Both flush</option>
+          </select>
+        </label>
+        <div class="choice" role="radiogroup" aria-label="Run length">
+          <label><input type="radio" name="duration" value="20"> 20 seconds</label>
+          <label><input type="radio" name="duration" value="72" checked> 72 seconds</label>
+        </div>
+        <p class="hint">A flush starts at 24 seconds and lasts 6. A 20 second run ends before it. An open loop keeps sending through a stall. A closed loop waits.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Headline</legend>
+        <div class="choice" role="radiogroup" aria-label="Headline number">
+          <label><input type="radio" name="headline" value="p50"> p50</label>
+          <label><input type="radio" name="headline" value="p99" checked> p99</label>
+          <label><input type="radio" name="headline" value="mean"> Mean latency</label>
+          <label><input type="radio" name="headline" value="qps"> Mean QPS</label>
+        </div>
+      </fieldset>
+    </form>
+
+    <section class="readout" aria-live="polite">
+      <p class="kicker" id="pitfall-kicker">Pitfalls on this desk</p>
+      <h2 id="headline"></h2>
+      <ul id="also"></ul>
+      <ul id="crimes" class="crimes"></ul>
+      <ul id="variance"></ul>
+      <div class="table-wrap">
+        <table>
+          <caption>Simulated samples for the seconds in the window. Service time excludes the round trip and any queue.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Reading</th>
+              <th scope="col">Lumen</th>
+              <th scope="col">Harbor</th>
+            </tr>
+          </thead>
+          <tbody id="stats"></tbody>
+        </table>
+      </div>
+      <p id="arrival" class="hint"></p>
+    </section>
+  </div>
+
+  <section class="charts" aria-label="Charts">
+    <figure>
+      <div id="chart-qps" class="chart"></div>
+      <figcaption>Throughput each bucket of seconds. A line shows a dip that a single average can swallow.</figcaption>
+    </figure>
+    <figure>
+      <div id="chart-tail" class="chart"></div>
+      <figcaption>Client-observed p99 inside each bucket. This is the shape the article describes sampling once a second.</figcaption>
+    </figure>
+    <figure>
+      <div id="chart-latency" class="chart"></div>
+      <figcaption>p50, p95, and p99 across the whole window. The bar chart is the compact view. The lines above are the run.</figcaption>
+    </figure>
+    <figure>
+      <div id="chart-hist" class="chart"></div>
+      <figcaption>Share of recorded requests in each latency bin. A tall median and a thin slow bin can share one run.</figcaption>
+    </figure>
+  </section>
+
+  <footer>
+    <p>Charts are Mermaid <code>xychart-beta</code>, drawn by <a href="https://github.com/obsidianmd/pele">Pele</a> 1.7.0 (MIT), vendored as <code>vendor/pele.global.js</code>. The license is <code>vendor/PELE-LICENSE.txt</code>. Pele’s xy chart draws lines and bars. It has no error-bar glyph, so the spread of throughput is the line, the coefficient of variation, and the interquartile range.</p>
+    <p>Lumen keeps a fast memory path and a slow disk miss. Harbor is steadier on disk and slower in memory. Those shapes were chosen so the toggles can move the headline. They are not measurements of any database.</p>
+    <p>From <a href="https://x.com/BenjDicken/status/2112251037587583410">Ben Dicken’s post</a> and <a href="https://planetscale.com/blog/on-benchmarking">PlanetScale’s “On benchmarking.”</a> The pitfalls in the controls are the ones that article talks through: client and server round trip, matched hardware, RAM versus disk, uniform and Zipfian access, closed versus open loop, coordinated omission, throughput and percentile latency, warmup, checkpoint timing, run-to-run spread, and the list of benchmark crimes. Apples-to-oranges product claims in that article are left off this page.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript. The bench still runs in the browser, with no database behind it.</p></noscript>
+  <script src="vendor/pele.global.js"></script>
+  <script src="bench.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
