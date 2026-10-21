@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Twenty-seven static tools:
+Twenty-nine static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -29,6 +29,8 @@ Twenty-seven static tools:
 - [Flowchart bench](pele-diagram-demo/) — a Mermaid subset (nodes, edges, labels, TD or LR) draws SVG on every keystroke and times that render. A slider builds a large graph. From [kepano’s launch of Pele](https://x.com/kepano/status/2111472054293913749). This page does not run Pele, and it does not report Pele’s or mermaid.js’s speed.
 - [Benchmark traps](benchmark-traps-demo/) — a simulated database bench where a cold cache, a working set that fits in RAM, uneven cores, a short run, a closed loop, or a mean headline changes which engine wins. From [Ben Dicken’s post](https://x.com/BenjDicken/status/2112251037587583410) and [PlanetScale’s On benchmarking](https://planetscale.com/blog/on-benchmarking). No database is contacted.
 - [Canvas chat](canvas-chat-demo/) — a scripted chat beside a canvas. Each reply is a plugin call that draws a map, a picture, a game, or a sortable ledger, and earlier canvases stay in the history. From [Dan Kornas’s post](https://x.com/DanKornas/status/2112419545889579016) about [MulmoChat](https://github.com/receptron/MulmoChat). No model is called.
+- [Frame sound](earshot-demo/) — sixteen sounds made from oscillators, noise, envelopes, and filters, a kit derived from one character and a seed, and a looping title card whose hits are scheduled on exact frames. From [LexnLin’s post](https://x.com/LexnLin/status/2111927727318245426) about [earshot](https://github.com/Leonxlnx/earshot) 0.3 and [cinetic](https://github.com/Leonxlnx/cinetic). The page does not run earshot. No model is called.
+- [Verify loop](verify-loop-demo/) — a toy ledger and its replica pass their happy-path tests, then a seeded simulation reorders messages, drops an ack, crashes between a debit and a credit, and skews a clock. The same seed replays the failure. A scripted fix is applied and the budget runs again until it is clean. From [Geoffrey Huntley’s post](https://x.com/GeoffreyHuntley/status/2111432817980674225) about [overalls.dev](https://overalls.dev) and [Antithesis](https://antithesis.com). No model is called. The ledger is not Overalls.
 
 ## Open locally
 
@@ -43,7 +45,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js
 ```
 
 ## GitHub Pages
@@ -79,3 +81,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/pele-diagram-demo/
 - https://kombucho.github.io/bookmark-demos/benchmark-traps-demo/
 - https://kombucho.github.io/bookmark-demos/canvas-chat-demo/
+- https://kombucho.github.io/bookmark-demos/earshot-demo/
+- https://kombucho.github.io/bookmark-demos/verify-loop-demo/

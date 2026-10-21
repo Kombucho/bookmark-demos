@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Verify loop</title>
+  <meta name="description" content="A toy ledger and its replica pass happy-path tests, then a seeded deterministic simulation injects reorder, drop, crash, and clock skew until an invariant fails. The same seed replays the failure. A scripted fix is applied until the seed budget is clean. No model is called.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Deterministic simulation</p>
+      <h1>Verify loop</h1>
+      <p class="deck">A toy ledger compiles, in the only sense this page has, and its happy-path tests pass. The seed budget then reorders messages, drops an ack, crashes between a debit and a credit, and jumps a clock. The first broken invariant is the finding. The same seed replays it. A scripted fix goes in, and the budget runs again.</p>
+      <p class="banner">No model is called. This ledger is not Overalls, and this loop is not Antithesis. The faults and the four fixes are scripted so the discovery and the rectification stay on the page.</p>
+    </div>
+  </header>
+
+  <section class="sheet" aria-labelledby="happy-heading">
+    <div class="sheet-head">
+      <h2 id="happy-heading">Happy path</h2>
+      <p id="happy-note"></p>
+    </div>
+    <ol id="tests" class="tests"></ol>
+  </section>
+
+  <section class="chamber" aria-labelledby="chamber-heading">
+    <div class="chamber-head">
+      <div>
+        <h2 id="chamber-heading">Seed budget</h2>
+        <p>Eight seeds. Each seed picks who pays whom and how far the replica clock jumps. The fault script is the same every time: deliver one transfer, reorder the next pair, drop an ack and retry, crash between the two legs, then read while the replica clock is ahead and its log is behind.</p>
+      </div>
+      <div class="actions">
+        <button type="button" id="replay-budget">Replay the budget</button>
+        <button type="button" id="replay-seed">Replay this seed</button>
+        <button type="button" id="reset">Put the bugs back</button>
+      </div>
+    </div>
+    <p id="replay-note" class="replay" role="status"></p>
+    <div id="fixes" class="fixes" aria-label="Fixes applied"></div>
+    <div id="seeds" class="seeds" role="group" aria-label="Seeds"></div>
+    <ol id="invariants" class="invariants"></ol>
+    <ol id="rounds" class="rounds"></ol>
+
+    <div class="split">
+      <div>
+        <div class="split-head">
+          <h3 id="timeline-heading">Events</h3>
+          <p id="seed-line"></p>
+        </div>
+        <ol id="timeline" class="timeline" aria-labelledby="timeline-heading"></ol>
+      </div>
+      <aside id="finding" class="finding" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <footer>
+    <p>The post says that an application compiling does not mean it works, and that overalls.dev is going into Antithesis for autonomous discovery and rectification. Antithesis runs the software in a deterministic simulation: clocks, faults, and inputs come from a seed, so a failure replays, and a property says what must always hold. Overalls is the self-hosted developer platform named in the post. The books here are Ada, Bo, and Cy, with one replica, so the loop can be watched without that software.</p>
+    <p>From <a href="https://x.com/GeoffreyHuntley/status/2111432817980674225">Geoffrey Huntley’s post</a>. <a href="https://overalls.dev">overalls.dev</a>. <a href="https://antithesis.com">Antithesis</a> describes the method in <a href="https://antithesis.com/docs/resources/deterministic_simulation_testing/">deterministic simulation testing</a>. No model is called.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript. It still would not call a model.</p></noscript>
+  <script src="sim.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

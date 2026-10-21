@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Frame sound</title>
+  <meta name="description" content="A small library of sounds synthesized from oscillators, noise, envelopes, and filters, a kit derived from one character and a seed, and a looping title card whose hits land on exact frames. No model is called.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Code-made sound</p>
+      <h1>Frame sound</h1>
+      <p class="deck">A library you can audition, a kit derived from one character and a seed, and a looping title card. Each hit is scheduled on a frame. Change the frame rate and the frame number stays; the clock time moves.</p>
+      <p class="banner">No model is called. earshot is not running. Every tone on this page is an oscillator, noise, an envelope, and a filter. Sound stays off until you press a button.</p>
+    </div>
+  </header>
+
+  <div class="bench">
+    <section class="panel" aria-labelledby="library-heading">
+      <header class="panel-head">
+        <h2 id="library-heading">Library</h2>
+        <p>Sixteen named sounds. Press one to hear it and draw its envelope.</p>
+      </header>
+      <div id="library" class="sound-list"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="kit-heading">
+      <header class="panel-head">
+        <h2 id="kit-heading">Kit</h2>
+        <p>One character, one seed. Click, pop, whoosh, tick, hit, success, and error share a root.</p>
+      </header>
+      <div id="characters" class="segment" role="group" aria-label="Character"></div>
+      <form id="seed-form" class="seed-form">
+        <label for="seed">Seed</label>
+        <input id="seed" type="number" min="1" max="9999" step="1" value="1" inputmode="numeric">
+        <button type="submit">Derive</button>
+      </form>
+      <p id="kit-read" class="kit-read"></p>
+      <div id="roles" class="roles"></div>
+    </section>
+  </div>
+
+  <section class="wave-block" aria-labelledby="wave-heading">
+    <div class="wave-head">
+      <h2 id="wave-heading">Envelope</h2>
+      <p id="wave-meta"></p>
+    </div>
+    <canvas id="wave" width="900" height="160" aria-describedby="wave-meta"></canvas>
+    <p id="audio-status" class="status" role="status">Sound is off until you press a button.</p>
+  </section>
+
+  <section class="picture" aria-labelledby="picture-heading">
+    <div class="picture-head">
+      <div>
+        <h2 id="picture-heading">Picture</h2>
+        <p>96 frames. The picture uses the kit. A whoosh is aligned on its apex, so the loudest sample is the frame and the sound starts earlier. The other hits start on the frame.</p>
+      </div>
+      <p id="fps-note" class="fps-note"></p>
+    </div>
+
+    <div class="stage" id="stage">
+      <span class="corner tl"></span>
+      <span class="corner tr"></span>
+      <span class="corner bl"></span>
+      <span class="corner br"></span>
+      <div class="stage-top">
+        <span>Picture</span>
+        <span id="fps-read">24 fps</span>
+        <span id="frame-read">f 000</span>
+      </div>
+      <div class="lockup">
+        <div class="bar-wrap">
+          <div class="bar" id="bar"></div>
+          <div class="notch" id="notch"></div>
+        </div>
+        <div class="mark-row">
+          <div class="ring" id="ring"></div>
+          <div class="word" id="word" aria-hidden="true">
+            <span>O</span><span>P</span><span>E</span><span>N</span>
+          </div>
+          <svg class="check" id="check" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="26"></circle>
+            <path id="check-path" pathLength="1" d="M18 34 l9 9 l18 -22"></path>
+          </svg>
+        </div>
+        <div class="chip" id="chip">Hold</div>
+      </div>
+      <p id="hit" class="hit" aria-live="polite"></p>
+    </div>
+
+    <div class="transport">
+      <button type="button" id="play" class="primary" aria-pressed="false">Play</button>
+      <div class="segment" id="fps" role="group" aria-label="Frames per second"></div>
+      <p id="transport-status" class="status">Muted until Play. The frame clock then follows the audio clock.</p>
+    </div>
+
+    <div class="ruler-wrap">
+      <div class="ruler" id="ruler" aria-hidden="true">
+        <div id="ghosts"></div>
+        <div id="markers"></div>
+        <div id="playhead" class="playhead"></div>
+      </div>
+      <div class="ruler-scale"><span>f 0</span><span>f 96</span></div>
+    </div>
+    <ol id="cues" class="cues"></ol>
+  </section>
+
+  <footer>
+    <p>earshot 0.3 ships a bank of 201 sounds stored as code, rendered by id with no models and no network. <code>earshot sfx</code> aims a sound at a frame. The apex of a whoosh is the loudest moment, and it can be placed on the frame. <code>earshot kit</code> renders one sound per role. The names calm, crisp, and minimal are that kit’s presets. The recipes on this page are not those presets. cinetic is the motion-design skill that calls earshot for a film’s kit.</p>
+    <p>From <a href="https://x.com/LexnLin/status/2111927727318245426">LexnLin’s post</a> on earshot 0.3. The bank, the kit, and frame timing are in <a href="https://github.com/Leonxlnx/earshot">Leonxlnx/earshot</a>. cinetic is <a href="https://github.com/Leonxlnx/cinetic">Leonxlnx/cinetic</a>. This page does not run either one. No model is called.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript. It still would not call a model.</p></noscript>
+  <script src="sound.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
