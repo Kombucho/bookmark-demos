@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Show me</title>
+  <meta name="description" content="A scripted diff for a fictional notes inbox. /show-me writes a short pseudo-code overview from the change, and naming a part drills into it. Tokens are counted against the raw diff. Copy the result as a PR description. No model is called.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Slash command</p>
+      <h1>Show me</h1>
+      <p class="deck">A patch for Fieldnote, a fictional notes window. The command writes a short pseudo-code slip from the change. Name a part and that node opens. The diff stays on the left so you can see what was left out.</p>
+      <p class="banner">No model is called. The patch, the steps, and the token rule all live on this page. The count is not a model tokenizer: a word of up to six characters is one token, a longer word adds a token every six characters, a punctuation run is one token, and whitespace is free.</p>
+    </div>
+  </header>
+
+  <form id="command-form" class="command">
+    <label for="command">Command</label>
+    <div class="command-row">
+      <input id="command" name="command" spellcheck="false" autocomplete="off" placeholder="/show-me the InboxView" aria-describedby="command-error">
+      <button type="submit">Show</button>
+    </div>
+    <p id="command-error" class="error" role="status"></p>
+    <div id="chips" class="chips"></div>
+  </form>
+
+  <section class="meters" aria-label="Token counts">
+    <div class="meter">
+      <div class="meter-top"><span>Raw diff</span><b id="diff-tokens"></b></div>
+      <div class="track" aria-hidden="true"><div id="diff-bar" class="fill diff"></div></div>
+    </div>
+    <div class="meter">
+      <div class="meter-top"><span id="view-label">This view</span><b id="view-tokens"></b></div>
+      <div class="track" aria-hidden="true"><div id="view-bar" class="fill view"></div></div>
+    </div>
+    <p id="share" class="share"></p>
+  </section>
+
+  <div class="split">
+    <section class="diff-pane" aria-labelledby="diff-heading">
+      <header class="pane-head">
+        <h2 id="diff-heading">Diff</h2>
+        <p id="diff-meta"></p>
+      </header>
+      <pre id="diff" class="diff" tabindex="0"></pre>
+    </section>
+    <section class="slip" aria-labelledby="slip-heading">
+      <header class="pane-head">
+        <p id="path" class="path"></p>
+        <h2 id="slip-heading">Slip</h2>
+        <p id="prose"></p>
+      </header>
+      <pre id="pseudo" class="pseudo"></pre>
+      <ul id="files" class="files"></ul>
+    </section>
+  </div>
+
+  <section class="pr-pane" aria-labelledby="pr-heading">
+    <div class="pr-head">
+      <div>
+        <h2 id="pr-heading">PR description</h2>
+        <p>The slip, plus a door and a blast radius, ready to paste.</p>
+      </div>
+      <button type="button" id="copy">Copy as PR description</button>
+    </div>
+    <p id="copy-status" class="copy-status" role="status"></p>
+    <pre id="pr" class="pr"></pre>
+  </section>
+
+  <footer>
+    <p>The skill asks for the smallest view that makes the change clear: pseudo-code, a call tree, or a component diff, short enough to drop into a pull request. Naming a part asks for that part only. Matt Pocock’s <code>/pr</code> skill uses this shape for the summary, then adds a door and a blast radius. Fieldnote is not a real repository. The inbox, the batches of 200, and the 4 KB read follow the example in the post.</p>
+    <p>From <a href="https://x.com/BHolmesDev/status/2111883582373257218">Ben Holmes’s post</a> about <a href="https://x.com/dexhorthy/status/2087569590268391897">Dex Horthy’s /show-me</a>. The skill text is <a href="https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md">humanlayer/skills show-me</a>. No model is called.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript. It still would not call a model.</p></noscript>
+  <script src="show.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
