@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Component canvas</title>
+  <meta name="description" content="A pannable, zoomable board of live components that share one token set. Spawn a density, radius, or emphasis comparison beside one of them, then promote a variation so every component follows. No model is called.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div class="title">
+      <p class="kicker">Shared tokens</p>
+      <h1>Component canvas</h1>
+    </div>
+    <p id="tokens" class="tokens">Regular · Soft · Ink</p>
+  </header>
+
+  <div class="toolbar">
+    <div id="picker" class="picker" role="group" aria-label="Components"></div>
+    <p class="hint">Drag empty board to pan. Scroll to zoom. Spawn one axis, then promote a trial.</p>
+  </div>
+
+  <section class="stage" aria-labelledby="board-heading">
+    <h2 id="board-heading" class="sr">Board</h2>
+    <div id="viewport" class="viewport" tabindex="0" aria-describedby="board-hint">
+      <div id="world" class="world"></div>
+      <div class="zoom" role="group" aria-label="Camera">
+        <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+        <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" id="fit">Fit</button>
+      </div>
+      <div class="dock">
+        <p id="dock-kicker" class="dock-kicker"></p>
+        <p id="dock-title"></p>
+        <div id="axes" class="axes" role="group" aria-label="Variation axes"></div>
+        <div class="dock-row">
+          <button type="button" id="promote" hidden>Promote</button>
+          <button type="button" id="clear">Clear comparisons</button>
+        </div>
+        <p id="status" class="status" role="status"></p>
+      </div>
+    </div>
+    <p id="board-hint" class="sr">The board shows Button, Card, Field, and Badge. They read one token set. A variation changes a single token.</p>
+  </section>
+
+  <footer>
+    <p>create-canvas puts the components a repository already has on one board, so a variation can sit beside the original and a choice can land back in the shared tokens. Button, Card, Field, and Badge are the components of this page. Density, radius, and emphasis are the token module. Promoting a trial writes one value. The other two stay. No model is called, and nothing is generated.</p>
+    <p>From <a href="https://x.com/Ibelick/status/2112530999447806236">Ibelick’s post</a> on the <a href="https://github.com/ibelick/ui-skills">create-canvas skill</a>. No model is called.</p>
+  </footer>
+  <noscript><p class="hint">This page needs JavaScript. It still would not call a model.</p></noscript>
+  <script src="board.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
