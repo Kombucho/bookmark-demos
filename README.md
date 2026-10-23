@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Thirty-one static tools:
+Thirty-three static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -33,6 +33,8 @@ Thirty-one static tools:
 - [Verify loop](verify-loop-demo/) — a toy ledger and its replica pass their happy-path tests, then a seeded simulation reorders messages, drops an ack, crashes between a debit and a credit, and skews a clock. The same seed replays the failure. A scripted fix is applied and the budget runs again until it is clean. From [Geoffrey Huntley’s post](https://x.com/GeoffreyHuntley/status/2111432817980674225) about [overalls.dev](https://overalls.dev) and [Antithesis](https://antithesis.com). No model is called. The ledger is not Overalls.
 - [Show me](show-me-demo/) — a scripted diff for a fictional notes inbox. The overview is pseudo-code rendered from the change, and `/show-me the InboxView` or `/show-me the preview cache` opens that part. Tokens are counted against the raw diff, and the slip copies as a PR description. From [Ben Holmes’s post](https://x.com/BHolmesDev/status/2111883582373257218) about [Dex Horthy’s /show-me](https://x.com/dexhorthy/status/2087569590268391897). No model is called.
 - [Component canvas](component-canvas-demo/) — pan and zoom a board of live components that share one token set. Spawn a density, radius, or emphasis row beside one of them and promote a variation so every component follows. From [Ibelick’s post](https://x.com/Ibelick/status/2112530999447806236) on the [create-canvas skill](https://github.com/ibelick/ui-skills). No model is called.
+- [Hackathon plan](hackathon-plan-demo/) — pick or type an idea, drag features onto one person’s five-week board, and read a judge card. The rules are the ones in [How to Win a Colosseum Hackathon](https://blog.colosseum.org/how-to-win-a-colosseum-hackathon/), via [Colosseum’s post](https://x.com/colosseum/status/1759965379957330040). Day counts are this page’s picture of that advice. Nothing is submitted.
+- [Seed leak](seed-leak-demo/) — a toy wallet writes a session log. Toggle redaction, leaving the phrase out, encryption at rest, and who can read the store. Fictional phrases either sit on the server, reach the attacker, or stay put. From [OtterSec’s thread](https://x.com/osec_io/status/1555087555351420928) on the August 2022 Slope incident. Nothing onchain is contacted.
 
 ## Open locally
 
@@ -47,7 +49,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js
 ```
 
 ## GitHub Pages
@@ -87,3 +89,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/verify-loop-demo/
 - https://kombucho.github.io/bookmark-demos/show-me-demo/
 - https://kombucho.github.io/bookmark-demos/component-canvas-demo/
+- https://kombucho.github.io/bookmark-demos/hackathon-plan-demo/
+- https://kombucho.github.io/bookmark-demos/seed-leak-demo/

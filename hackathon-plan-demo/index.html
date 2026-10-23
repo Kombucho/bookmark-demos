@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Hackathon plan</title>
+  <meta name="description" content="A five-week planner for a solo hackathon sprint. Drag features onto a fixed set of build days and read a judge card based on Colosseum’s published advice. Nothing is submitted.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Five weeks, one board</p>
+      <h1>Hackathon plan</h1>
+      <p class="deck">Pick an idea, or type one. Drag the work onto a fixed set of days. The card on the right is a judge’s reading of what made it into the sprint, and what got crowded out.</p>
+      <p class="banner">Nothing is submitted. The pass and miss lines are this page’s reading of the article, not a rubric Colosseum publishes, and not a prediction of a prize. The day weights are this page’s, so the tradeoffs fit on a board. The article does not publish a day count.</p>
+    </div>
+  </header>
+
+  <form id="setup" class="setup">
+    <fieldset>
+      <legend>Idea</legend>
+      <div class="ideas" id="ideas" role="radiogroup" aria-label="Idea"></div>
+      <div id="custom" class="custom" hidden>
+        <label>Name <input id="custom-name" name="customName" maxlength="80" autocomplete="off"></label>
+        <label>One line <input id="custom-line" name="customLine" maxlength="180" autocomplete="off"></label>
+        <label>The aha, in a few words <input id="custom-aha" name="customAha" maxlength="80" autocomplete="off"></label>
+        <label>Where it is in ten years <input id="custom-decade" name="customDecade" maxlength="180" autocomplete="off"></label>
+      </div>
+      <p id="like" class="like"></p>
+    </fieldset>
+
+    <fieldset>
+      <legend>What you claim about the idea</legend>
+      <div class="checks" id="checks"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Who is building</legend>
+      <label class="check"><input id="you-build" name="youBuild" type="checkbox" checked> I can build the devnet demo</label>
+      <div class="segment" id="team" role="radiogroup" aria-label="Cofounders"></div>
+      <div class="segment" id="intent" role="radiogroup" aria-label="How you’re entering"></div>
+      <label class="check"><input id="public-good" name="publicGood" type="checkbox"> This is a public good</label>
+    </fieldset>
+  </form>
+
+  <div class="layout">
+    <section class="tray-wrap" aria-labelledby="tray-heading">
+      <div class="tray-head">
+        <h2 id="tray-heading">Cards</h2>
+        <button type="button" id="clear">Clear the board</button>
+      </div>
+      <p id="capacity" class="capacity"></p>
+      <div id="tray" class="tray"></div>
+      <p class="hint">Select a card, then click a day. You can drag it. A card on the board can be dragged to another day, or clicked off.</p>
+    </section>
+
+    <section class="cal-wrap" aria-labelledby="cal-heading">
+      <h2 id="cal-heading">The five weeks</h2>
+      <p id="notice" class="notice" role="status"></p>
+      <div id="calendar" class="calendar"></div>
+    </section>
+
+    <aside class="judge" aria-live="polite" aria-labelledby="judge-heading">
+      <p class="kicker">This page’s reading</p>
+      <h2 id="judge-heading">Judge card</h2>
+      <p class="score" id="score"></p>
+      <ul id="lines" class="lines"></ul>
+      <h3>What a 3-minute pitch could say</h3>
+      <ol id="beats" class="beats"></ol>
+    </aside>
+  </div>
+
+  <footer>
+    <p>The board is one person’s weekdays across five weeks. Weeks 1–4 are the engineering sprint. Week 5 is testing and the pitch. A technical cofounder adds a second build track. A non-technical cofounder takes the project account and the beta session off your build track. Empty days are unused time. “At least four weeks” is why those four rows are there. It is not a rule that every cell has to be filled. Work from before the hackathon is not an extra row: the article says projects are judged on what was done during the hackathon, even if a team started two months earlier.</p>
+    <p>Colosseum’s post says the next Solana hackathon kicked off March 4, 2024, on Colosseum, and that the article covers team formation, product ideation, prioritization and execution, and presentation. March 4 is that announcement. It is not a slot on this calendar. The article’s own structure is an online hackathon, five weeks long, no specific bounties, and Solana integration as the remaining tech requirement. Prizes, it says, go to teams who intend to build full-time and who have a possibly viable business, and there is always an award for the best public good. It also says there are usually 40 individual prizes and that the top 100 are typically exceptional. This card does not place you among them.</p>
+    <p>Hivemapper and Tensor are the article’s examples of a market brought onchain and of a product built for a pain the founders had. Kiln, Streetlamp, and Wick are not those products. The cofounder switch does not introduce you to anyone. The article says to look at your own network first, then the Cofounder Directory.</p>
+    <p>From <a href="https://x.com/colosseum/status/1759965379957330040">Colosseum’s post</a> and <a href="https://blog.colosseum.org/how-to-win-a-colosseum-hackathon/">How to Win a Colosseum Hackathon</a>. Nothing on this page is sent anywhere.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript. It still would not submit a project.</p></noscript>
+  <script src="plan.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
