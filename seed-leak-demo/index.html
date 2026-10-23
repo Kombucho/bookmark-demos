@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Seed leak</title>
+  <meta name="description" content="A toy wallet sends a session log. Toggle redaction, leaving the mnemonic out, encryption at rest, and who can read the store. Fictional phrases either sit on the server, reach an attacker, or stay put. Nothing onchain is contacted.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Toy wallet, toy logs</p>
+      <h1>Seed leak</h1>
+      <p class="deck">Lantern writes a session log when a wallet is created or a phrase is imported. Walk the line from the phone to the store to a sweep. The switches decide whether a fictional phrase is still in the event, still readable on disk, and still available to the attacker.</p>
+      <p class="banner">Every phrase, wallet, and balance is fictional. The unit is glass, not dollars. Lantern is not Slope, and the host is not a real server. Nothing onchain is contacted. Leaving the store readable is this page’s what-if for “anybody with access.” It is not a finding that the real log server was breached.</p>
+    </div>
+  </header>
+
+  <section class="controls" aria-labelledby="switch-heading">
+    <div class="control-head">
+      <h2 id="switch-heading">Safeguards</h2>
+      <div class="actions">
+        <button type="button" id="watch">Watch the session</button>
+        <button type="button" id="end">Show the end</button>
+        <button type="button" id="clear">Clear the log</button>
+      </div>
+    </div>
+    <div class="switches" id="switches"></div>
+    <p class="aside">The message field starts filtered. That is the attempt the report describes. With the other switches off, the navigation arguments still carry the phrase, TLS ends at the server, and the store keeps plaintext.</p>
+  </section>
+
+  <div class="pipeline" id="pipeline" aria-live="polite"></div>
+
+  <section class="wallets" aria-labelledby="wallet-heading">
+    <h2 id="wallet-heading">Wallets</h2>
+    <div id="wallet-list" class="wallet-list"></div>
+  </section>
+
+  <footer>
+    <p>The session starts with Moth created in Lantern and Pebble imported into it. Kindling holds Pebble’s phrase and never opens Lantern. Harbor is a hardware wallet. Quill’s phrase was never imported. Create and import are the two actions that emit a navigation event. The message field of that event is redacted. Unless you turn on a stronger switch, the arguments still contain the phrase. TLS wraps the trip to <code>log.lantern.invalid</code>. The server can read the body after TLS ends. Encrypting the store turns that body into a toy seal this attacker cannot open. Restricting access leaves the attacker outside, even when the phrase is sitting on the server in the clear. The sweep spends a phrase it can read, and it spends every toy wallet that reused that phrase.</p>
+    <p>OtterSec’s thread opened with “Over $4M was drained from Solana wallets over the past 2 days,” and said they were working with Solana and Slope. In the next post they wrote that they had independently confirmed Slope’s mobile app “sends off mnemonics via TLS to their centralized Sentry server,” and that “these mnemonics are then stored in plaintext, meaning anybody with access to Sentry could access user private keys.” They said the Sentry logs they received spanned July 28 to August 3, that about 1,400 of the addresses in the exploit were in those logs, that this did not account for all of the hacked addresses, and that they were still investigating the discrepancy and other vectors. They also wrote that over 5,300 private keys which were not part of the exploit were in the Sentry instance, that 2,358 of those addresses had tokens, and told Slope users to move their funds.</p>
+    <p>Their later report, from a snapshot taken August 3, says they did not find evidence the log storage server had been breached. It confirms that Slope Wallet since version 2.2.0, released June 24, could leak private keys and mnemonics into Sentry logs. It says logging ingress was not storing logs from May 3 to July 28, so the stored window was July 28 to August 3, and that an attacker with direct access to the log server could not obtain the earlier logs that were never stored. Of the stored logs, sensitive information was present for 1,444 of 9,229 exploited wallets. The report also says the wallet tried to filter sensitive information, the message field was filtered, and a navigation event’s arguments still included a private key. They did not evaluate the rest of the client-to-server pipeline. This page’s navigation event is that shape. It is not a copy of a real log, and it does not contain a real key.</p>
+    <p>Solana’s incident note says that starting at 22:37 UTC on August 2, 2022, and continuing for about four hours, 9,231 wallets holding about $4.1 million were drained, that the transactions were signed with leaked or compromised private keys, and that this was not a protocol vulnerability. It says affected addresses had been created, imported, or used in Slope’s iOS or Android apps, that private key material was inadvertently transmitted to an application monitoring service, and that how the attacker obtained it was still under investigation when the note was written. It says importing a seed into Slope was enough to be exposed, that hardware wallets were not impacted, and that a phrase which had never been imported into Slope was not affected. It says users of other software wallets, including Phantom and Solflare, could be affected by reusing a phrase that had been in Slope, and that Ethereum impact was likely the same kind of reuse because both chains use BIP39 mnemonics. Kindling is that reuse, in miniature, and it is not Phantom.</p>
+    <p>Slope’s August 11 update says a vulnerability in the on-premise monitoring service logged sensitive data when the mobile apps generated an error event, from July 28 to August 3. It says transmission to that service was HTTPS, that access was controlled with 3-factor authentication, and that 1,444 of 9,232 hacked addresses overlapped the exposed set. The August 19 forensics note says the logging vulnerability cannot conclusively explain the exploit. It says sensitive information was collected and stored unencrypted, that OtterSec and SlowMist found no conclusive evidence the server was compromised or that the transfer into the database was intercepted, and that 5,367 private keys were stored, of which 1,444 were drained, with no evidence the other 7,785 affected wallets were ever on a Slope server. It says two of four security layers, collection and encryption, were compromised, for 41 days on the client and 7 days on the server. SlowMist’s August 4 analysis says Android builds from 2.2.0 sent a mnemonic or private key to Slope’s Sentry service when a wallet was created, and that 2.1.3 did not show that behavior in their check. Those accounts do not all name the same moment the secret was attached to a log line. This toy uses the navigation-argument case from OtterSec’s report, because that is a field you can see miss a filter.</p>
+    <p>From <a href="https://x.com/osec_io/status/1555087555351420928">OtterSec’s thread</a>, <a href="https://osec.io/reports/slope-investigation-report.pdf">their Slope investigation report</a>, <a href="https://solana.com/news/8-2-2022-application-wallet-incident">Solana’s incident note</a>, <a href="https://slope-finance.medium.com/slope-update-11-august-2022-31d678d7cd97">Slope’s August 11 update</a>, <a href="https://slope-finance.medium.com/slope-wallet-sentry-vulnerability-digital-forensics-and-incident-response-report-d7a5904e5a39">Slope’s August 19 forensics note</a>, and <a href="https://slowmist.medium.com/analysis-of-large-scale-theft-of-solana-5782cc999df4">SlowMist’s August 4 analysis</a>. The glass on these cards is not the $4 million in the thread or the $4.1 million in Solana’s note.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript. It still would not contact a cluster.</p></noscript>
+  <script src="leak.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
