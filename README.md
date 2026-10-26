@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Thirty-three static tools:
+Thirty-five static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -35,6 +35,8 @@ Thirty-three static tools:
 - [Component canvas](component-canvas-demo/) — pan and zoom a board of live components that share one token set. Spawn a density, radius, or emphasis row beside one of them and promote a variation so every component follows. From [Ibelick’s post](https://x.com/Ibelick/status/2112530999447806236) on the [create-canvas skill](https://github.com/ibelick/ui-skills). No model is called.
 - [Hackathon plan](hackathon-plan-demo/) — pick or type an idea, drag features onto one person’s five-week board, and read a judge card. The rules are the ones in [How to Win a Colosseum Hackathon](https://blog.colosseum.org/how-to-win-a-colosseum-hackathon/), via [Colosseum’s post](https://x.com/colosseum/status/1759965379957330040). Day counts are this page’s picture of that advice. Nothing is submitted.
 - [Seed leak](seed-leak-demo/) — a toy wallet writes a session log. Toggle redaction, leaving the phrase out, encryption at rest, and who can read the store. Fictional phrases either sit on the server, reach the attacker, or stay put. From [OtterSec’s thread](https://x.com/osec_io/status/1555087555351420928) on the August 2022 Slope incident. Nothing onchain is contacted.
+- [Code search](code-search-demo/) — a fictional twelve-file repo. Opening whole files is counted against ranked passages with file and line. BM25, a hand-built vector, and a hybrid can be switched, and symbol chunks can be turned off. From [Dan Kornas’s post](https://x.com/DanKornas/status/2113894860998525255) about [XERJ](https://github.com/xerj-org/xerj). No model is called. The page does not run XERJ.
+- [Tests and proofs](formal-proof-demo/) — three toy functions pass a few tests. A bounded exhaustive check walks every 8-bit input, paints the ones that fail, and names a counterexample. From [Anthropic’s Frontier Red Team](https://www.anthropic.com/research/formal-verification), via [the post](https://x.com/AnthropicAI/status/2113390212911083894), on work with [Theorem](https://theorem.dev/). This page is not Rocq, and the functions are not those libraries.
 
 ## Open locally
 
@@ -49,7 +51,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js
 ```
 
 ## GitHub Pages
@@ -91,3 +93,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/component-canvas-demo/
 - https://kombucho.github.io/bookmark-demos/hackathon-plan-demo/
 - https://kombucho.github.io/bookmark-demos/seed-leak-demo/
+- https://kombucho.github.io/bookmark-demos/code-search-demo/
+- https://kombucho.github.io/bookmark-demos/formal-proof-demo/

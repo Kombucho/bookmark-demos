@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Tests and proofs</title>
+  <meta name="description" content="Three toy functions pass a handful of unit tests. An exhaustive check walks every 8-bit input, paints the square, and names a counterexample. A bounded stand-in for a prover, not Rocq.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Every input</p>
+      <h1>Tests and proofs</h1>
+      <p class="deck">Each function has a security property and a handful of unit tests. The tests pass. The square is every byte the function can be given. Checking it either colors the whole domain green or puts a finger on a counterexample the tests never tried.</p>
+      <p class="banner">This is a loop from 0 to 255 written in JavaScript. It stands in for a prover only because the domain is tiny. It is not Rocq, it does not look at machine code, and these three functions are not the libraries in the post. A real proof is an argument a checker accepts. Here, trying every input is the argument.</p>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Functions">
+    <button type="button" id="tab-bounds" role="tab" aria-selected="true" aria-controls="panel">Bounds check</button>
+    <button type="button" id="tab-length" role="tab" aria-selected="false" aria-controls="panel">Byte length</button>
+    <button type="button" id="tab-copy" role="tab" aria-selected="false" aria-controls="panel">Buffer copy</button>
+  </div>
+
+  <div class="work" id="panel">
+    <section class="card" aria-labelledby="fn-heading">
+      <h2 id="fn-heading">The function</h2>
+      <pre id="source" class="source"></pre>
+      <div id="expr-box">
+        <label for="expr">Return expression</label>
+        <input id="expr" value="index &lt;= length" spellcheck="false" autocomplete="off" autocapitalize="off">
+        <div class="actions">
+          <button type="button" id="off-by">Off by one</button>
+          <button type="button" id="strict">Strict less-than</button>
+        </div>
+      </div>
+      <label class="guard" id="guard-label">
+        <input id="guard" type="checkbox">
+        <span id="guard-text">Turn the guard on</span>
+      </label>
+      <p id="property" class="property"></p>
+      <p id="expr-error" class="error" role="status"></p>
+    </section>
+
+    <section class="card" aria-labelledby="test-heading">
+      <div class="section-head">
+        <h2 id="test-heading">Unit tests</h2>
+        <p id="test-summary"></p>
+      </div>
+      <ol id="tests" class="tests"></ol>
+    </section>
+  </div>
+
+  <section class="grid-panel" aria-labelledby="grid-heading">
+    <div class="section-head">
+      <div>
+        <h2 id="grid-heading">The square</h2>
+        <p id="axes"></p>
+      </div>
+      <div class="actions">
+        <button type="button" id="prove" class="primary">Check every input</button>
+        <button type="button" id="tests-only">Show only the tests</button>
+        <button type="button" id="jump" hidden>Show a failing input</button>
+      </div>
+    </div>
+    <p id="verdict" class="verdict" role="status"></p>
+    <div class="grid-layout">
+      <div>
+        <div class="canvas-box">
+          <canvas id="grid" width="256" height="256" aria-label="Every input in this slice, colored when a check has run"></canvas>
+          <div id="markers"></div>
+        </div>
+        <div id="copy-extra" class="copy-extra" hidden>
+          <label class="slider" for="capacity">Capacity <output id="cap-out" for="capacity">10</output>
+            <input id="capacity" type="range" min="0" max="255" value="10">
+          </label>
+          <canvas id="strip" width="256" height="18" aria-label="Which capacities contain a failing triple"></canvas>
+          <p class="hint">Each column is one capacity, 0 on the left and 255 on the right. The unit tests use 5 and 10.</p>
+        </div>
+        <ul class="legend">
+          <li><span class="swatch plain"></span> not checked</li>
+          <li><span class="swatch pass"></span> property holds</li>
+          <li><span class="swatch fail"></span> counterexample</li>
+          <li><span class="swatch ring"></span> unit test</li>
+        </ul>
+      </div>
+      <aside class="inspect" aria-live="polite">
+        <h3>Under the pointer</h3>
+        <p id="cell">Move across the square.</p>
+        <h3>What the check found</h3>
+        <p id="counter">Nothing yet. The rings are the only inputs the tests look at.</p>
+      </aside>
+    </div>
+  </section>
+
+  <footer>
+    <p>The bounds property is <code>index &lt; length</code>. The length property is: a product that fits in one byte is returned exactly, and a product that does not is refused. The copy is allowed exactly when <code>start + count &lt;= capacity</code> using the real sum. A low byte left over after the sum passes 255 is not a small end. The guard subtracts only after <code>count</code> is known to fit, so that comparison cannot wrap.</p>
+    <p>Fuzzing, as the post describes it, pushes a great many generated inputs through an entry point and still cannot finish: there are always more inputs. The spec they proved says a compiled fuzz entry point never crashes for any input under 64 MB, for every modeled Linux response and memory layout. The assumptions named in the post are a single-threaded static binary, a fixed memory budget, a RISC-V CPU, and Linux. Claude wrote the proofs. The Rocq kernel checked them. The trusted pieces they list are the RISC-V model, the Linux process model, the theorem statements, and Rocq itself. “Formally verified” there does not mean bug-free. A checker cannot tell you that the spec matches the machine people actually run.</p>
+    <p>Over a few weeks they patched bugs found along the way and then proved no crash, including AddressSanitizer failures and failed assertions, for 239 entry points across 123 OSS-Fuzz libraries. The proofs are about the compiled RISC-V instructions. The post says they come to about 180 million lines of Rocq, with a typical proof around 600,000 lines, on binaries whose median length is about 18,000 instructions. This page’s 65,536 or 16,777,216 checks are not that. Enumeration only works because a byte is small and the functions are a few lines long.</p>
+    <p>From <a href="https://www.anthropic.com/research/formal-verification">LLMs are making formal software verification feasible at a much larger scale</a>, Frontier Red Team, 22 Oct 2026, in collaboration with <a href="https://theorem.dev/">Theorem</a>. <a href="https://x.com/AnthropicAI/status/2113390212911083894">The post on X</a>. Theorem’s blog points at the same article.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript. The three functions above are still just the ideas the square would check.</p></noscript>
+  <script src="check.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

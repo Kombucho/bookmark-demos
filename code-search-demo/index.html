@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Code search</title>
+  <meta name="description" content="A fictional repo. Compare an agent that opens whole files with ranked passages. Switch BM25, a hand-built vector, and a hybrid, and toggle symbol chunks against flat windows.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Fictional repo</p>
+      <h1>Code search</h1>
+      <p class="deck">Wick is twelve files in the browser: source, a README, a log, and two configs. One reader opens them from the top and takes each file whole. The other returns passages with a path and a line. The counters are characters and words actually pulled into the answer.</p>
+      <p class="banner">Wick is not a real project, and this page does not run XERJ. BM25 here is Okapi over these files. The vector is a hand-written lexicon of six buckets, not a model and not XERJ’s embedder. Symbol chunks come from a brace matcher standing in for tree-sitter.</p>
+    </div>
+  </header>
+
+  <section class="ask" aria-label="Query">
+    <form id="ask" role="search">
+      <label for="query">Query the toy repo</label>
+      <div class="ask-row">
+        <input id="query" name="query" type="search" maxlength="80" autocomplete="off" spellcheck="false" value="rotate the wal segment">
+        <button type="submit">Search</button>
+      </div>
+    </form>
+    <div id="presets" class="presets" role="group" aria-label="Preset queries"></div>
+  </section>
+
+  <section class="switches" aria-label="How the index works">
+    <div>
+      <p class="switch-label">Retrieval</p>
+      <div class="modes" role="radiogroup" aria-label="Retrieval">
+        <button type="button" data-mode="bm25" aria-pressed="false">BM25</button>
+        <button type="button" data-mode="vector" aria-pressed="false">Toy vector</button>
+        <button type="button" data-mode="hybrid" aria-pressed="true">Hybrid</button>
+      </div>
+    </div>
+    <div>
+      <p class="switch-label">Chunks</p>
+      <div class="modes" role="radiogroup" aria-label="Chunks">
+        <button type="button" data-aware="0" aria-pressed="false">Flat windows</button>
+        <button type="button" data-aware="1" aria-pressed="true">Symbol chunks</button>
+      </div>
+    </div>
+  </section>
+  <p id="index-line" class="index-line"></p>
+
+  <section class="meters" aria-label="How much text each approach reads">
+    <article>
+      <p class="kicker">Whole files</p>
+      <p class="num" id="open-chars">0</p>
+      <p class="sub" id="open-sub"></p>
+      <div class="track" aria-hidden="true"><span id="open-bar"></span></div>
+    </article>
+    <article>
+      <p class="kicker">Passages</p>
+      <p class="num" id="pass-chars">0</p>
+      <p class="sub" id="pass-sub"></p>
+      <div class="track" aria-hidden="true"><span id="pass-bar"></span></div>
+    </article>
+  </section>
+  <p id="compare" class="compare" role="status"></p>
+
+  <div class="stage">
+    <section class="panel" aria-labelledby="tree-heading">
+      <div class="section-head">
+        <div>
+          <h2 id="tree-heading">The tree</h2>
+          <p>Path order. Play reads every file, whole.</p>
+        </div>
+        <div class="actions">
+          <button type="button" id="step">Open next</button>
+          <button type="button" id="play" aria-pressed="false">Play</button>
+          <button type="button" id="reset-walk">From the top</button>
+        </div>
+      </div>
+      <div id="files" class="files"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="hit-heading">
+      <div class="section-head">
+        <div>
+          <h2 id="hit-heading">Passages</h2>
+          <p id="hit-count"></p>
+        </div>
+      </div>
+      <div id="hits" class="hits"></div>
+    </section>
+  </div>
+
+  <section class="reader" aria-labelledby="reader-heading">
+    <div class="section-head">
+      <h2 id="reader-heading">In the file</h2>
+      <p id="reader-meta"></p>
+    </div>
+    <ol id="reader" class="lines"></ol>
+  </section>
+
+  <details class="lexicon">
+    <summary>The six buckets in the toy vector</summary>
+    <p>Each word was assigned by hand. A passage’s vector is the count of those words, then cosine similarity with the query. Equal cosines break toward the passage with more of those words. Nothing was learned from data.</p>
+    <div id="lexicon" class="buckets"></div>
+  </details>
+
+  <footer>
+    <p>Flat windows are six lines, and an identifier such as <code>rotateSegment</code> stays one token, so the query word “rotate” does not hit it. Symbol chunks are one function each. The name is split on camel case, and the lines of the body stay with it. Docs become sections, the log becomes lines, and a repeated warning is shown once so it cannot fill the list. The small “×” is how many copies were collapsed. Config files are one record, and their keys split the same way.</p>
+    <p>Characters are the passage or file text. Tokens drop numbers and a short stop list. They are not tokens from a model tokenizer. The whole-file counter climbs only for files the walker has opened. The passage counter is the text of the cards on the right.</p>
+    <p>XERJ is a local-first search engine and MCP server: one Rust binary, Apache-2.0. Its README describes <code>xerj autoindex</code> over a folder of code, docs, logs, PDFs, and structured files; tree-sitter indexing that keeps symbols and file:line context; BM25, vector, and hybrid retrieval; an MCP server started with <code>xerj mcp</code>; and an Elasticsearch-compatible API. This page is a sketch of that contrast, on a tree small enough to read. It does not speak that API, and it does not reproduce any measurement published for XERJ.</p>
+    <p>From <a href="https://x.com/DanKornas/status/2113894860998525255">Dan Kornas’s post</a>. The reply links <a href="https://github.com/xerj-org/xerj">xerj-org/xerj</a>. Docs at <a href="https://xerj.org">xerj.org</a>.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript. It still would not call a model or a search server.</p></noscript>
+  <script src="corpus.js"></script>
+  <script src="search.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
