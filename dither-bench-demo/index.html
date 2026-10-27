@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Dither bench</title>
+  <meta name="description" content="A hand-written dither bench. A lit sphere, a gradient, a swirl, and a shaded globe pass through a threshold, Bayer tiles, white noise, or Floyd–Steinberg. Hover a cell to see the brightness and the threshold. This page does not run dithercn or Paper Shaders.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Two colours</p>
+      <h1>Dither bench</h1>
+      <p class="deck">Four procedural pictures, one cell at a time. A threshold, a Bayer tile, white noise, or Floyd–Steinberg decides whether that cell is the mark or the ground. The matrix on the page is the one the plate is using.</p>
+      <p class="banner">This page does not run dithercn or Paper Shaders. There is no WebGL shader and no registry install. The Bayer tiles, the hash, and the Floyd–Steinberg weights are written in this folder. No model is called.</p>
+    </div>
+  </header>
+
+  <div class="bench">
+    <section class="stage" aria-labelledby="plate-heading">
+      <div class="section-head">
+        <div>
+          <h2 id="plate-heading">Plate</h2>
+          <p id="plate-meta"></p>
+        </div>
+        <div class="actions">
+          <button type="button" id="play" aria-pressed="false">Play</button>
+          <button type="button" id="step">Step</button>
+        </div>
+      </div>
+      <div class="frame" id="frame" tabindex="0" aria-describedby="inspect">
+        <canvas id="plate" width="120" height="72" aria-label="Dithered plate. Hover or focus and use the arrow keys to read one cell."></canvas>
+        <div id="reticule" class="reticule" hidden></div>
+      </div>
+      <ul class="legend">
+        <li><span id="swatch-ink" class="swatch"></span> <span id="legend-ink">Mark, where the sample loses</span></li>
+        <li><span id="swatch-paper" class="swatch"></span> <span id="legend-paper">Ground, where the sample wins</span></li>
+      </ul>
+    </section>
+
+    <aside class="controls" aria-label="Dither controls">
+      <fieldset>
+        <legend>Source</legend>
+        <div class="modes" id="sources" role="radiogroup" aria-label="Source"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Matrix</legend>
+        <div class="modes" id="modes" role="radiogroup" aria-label="Matrix"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Cell size <span id="cell-readout">4</span></legend>
+        <input id="cell" type="range" min="0" max="4" value="2" aria-valuetext="4">
+      </fieldset>
+      <fieldset>
+        <legend>Mark and ground</legend>
+        <div class="palettes" id="palettes" role="radiogroup" aria-label="Palette"></div>
+      </fieldset>
+    </aside>
+  </div>
+
+  <section class="lower">
+    <div class="card" aria-labelledby="matrix-heading">
+      <h2 id="matrix-heading">Threshold matrix</h2>
+      <p id="matrix-note"></p>
+      <div id="matrix" class="matrix"></div>
+    </div>
+    <div class="card" aria-labelledby="inspect-heading">
+      <div class="section-head">
+        <h2 id="inspect-heading">This cell</h2>
+        <button type="button" id="unpin" hidden>Unpin</button>
+      </div>
+      <p id="inspect" role="status">Hover the plate, or focus it and use the arrow keys.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Ordered dither compares each cell with a threshold and forgets the rounding. Bayer 2×2, 4×4, and 8×8 are the standard tiles: each step is four copies of the previous tile, offset by 0, 2, 3, and 1. The number in the grid is that integer. The comparison uses <code>(value + 1/2) / n²</code>. A sample equal to the threshold stays the mark. Threshold mode is the same comparison with a single 1/2 and no tile. Random mode has no tile. Each cell hashes x, y, and the frame into its own number in 0 to 1.</p>
+    <p>Floyd–Steinberg is here as a comparison, not as one of those tiles. The cell is still marked against 1/2, then the leftover is split 7/16 to the right, 3/16 down-left, 5/16 down, and 1/16 down-right. The walk is left to right, top to bottom. The adjusted value is not clamped, so it can sit outside 0 to 1. Cell size is how many screen pixels share one of those decisions. The field is 240 by 144 pixels, divided by the cell size.</p>
+    <p>The lit sphere is a Lambert disc with the light fixed up and to the left. The gradient is the horizontal position. The swirl is a sine of angle and radius, and it moves with time. The shaded globe is another disc: longitude picks day and night, and a thin equator stays slightly bright. Corners outside either disc are ground, so the margin does not speckle. None of the four is the dithercn globe. There are no city markers, no arcs, and no theme tokens.</p>
+    <p>The four pairs are this page’s. Newsprint, cyan on rose, acid on black, and ember on cream name the mark first and the ground second. They are not <code>colorFront</code> and <code>colorBack</code> from Paper Shaders. A brighter sample takes the ground. A darker sample takes the mark, including when the mark is the lighter hex, as it is in the acid pair.</p>
+    <p>Teknium’s post on 22 Oct 2026 says someone showed him a JS library for dithering visualizations, so he had Hermes Agent make a page of uncommon web libraries. That page is <a href="https://webdev.teknium.io/">Uncommon web</a>. Its first section is “Dither, pixel &amp; ASCII”. <a href="https://dithercn.dev">dithercn</a> is described there as a Bayer engine plus examples, installed from the shadcn registry (<code>npx shadcn@latest add https://dithercn.dev/r/dither-globe.json</code>, with <code>cell</code> and <code>matrix="bayer4"</code>). The field guide lists it as MIT. Paper Shaders’ Dithering shader, also in that section, takes <code>type</code> of <code>random</code>, <code>2x2</code>, <code>4x4</code>, or <code>8x8</code> over shapes that include sphere and swirl. The field guide lists that package as Apache-2.0. This bench borrows those choices of matrix and those two shapes, and adds a plain threshold, a gradient, a shaded globe, and error diffusion so the tile can be read next to the picture. <a href="https://x.com/Teknium/status/2113265212484636929">The post</a>.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript. It still would not run dithercn, Paper Shaders, or a model.</p></noscript>
+  <script src="dither.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
