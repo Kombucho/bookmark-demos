@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Open factory</title>
+  <meta name="description" content="A scripted task on a fictional refresh function. RPI Guided walks Questions, Research, Design, Structure, Plan, and Implement. An open design comment holds the task. Oneshot implements directly. No model is called. This page does not run HumanLayer.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Scripted task</p>
+      <h1>Open factory</h1>
+      <p class="deck">One fictional task, token refresh. RPI Guided walks the six published phases, and an open comment on the design holds the task. Resolving the scripted comment rewrites the design. The implement diff follows that revision. Oneshot never opens the design, so the diff stays a bare fetch.</p>
+      <p class="banner">No model is called. This page does not run the humanlayer CLI, the daemon, Electric, or a desktop app. The function on the sheet is text. Nothing is fetched, and no repository is edited. Holding the task while a comment is open is this page’s reading of the published checkpoint, not a rule copied out of the daemon.</p>
+    </div>
+  </header>
+
+  <div class="switch-row">
+    <div class="modes" id="workflows" role="radiogroup" aria-label="Workflow"></div>
+    <button type="button" id="reset">Reset</button>
+  </div>
+  <p id="summary" class="summary"></p>
+  <p id="status" class="status" role="status"></p>
+
+  <ol id="phases" class="phases"></ol>
+
+  <div class="board">
+    <article class="sheet" id="sheet-card" aria-labelledby="sheet-title">
+      <p id="sheet-kicker" class="kicker"></p>
+      <h2 id="sheet-title"></h2>
+      <div id="sheet"></div>
+      <div class="actions">
+        <button type="button" id="share">Share one in-flight call</button>
+        <button type="button" id="every">Call every time</button>
+        <button type="button" id="advance">Next phase</button>
+        <button type="button" id="scripted">Comment on the race</button>
+        <button type="button" id="resolve">Resolve</button>
+      </div>
+      <form id="note-form">
+        <label for="note">Other note</label>
+        <div class="note-row">
+          <input id="note" name="note" maxlength="180" autocomplete="off" spellcheck="false" placeholder="A short comment on the design">
+          <button type="submit" id="note-send">Add note</button>
+        </div>
+      </form>
+    </article>
+
+    <aside class="side">
+      <section class="card" aria-labelledby="session-heading">
+        <h2 id="session-heading">Sessions</h2>
+        <ul id="sessions" class="sessions"></ul>
+        <p class="fine">Sessions here are labels with the status words from the product page: RUNNING, DONE, IDLE, DRAFT. Nothing is launched.</p>
+      </section>
+      <section class="card" aria-labelledby="diff-heading">
+        <h2 id="diff-heading">Diff</h2>
+        <p id="diff-empty" class="fine">The diff is written at Implement.</p>
+        <pre id="diff" class="diff" hidden></pre>
+      </section>
+      <section class="card" aria-labelledby="thread-heading">
+        <h2 id="thread-heading">Comment</h2>
+        <div id="thread" class="thread"></div>
+      </section>
+    </aside>
+  </div>
+
+  <footer>
+    <p>Dex Horthy’s post on 23 Oct 2026 says “its time” and links an X article titled “Open Sourcing HumanLayer”. The same text is on the <a href="https://www.humanlayer.dev/blog/open-sourcing-humanlayer">HumanLayer blog</a>. It says HumanLayer core is open source at <a href="https://github.com/humanlayer/humanlayer">github.com/humanlayer/humanlayer</a>, Apache 2.0, and that a build you run yourself sends no telemetry unless keys or DSNs are set. The article signs off Dex and Kyle.</p>
+    <p>What the post says is inside: the desktop app (Electron, plus a Tauri build) and the web app; the daemon that runs Claude Code and Codex sessions, shipped in the <code>humanlayer</code> CLI; the cloud API and the Electric proxy that syncs Postgres; the build sources for the <a href="https://github.com/humanlayer/humanlayer-pi">humanlayer-pi</a> and <a href="https://github.com/humanlayer/humanlayer-opencode">humanlayer-opencode</a> plugins; the RPI skills and the Linear CLI; and the data model of orgs, teams, projects, tasks, sessions, plans and comments, diffs, PRs, and the GitHub, Linear, Jira, and Slack integrations. The repository README adds OpenCode and Pi to the agents the daemon runs, and names the same apps. It says a build from source sends nothing unless Sentry, PostHog, and the WorkOS client ID are set in the environment. The post also says a Docker Compose file can bring the stack up, that some processes still refuse to start without third-party keys such as WorkOS, Slack, and Linear, and that the prompt to hand a coding agent is “walk me through getting the devstack up and running”.</p>
+    <p><a href="https://www.humanlayer.dev">humanlayer.dev</a> describes the product as a place where a team steers coding-agent sessions. A task groups sessions, artifacts, and worktrees. The six phases named there are Questions, Research, Design, Structure, and Plan, then Implement. The workflows named there include RPI Guided (“research-plan-implement”), RPI Outline (“Skip planning, implement from outline”), PRD-Oriented, Oneshot (“Implement the ticket or task directly”), and Freeform. This page runs only RPI Guided and Oneshot. Comments on a design document are described as the way people and agents catch a mistake before implementation, and the homepage draws a <code>refresh</code> function gaining a <code>mutex.run</code> around <code>fetch</code>. The two function bodies here follow that drawing. The task name, the file path, and the comment text are this page’s. The FAQ on the marketing site still says the product is not open source yet. This page follows the 23 Oct 2026 post and the repository README, which say the core repo is Apache 2.0.</p>
+    <p>The page does not simulate RPI Outline, PRD-Oriented, or Freeform. It does not show orgs, teams, or projects. It does not pause a tool call for approve, deny, or an edited input: the current post and README describe tasks, sessions, plans, comments, and diffs, and the older daemon approval files are not on the repository’s main branch. Worktree path, daemon socket, and model choice are absent on purpose. <a href="https://x.com/dexhorthy/status/2113750268043210767">The post</a>.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript. It still would not call a model or start HumanLayer.</p></noscript>
+  <script src="session.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
