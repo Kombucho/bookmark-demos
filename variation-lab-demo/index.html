@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Variation lab</title>
+  <meta name="description" content="Twenty variations of a fictional pricing card, split across layout, type, color, copy, and radius. Mix them, pin a few, and read a simulated click-through. Four theories about a slow list are checked with performance.now.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Combine and test</p>
+      <h1>Variation lab</h1>
+      <p class="deck">Twenty variations of one fictional pricing card, four on each axis. Mix layout, type, color, copy, and radius, pin the ones worth keeping, and compare those side by side. The click-through number is simulated.</p>
+    </div>
+  </header>
+
+  <div class="lab">
+    <form class="axes" id="axes" aria-label="Variations">
+      <div class="axes-head">
+        <h2>20 variations</h2>
+        <button type="button" id="shuffle">Shuffle</button>
+      </div>
+    </form>
+
+    <div class="stage">
+      <div class="bench" id="bench"></div>
+      <p class="caption">Paper Kettle is not a product. Nothing here is for sale. The card is a sketch you can restyle.</p>
+      <p class="status" id="status" aria-live="polite"></p>
+    </div>
+
+    <aside class="sim" aria-labelledby="sim-heading">
+      <p class="sim-flag">Simulated</p>
+      <h2 id="sim-heading">Click-through</h2>
+      <p class="rate" id="rate">0%</p>
+      <p class="sim-counts"><b id="clicks">0</b> clicks · <b id="visits">0</b> visits</p>
+      <ul class="parts" id="parts"></ul>
+      <p class="formula" id="formula"></p>
+      <button type="button" id="pin">Pin this mix</button>
+    </aside>
+  </div>
+
+  <section class="pins" aria-labelledby="pins-heading">
+    <h2 id="pins-heading">Pinned</h2>
+    <div class="pin-list" id="pin-list"></div>
+    <p class="pin-note" id="pin-note"></p>
+    <div class="compare" id="compare"></div>
+  </section>
+
+  <section class="problem" aria-labelledby="problem-heading">
+    <div class="problem-copy">
+      <p class="kicker">Problem space</p>
+      <h2 id="problem-heading">Four theories, then check all four</h2>
+      <p class="deck">A toy list is slow on purpose. Each theory is a candidate, not a conclusion. Checking it runs the experiment in this page and times it with <code>performance.now</code>. The rows are fictional. The timer wraps the JavaScript that builds the list and the layout those reads force. It is not a frame-time trace.</p>
+    </div>
+    <div class="slow-controls">
+      <button type="button" id="render-slow">Render the slow list</button>
+      <button type="button" id="check-all">Check all four</button>
+      <label class="count" for="count">Rows <output id="count-out">480</output>
+        <input id="count" type="range" min="80" max="640" value="480" step="40">
+      </label>
+    </div>
+    <p class="slow-time" id="slow-time" aria-live="polite"></p>
+    <div class="split-problem">
+      <div>
+        <h3>The slow loop</h3>
+        <pre id="slow-source" class="source"></pre>
+        <div class="list-host" id="list-host" aria-label="Fictional rows"></div>
+      </div>
+      <div class="theory-grid" id="theory-grid"></div>
+    </div>
+    <p class="summary" id="theory-summary" aria-live="polite"></p>
+  </section>
+
+  <footer>
+    <p>The twenty variations are the options on the five axes, not twenty separate products. Pinning keeps a mix so you can put it next to another. The simulated rate is the sum of the weights in the page, including a mix term when urgent copy meets poster type, or quiet copy meets the night card. Same mix, same number.</p>
+    <p>From <a href="https://x.com/thorstenball/status/2114386050638336082">Thorsten Ball’s “How I work with Agents.”</a> The article says not to iterate back and forth with the agent. Instead: “Generate 20 variations and a little page that lets me combine and test them.” The same point for a problem: “Give me 4 theories on why this is slow, then check all four.” This page is that exercise.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript to mix the card and time the list.</p></noscript>
+  <script src="variations.js"></script>
+  <script src="theories.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
