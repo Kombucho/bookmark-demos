@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Scrollback compress</title>
+  <meta name="description" content="A fictional terminal streams build logs, a directory listing, JSON, a progress bar, or random noise into 2,048-byte pages. Pages that leave the screen are deflated in the browser and inflated when you scroll back. The meters are this page’s bytes. Not Ghostty’s compressor.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Off-screen pages</p>
+      <h1>Scrollback compress</h1>
+      <p class="deck">A fictional terminal fills fixed pages of 2,048 bytes. A page that leaves the screen is deflated in this browser. Scroll back and that page is inflated again. Switch the workload: a repeated progress bar shrinks, and random printable noise barely does.</p>
+      <p class="banner">This illustrates an idea from the Ghostty 1.4.0 notes: scrollback that is not on screen can be stored compressed, and a page is decompressed when you scroll back to it. The compressor here is the browser’s deflate. It is not Ghostty’s. The notes report 70% to 90% less physical memory for typical text. The percentages on this page are measurements of this fictional output, and noise is supposed to compress badly. Nothing is a process-memory reading.</p>
+    </div>
+  </header>
+
+  <section class="controls" aria-label="Stream">
+    <div>
+      <p class="legend">Workload</p>
+      <div class="row" id="workloads" role="group" aria-label="Workload"></div>
+      <p class="hint" id="hint"></p>
+    </div>
+    <div>
+      <p class="legend">Pace</p>
+      <div class="row" id="speeds" role="group" aria-label="Pace"></div>
+    </div>
+    <div class="actions">
+      <button type="button" id="pause" aria-pressed="true">Pause</button>
+      <button type="button" id="clear">Clear</button>
+      <button type="button" id="follow" aria-pressed="true">Following</button>
+    </div>
+  </section>
+
+  <section class="meters" aria-label="Bytes in this page">
+    <p><b id="raw">0 B</b><span>Raw text</span></p>
+    <p><b id="held">0 B</b><span>Held now</span></p>
+    <p><b id="saved">0 B</b><span id="saved-pct">waiting for output</span></p>
+    <p><b id="ratio">—</b><span>Deflate / raw</span></p>
+  </section>
+  <p class="meter-note">Held now is expanded text still in memory, plus the deflate blobs. A page on screen keeps its text. A page off screen keeps the blob and drops the text. Blobs of pages you have visited stay counted. Saved is raw minus held.</p>
+
+  <section class="map" aria-labelledby="map-heading">
+    <div class="map-head">
+      <h2 id="map-heading">Page map</h2>
+      <p class="scale"><span class="swatch good"></span> compresses <span class="swatch bad"></span> barely <span class="swatch pending"></span> still open <span class="ring-sample"></span> on screen</p>
+    </div>
+    <div class="heat" id="heat" role="group" aria-label="Compression ratio of each page"></div>
+    <p class="detail" id="detail">Waiting for the first page.</p>
+  </section>
+
+  <section class="term" aria-label="Fictional terminal">
+    <div class="term-bar">
+      <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>kiln — fictional output</span>
+      <span id="term-state">following the tail</span>
+    </div>
+    <div class="viewport" id="viewport" tabindex="0">
+      <div class="stream" id="stream"></div>
+    </div>
+  </section>
+  <p class="error" id="error" hidden>Deflate failed in this browser, so those pages stay as text.</p>
+
+  <footer>
+    <p>Pages are 2,048 bytes of the fictional stream. Up to 72 sealed pages are kept; older ones are dropped. Compression runs when a page leaves the screen, including while output is still arriving. The release notes say Ghostty compresses while the terminal is idle and that the saving is in resident memory, not virtual memory. This page does not do that measurement.</p>
+    <p>From <a href="https://x.com/mitchellh/status/2115124583170974193">Mitchell Hashimoto’s Ghostty 1.4 release post</a>. Figures for the real terminal are in the <a href="https://ghostty.org/docs/install/release-notes/1-4-0">Ghostty 1.4.0 release notes</a>: scrollback that isn’t visible is compressed, cutting the physical memory those pages use by 70% to 90% for typical text, and pages are decompressed on demand when you scroll back.</p>
+  </footer>
+  <noscript><p class="banner">This page needs JavaScript to stream output and deflate the pages.</p></noscript>
+  <script src="stream.js"></script>
+  <script src="compress.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
