@@ -1,0 +1,164 @@
+:root {
+  color-scheme: light;
+  --bg: #f3efe6;
+  --ink: #1c1917;
+  --muted: #5e564c;
+  --line: #ddd3c4;
+  --paper: #fffdf8;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(900px 280px at 50% -10%, rgba(255, 252, 245, 0.9), transparent 60%),
+    var(--bg);
+  color: var(--ink);
+  font: 17px/1.45 "Segoe UI", system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+button, input { font: inherit; color: inherit; }
+
+button {
+  cursor: pointer;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 14px;
+  transition: border-color 160ms var(--ease), background-color 160ms var(--ease);
+}
+
+button:hover { border-color: var(--ink); }
+button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.top, .stage, .status, .hint, .colophon {
+  width: min(980px, calc(100% - 28px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.top { padding-top: 22px; }
+
+.home {
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+}
+
+.kicker {
+  margin: 14px 0 0;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+h1 {
+  margin: 4px 0 0;
+  font-size: clamp(40px, 6vw, 60px);
+  font-weight: 560;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+}
+
+.deck { max-width: 38ch; margin: 0 0 6px; color: var(--muted); }
+
+.stage { margin-top: 18px; }
+
+.frame {
+  position: relative;
+  height: min(68vh, 640px);
+  min-height: 440px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #10182c;
+  box-shadow: 0 24px 50px rgba(60, 42, 24, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+
+canvas:active { cursor: grabbing; }
+
+.caption {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 252, 247, 0.88);
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  pointer-events: none;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: end;
+  margin-top: 14px;
+}
+
+.seed-field, .time-field {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.seed-field input {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 16px;
+  letter-spacing: 0;
+  text-transform: none;
+  min-width: min(280px, 70vw);
+}
+
+.time-field { flex: 1; min-width: 180px; }
+.time-field input { width: 100%; accent-color: #1c1917; }
+
+.times { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.status, .hint, .colophon { color: var(--muted); }
+.status { min-height: 1.4em; margin-top: 14px; }
+.hint { margin-top: 4px; font-size: 15px; }
+.colophon { margin: 8px auto 40px; max-width: 78ch; font-size: 15px; }
+.colophon a { color: inherit; }
+
+@media (max-width: 800px) {
+  .top-row { display: block; }
+  .frame { min-height: 380px; height: 70vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

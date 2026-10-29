@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Tiny cozy worlds</title>
+  <meta name="description" content="A procedural diorama. Terrain, water, trees, and a little house are generated from a seed. Drag to turn it, slide from day to night, and reroll. The seed is the URL hash. This page does not run MetalForge.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div class="top-row">
+      <div>
+        <p class="kicker">A seeded diorama</p>
+        <h1>Tiny cozy worlds</h1>
+      </div>
+      <p class="deck">One island, from the seed in the address bar. Drag to turn it, scroll to come closer, and slide the day into night. Reroll grows another.</p>
+    </div>
+  </header>
+
+  <div class="stage">
+    <div class="frame">
+      <canvas id="view" aria-label="A tiny generated island. Drag to rotate."></canvas>
+      <p id="caption" class="caption"></p>
+    </div>
+    <div class="controls">
+      <label class="seed-field">Seed
+        <input id="seed" type="text" maxlength="64" spellcheck="false" autocomplete="off" aria-describedby="caption">
+      </label>
+      <button type="button" id="reroll">Reroll seed</button>
+      <button type="button" id="copy">Copy link</button>
+      <label class="time-field">Time of day
+        <input id="hour" type="range" min="0" max="1000" value="420" aria-valuemin="0" aria-valuemax="1000">
+      </label>
+      <div class="times" role="group" aria-label="Time of day presets">
+        <button type="button" data-time="0.30">Dawn</button>
+        <button type="button" data-time="0.48">Noon</button>
+        <button type="button" data-time="0.76">Dusk</button>
+        <button type="button" data-time="0.04">Night</button>
+      </div>
+      <button type="button" id="cycle" aria-pressed="true">Day cycle</button>
+    </div>
+  </div>
+
+  <p id="status" class="status" role="status">Drag the island to turn it.</p>
+  <p class="hint">The hash is the seed, so a copied link opens the same island. [ and ] turn it. R rerolls when the seed field is not focused.</p>
+  <p class="colophon">A procedural diorama after <a href="https://x.com/sucodeee/status/2114658306526736491">@sucodeee’s “Tiny cozy worlds”</a>, which points at <a href="https://metalforge.xyz">MetalForge</a> and its <a href="https://metalforge.xyz/worlds">Little Worlds</a>. Those are living scenes you can turn. This page generates its own island and does not run MetalForge.</p>
+
+  <noscript><p class="deck">This page needs JavaScript to grow the island. The default seed is lakeside-lantern.</p></noscript>
+  <script src="world.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

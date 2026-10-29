@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Calendar design</title>
+  <meta name="description" content="A people-ops calendar in the browser. Switch day, week, and month, drag to create, move, and resize, and request time off. Working days skip weekends and holidays. This page does not run the Kargul app.">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    try {
+      var saved = JSON.parse(localStorage.getItem('bookmark-demos.calendar-design.v1') || 'null');
+      if (saved && saved.theme === 'dark') document.documentElement.dataset.theme = 'dark';
+    } catch (err) {}
+  </script>
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div class="top-row">
+      <div>
+        <p class="kicker">People calendar</p>
+        <h1>Calendar design</h1>
+      </div>
+      <p class="deck">Week, day, and month. Drag an empty hour to block time, drag a block to another day, and pull its bottom edge to resize. Time off counts working days.</p>
+    </div>
+  </header>
+
+  <div class="shell" id="workspace">
+    <div class="bar">
+      <div class="identity">
+        <p class="who">AW · Ada Wren</p>
+        <h2 id="month-label">November 2026</h2>
+        <p id="period-label" class="period"></p>
+      </div>
+      <div class="bar-actions">
+        <div class="nav" role="group" aria-label="Change date">
+          <button type="button" data-act="prev" aria-label="Previous">‹</button>
+          <button type="button" data-act="today">Today</button>
+          <button type="button" data-act="next" aria-label="Next">›</button>
+        </div>
+        <div class="segment" role="group" aria-label="Calendar view">
+          <button type="button" data-act="view" data-view="day" id="view-day">Day</button>
+          <button type="button" data-act="view" data-view="week" id="view-week">Week</button>
+          <button type="button" data-act="view" data-view="month" id="view-month">Month</button>
+        </div>
+        <button type="button" class="primary" data-act="new">New event</button>
+        <button type="button" data-act="theme" id="theme-btn" aria-pressed="false">Dark</button>
+        <button type="button" data-act="help" aria-label="Keyboard shortcuts">?</button>
+      </div>
+    </div>
+
+    <div class="workspace">
+      <aside class="aside" aria-label="Time off">
+        <div id="mini"></div>
+        <div id="stats"></div>
+        <div class="aside-actions">
+          <button type="button" class="primary" data-act="leave">Request time off</button>
+          <button type="button" data-act="reset">Reset demo data</button>
+        </div>
+        <div id="requests"></div>
+      </aside>
+      <div class="surface" id="surface" aria-label="Calendar"></div>
+    </div>
+  </div>
+
+  <p id="status" class="status" role="status">Week of 8–14 November 2026. Drag on the grid to add an event.</p>
+  <p class="hint">Keys: T today, arrows to move the period, D W M for the view, N new event, R request time off. With an event focused, arrows nudge it and Backspace deletes it.</p>
+  <p class="colophon">Rebuilt in the spirit of <a href="https://github.com/kargulstudio/calender-app-design">Kargul Studio’s calendar design</a> (MIT). The week of 8–14 November 2026 is the one that prototype opens on. This page does not run that app, and it does not use its assets. From <a href="https://x.com/marcelkargul/status/2114866114136310061">@marcelkargul’s post</a>.</p>
+
+  <dialog id="editor" aria-labelledby="editor-title">
+    <form id="editor-form">
+      <h3 id="editor-title">Event</h3>
+      <label class="field">Title
+        <input id="f-title" name="title" type="text" maxlength="80" required>
+      </label>
+      <label class="field">Date
+        <input id="f-date" name="date" type="date" required>
+      </label>
+      <p id="f-allday" class="allday-note" hidden>All day</p>
+      <div class="time-row" id="f-times">
+        <label class="field">Start
+          <select id="f-start" name="start"></select>
+        </label>
+        <label class="field">End
+          <select id="f-end" name="end"></select>
+        </label>
+      </div>
+      <fieldset class="colors" id="f-colors">
+        <legend>Colour</legend>
+      </fieldset>
+      <label class="field">Note
+        <input id="f-note" name="note" type="text" maxlength="120">
+      </label>
+      <p id="f-error" class="form-error" role="alert"></p>
+      <div class="dialog-actions">
+        <button type="button" id="f-delete" class="danger">Delete</button>
+        <span class="spacer"></span>
+        <button type="button" id="f-cancel">Cancel</button>
+        <button type="submit" class="primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="leave-dialog" aria-labelledby="leave-title">
+    <form id="leave-form">
+      <h3 id="leave-title">Request time off</h3>
+      <div class="time-row">
+        <label class="field">From
+          <input id="l-from" type="date" required>
+        </label>
+        <label class="field">To
+          <input id="l-to" type="date" required>
+        </label>
+      </div>
+      <label class="field">Type
+        <select id="l-type">
+          <option>Time off</option>
+          <option>Sick</option>
+          <option>Personal</option>
+          <option>Half-day leave</option>
+        </select>
+      </label>
+      <label class="field">Note
+        <input id="l-note" type="text" maxlength="140" placeholder="Optional">
+      </label>
+      <p id="l-preview" class="preview"></p>
+      <p id="l-error" class="form-error" role="alert"></p>
+      <div class="dialog-actions">
+        <span class="spacer"></span>
+        <button type="button" id="l-cancel">Cancel</button>
+        <button type="submit" class="primary">Submit request</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="help-dialog" aria-labelledby="help-title">
+    <h3 id="help-title">Shortcuts</h3>
+    <ul class="keys">
+      <li><kbd>T</kbd> Today</li>
+      <li><kbd>←</kbd> <kbd>→</kbd> Previous and next</li>
+      <li><kbd>D</kbd> <kbd>W</kbd> <kbd>M</kbd> Day, week, month</li>
+      <li><kbd>N</kbd> New event</li>
+      <li><kbd>R</kbd> Request time off</li>
+      <li><kbd>↑</kbd> <kbd>↓</kbd> Nudge the focused event 15 minutes</li>
+      <li><kbd>Shift</kbd> + <kbd>↑</kbd> <kbd>↓</kbd> Resize it</li>
+      <li><kbd>⌫</kbd> Delete the focused event</li>
+    </ul>
+    <div class="dialog-actions">
+      <span class="spacer"></span>
+      <button type="button" id="help-close" class="primary">Close</button>
+    </div>
+  </dialog>
+
+  <noscript><p class="deck">This page needs JavaScript to move events. The seeded week is 8–14 November 2026.</p></noscript>
+  <script src="calendar.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

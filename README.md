@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Thirty-seven static tools:
+Forty-one static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -39,6 +39,10 @@ Thirty-seven static tools:
 - [Tests and proofs](formal-proof-demo/) — three toy functions pass a few tests. A bounded exhaustive check walks every 8-bit input, paints the ones that fail, and names a counterexample. From [Anthropic’s Frontier Red Team](https://www.anthropic.com/research/formal-verification), via [the post](https://x.com/AnthropicAI/status/2113390212911083894), on work with [Theorem](https://theorem.dev/). This page is not Rocq, and the functions are not those libraries.
 - [Dither bench](dither-bench-demo/) — a lit sphere, a gradient, a swirl, and a shaded globe, drawn with a threshold, Bayer 2x2, 4x4, or 8x8, white noise, or Floyd–Steinberg. Cell size and a two-colour pair change the plate. Hover a cell for the brightness and the threshold. From [Teknium’s post](https://x.com/Teknium/status/2113265212484636929) and [Uncommon web](https://webdev.teknium.io/). This page does not run dithercn or Paper Shaders.
 - [Open factory](humanlayer-demo/) — a scripted task on a fictional refresh function. RPI Guided walks Questions, Research, Design, Structure, Plan, and Implement, and an open design comment holds the task. The scripted comment rewrites the design, and the diff follows. Oneshot implements directly and keeps the bare fetch. From [Dex Horthy’s post](https://x.com/dexhorthy/status/2113750268043210767) and [Open sourcing HumanLayer](https://www.humanlayer.dev/blog/open-sourcing-humanlayer). No model is called. This page does not run HumanLayer.
+- [Scrollback compress](scrollback-compress-demo/) — a fake terminal streams a build log, a listing, JSON, a progress bar, or random noise into fixed-size pages. Pages off screen are deflated in the browser and inflated when you scroll back. The meters are this page’s bytes, not Ghostty’s. From [Mitchell Hashimoto’s Ghostty 1.4 release post](https://x.com/mitchellh/status/2115124583170974193).
+- [Variation lab](variation-lab-demo/) — twenty variations of a fictional pricing card, split across layout, type, color, copy, and radius. Mix them, pin a few, and read a simulated click-through. Below, four theories about a slow list, each checked with a timer. From [Thorsten Ball’s “How I work with Agents.”](https://x.com/thorstenball/status/2114386050638336082).
+- [Calendar design](calendar-design-demo/) — week, day, and month. Drag an empty hour to create, drag a block to move it, and pull the bottom edge to resize. A time-off request counts working days and skips weekends and holidays. Seeded on the week of 8–14 November 2026. From [@marcelkargul’s post](https://x.com/marcelkargul/status/2114866114136310061) and [kargulstudio/calender-app-design](https://github.com/kargulstudio/calender-app-design) (MIT). This page does not run that app.
+- [Tiny cozy worlds](cozy-worlds-demo/) — a procedural island from a seed: terrain, water, trees, and a little house. Drag to turn it, slide from day to night, and reroll. The seed is the URL hash. From [@sucodeee’s post](https://x.com/sucodeee/status/2114658306526736491) and [MetalForge](https://metalforge.xyz). This page does not run MetalForge.
 
 ## Open locally
 
@@ -53,7 +57,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js dither-bench-demo/dither.test.js humanlayer-demo/session.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js dither-bench-demo/dither.test.js humanlayer-demo/session.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js
 ```
 
 ## GitHub Pages
@@ -99,3 +103,7 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/formal-proof-demo/
 - https://kombucho.github.io/bookmark-demos/dither-bench-demo/
 - https://kombucho.github.io/bookmark-demos/humanlayer-demo/
+- https://kombucho.github.io/bookmark-demos/scrollback-compress-demo/
+- https://kombucho.github.io/bookmark-demos/variation-lab-demo/
+- https://kombucho.github.io/bookmark-demos/calendar-design-demo/
+- https://kombucho.github.io/bookmark-demos/cozy-worlds-demo/
