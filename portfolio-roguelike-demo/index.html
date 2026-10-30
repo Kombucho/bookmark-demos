@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Fieldnote — Nera Voss</title>
+  <meta name="description" content="A fictional studio page. Esc, or the switch in the corner, turns it into a small roguelike. The projects are rooms. Arrow keys move, and the best runs stay in this browser.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-mode="folio">
+  <a class="home" href="../index.html">All demos</a>
+  <button type="button" id="mode-toggle" class="mode-toggle">Esc · Play the floor</button>
+
+  <main id="folio">
+    <header class="mast">
+      <p class="kicker">Fieldnote · interface &amp; type</p>
+      <h1>Nera Voss</h1>
+      <p class="lede">Quiet tools for reading and making. The studio is one person, the clients are invented, and the floor under this page is walkable.</p>
+    </header>
+
+    <section id="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title">Projects</h2>
+
+      <article id="harbor">
+        <p class="meta">01 · Catalog</p>
+        <h3>Harbor Index</h3>
+        <p>A catalog for a maritime library that never opened. Entries are a title, a year, and one sentence. The search sits in the margin and does not follow you down the page.</p>
+        <p>Type is a text face at a size you can read on a wet clipboard. The paper color is the library’s, not the screen’s.</p>
+      </article>
+
+      <article id="kiln">
+        <p class="meta">02 · Identity</p>
+        <h3>Kiln</h3>
+        <p>An identity for the Greyhaven ceramics school. The wordmark is a bowl in profile. The palette is four slips: chalk, iron, celadon, and the brown of a used wheel.</p>
+        <p>The course list is one page. No photographs of hands. The school’s name is set so it still reads in clay dust.</p>
+      </article>
+
+      <article id="lamp">
+        <p class="meta">03 · Product</p>
+        <h3>Low Lamp</h3>
+        <p>A notes app for a night editor. One column, no avatars, no presence dots. A note is a title and a body, and the export is a text file with the line breaks left alone.</p>
+        <p>The lamp in the corner is the only chrome. It dims the page. It does not notify anyone.</p>
+      </article>
+
+      <article id="route">
+        <p class="meta">04 · Wayfinding</p>
+        <h3>Sunday Route</h3>
+        <p>Maps for the Merrow walking club. Each sheet is a single afternoon. The type is large enough to read with the paper folded once, held at a stile, in a coat pocket’s shade.</p>
+        <p>Turns are sentences, not icons. “Leave the oak on your left” survives a smudge better than a chevron does.</p>
+      </article>
+    </section>
+
+    <section id="about" aria-labelledby="about-title">
+      <h2 id="about-title">About</h2>
+      <p>Nera Voss designs interfaces and the type that has to live in them. Fieldnote is the studio name on the invoice. Before it, a stretch of book covers and one civic form that had to be filled in on a phone, in the rain, without an account.</p>
+      <p>The work on this page is fictional. Greyhaven, Merrow, and the library are not places you can visit. The floor you can walk — press Esc — is the same four projects, plus the reading room and the letter office, laid out as rooms.</p>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact</h2>
+      <p>Write to <a href="mailto:hello@fieldnote.example">hello@fieldnote.example</a>. The form below stays in the browser.</p>
+      <form id="contact-form">
+        <label>Name
+          <input name="name" type="text" maxlength="80" autocomplete="name">
+        </label>
+        <label>Note
+          <textarea name="note" rows="4" maxlength="400"></textarea>
+        </label>
+        <button type="submit">Leave a note</button>
+        <p id="contact-note" class="form-note" hidden>Nothing was sent. The address is hello@fieldnote.example.</p>
+      </form>
+    </section>
+  </main>
+
+  <div id="game" class="game" hidden tabindex="-1" role="application" aria-label="Fieldnote floor">
+    <div class="game-grid">
+      <div>
+        <p class="kicker">The floor</p>
+        <h2 id="room-label">Studio</h2>
+        <div class="map-frame">
+          <div id="map" class="map"></div>
+        </div>
+        <p class="legend"><span class="you">@ you</span> <span class="foe">r c b</span> foes <span class="prize">1–4</span> projects <span class="prize">a</span> colophon <span class="exit">&gt;</span> letter office</p>
+        <div class="pad" role="group" aria-label="Move">
+          <span></span>
+          <button type="button" data-dir="n" aria-label="North">↑</button>
+          <span></span>
+          <button type="button" data-dir="w" aria-label="West">←</button>
+          <button type="button" data-dir="s" aria-label="South">↓</button>
+          <button type="button" data-dir="e" aria-label="East">→</button>
+        </div>
+      </div>
+      <aside class="hud" aria-label="Run">
+        <p id="hp" class="hp">HP 12 / 12</p>
+        <p id="score" class="score">0</p>
+        <p id="carry" class="carry">Nothing carried.</p>
+        <ol id="log" class="log" aria-live="polite"></ol>
+        <div id="end" class="end" hidden>
+          <p id="end-copy"></p>
+          <form id="score-form">
+            <label>Name on the board
+              <input id="score-name" type="text" maxlength="16" autocomplete="off" value="Nera">
+            </label>
+            <button type="submit">Save this run</button>
+          </form>
+          <p id="saved" class="form-note" hidden>Saved on this browser.</p>
+          <button type="button" id="restart">Play again</button>
+        </div>
+        <h3>Local board</h3>
+        <p class="board-note">Best runs stay in this browser. Nothing is uploaded.</p>
+        <ol id="board" class="board"></ol>
+      </aside>
+    </div>
+  </div>
+
+  <p class="hint">Esc switches. On the floor, arrows or WASD move. Bumping a figure strikes it. The wall does not cost a turn. Death and the letter office both end the run.</p>
+  <p class="colophon">After <a href="https://x.com/michaelmicasso/status/2115436121656332738">@michaelmicasso’s post</a> about <a href="https://mektxt.com">mektxt.com</a>, a portfolio and a roguelike on one page, one Esc between them. This page is a different studio and a different game. It does not use that site’s art or code. Scores are stored under <code>bookmark-demos.portfolio-roguelike.v1</code> in localStorage.</p>
+  <noscript>
+    <p class="hint">The floor needs JavaScript. The projects above are the whole of the studio: Harbor Index, Kiln, Low Lamp, and Sunday Route. Write to hello@fieldnote.example.</p>
+  </noscript>
+  <script src="game.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
