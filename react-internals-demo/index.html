@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>React internals</title>
+  <meta name="description" content="A toy scheduler and reconciler, with no React on the page. Step the work loop, watch a click throw away a transition, and see one tree commit through a DOM view, an ASCII page, and a JSON log.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div class="top-row">
+      <div>
+        <p class="kicker">Scheduler, reconciler, host config</p>
+        <h1>React internals</h1>
+      </div>
+      <p class="deck">One component tree. A work loop that can yield. Three host configs — DOM, ASCII, and JSON — receive the same commit. React itself is not on this page.</p>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="group" role="group" aria-label="Queue an update">
+      <button type="button" id="pin">Pin a note <span>SyncLane</span></button>
+      <button type="button" id="filter">Filter to linen <span>transition</span></button>
+      <button type="button" id="show-all">Show all <span>transition</span></button>
+    </div>
+    <div class="group" role="group" aria-label="Advance the work loop">
+      <button type="button" id="step" class="primary">Step</button>
+      <button type="button" id="slice">Run slice</button>
+      <button type="button" id="finish">Finish render</button>
+      <button type="button" id="replay">Replay mount</button>
+    </div>
+    <div class="group budgets">
+      <label>Budget
+        <input id="budget" type="number" min="1" max="40" value="5">
+        <span>ms</span>
+      </label>
+      <label>Unit cost
+        <input id="cost" type="number" min="1" max="20" value="1">
+        <span>ms</span>
+      </label>
+      <button type="button" id="outside">Call a hook outside</button>
+    </div>
+  </div>
+
+  <p id="status" class="status" role="status">Mounting the desk.</p>
+  <p id="discard" class="discard" hidden></p>
+
+  <div class="stage">
+    <section class="panel" aria-labelledby="fiber-title">
+      <div class="panel-head">
+        <h2 id="fiber-title">Fiber tree</h2>
+        <p id="tree-label" class="tag">screen</p>
+      </div>
+      <div id="fibers" class="fibers" role="list"></div>
+    </section>
+    <section class="panel" aria-labelledby="effect-title">
+      <div class="panel-head">
+        <h2 id="effect-title">Effect list</h2>
+        <p id="lane-readout" class="tag">idle</p>
+      </div>
+      <ol id="effects" class="effects"></ol>
+      <h3>Host calls on the last commit</h3>
+      <ol id="calls" class="calls"></ol>
+      <h3>Work log</h3>
+      <ol id="log" class="log"></ol>
+    </section>
+  </div>
+
+  <div id="views" class="views">
+    <section class="view" aria-labelledby="dom-title">
+      <h2 id="dom-title">DOM host</h2>
+      <div id="dom-screen" class="screen"></div>
+    </section>
+    <section class="view" aria-labelledby="ascii-title">
+      <h2 id="ascii-title">ASCII host</h2>
+      <pre id="ascii-screen" class="screen ascii"></pre>
+    </section>
+    <section class="view" aria-labelledby="json-title">
+      <h2 id="json-title">JSON host</h2>
+      <pre id="json-screen" class="screen json"></pre>
+    </section>
+  </div>
+
+  <p class="hint">P pins on SyncLane. G filters to linen, A shows every specimen. S steps one fiber. L runs a slice. Enter finishes the render. A slice on SyncLane does not yield. A transition slice stops when the budget is spent. Step until the effect list is ready, then step once more: all three hosts update together.</p>
+  <p class="colophon">From <a href="https://x.com/alexandretrotel/status/2115833209888076268">Alexandre Trotel’s post</a> and <a href="https://www.alexandretrotel.org/articles/understanding-react-internals">Understanding React internals</a>. The article’s picture: underneath, React is a scheduler; the reconciler compares trees and does not know about the DOM; a host config (<code>createInstance</code>, <code>appendChild</code>, <code>commitUpdate</code>, <code>removeChild</code>) does the touching. <code>react-dom</code> is that reconciler plus a DOM host config, and React Native is the same reconciler with a host config for native views. Render can be paused or thrown away. Commit is synchronous. A click is <code>SyncLane</code> and does not yield. A transition does, and <code>shouldYield</code> is checked after each fiber; the article’s <code>frameYieldMs</code> is 5ms. Urgent work calls <code>prepareFreshStack</code> and drops the unfinished <code>workInProgress</code> tree. This page is a toy of that split, with one transition lane instead of the article’s full set, and a fixed cost per unit so the budget is visible on a small tree. One fiber tree here is handed to three host configs; a React root has one. StrictMode’s double render is not simulated. React is not loaded.</p>
+
+  <noscript><p class="deck">This page needs JavaScript to run the toy renderer. Nothing is fetched.</p></noscript>
+  <script src="runtime.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

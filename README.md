@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Forty-one static tools:
+Forty-three static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -43,6 +43,8 @@ Forty-one static tools:
 - [Variation lab](variation-lab-demo/) — twenty variations of a fictional pricing card, split across layout, type, color, copy, and radius. Mix them, pin a few, and read a simulated click-through. Below, four theories about a slow list, each checked with a timer. From [Thorsten Ball’s “How I work with Agents.”](https://x.com/thorstenball/status/2114386050638336082).
 - [Calendar design](calendar-design-demo/) — week, day, and month. Drag an empty hour to create, drag a block to move it, and pull the bottom edge to resize. A time-off request counts working days and skips weekends and holidays. Seeded on the week of 8–14 November 2026. From [@marcelkargul’s post](https://x.com/marcelkargul/status/2114866114136310061) and [kargulstudio/calender-app-design](https://github.com/kargulstudio/calender-app-design) (MIT). This page does not run that app.
 - [Tiny cozy worlds](cozy-worlds-demo/) — a procedural island from a seed: terrain, water, trees, and a little house. Drag to turn it, slide from day to night, and reroll. The seed is the URL hash. From [@sucodeee’s post](https://x.com/sucodeee/status/2114658306526736491) and [MetalForge](https://metalforge.xyz). This page does not run MetalForge.
+- [React internals](react-internals-demo/) — a toy scheduler and reconciler. Step the work loop, watch a click throw away a transition, and see one tree commit through a DOM view, an ASCII page, and a JSON log. From [Alexandre Trotel’s post](https://x.com/alexandretrotel/status/2115833209888076268) and [Understanding React internals](https://www.alexandretrotel.org/articles/understanding-react-internals). This page does not load React.
+- [Portfolio roguelike](portfolio-roguelike-demo/) — a fictional studio page. Esc turns it into a small roguelike whose rooms are the projects. Arrow keys move, and a local board keeps the best runs. From [@michaelmicasso’s post](https://x.com/michaelmicasso/status/2115436121656332738) about [mektxt.com](https://mektxt.com). This page does not use that site’s art or code.
 
 ## Open locally
 
@@ -57,7 +59,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js dither-bench-demo/dither.test.js humanlayer-demo/session.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js dither-bench-demo/dither.test.js humanlayer-demo/session.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js react-internals-demo/runtime.test.js portfolio-roguelike-demo/game.test.js
 ```
 
 ## GitHub Pages
@@ -107,3 +109,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/variation-lab-demo/
 - https://kombucho.github.io/bookmark-demos/calendar-design-demo/
 - https://kombucho.github.io/bookmark-demos/cozy-worlds-demo/
+- https://kombucho.github.io/bookmark-demos/react-internals-demo/
+- https://kombucho.github.io/bookmark-demos/portfolio-roguelike-demo/
