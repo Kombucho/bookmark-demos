@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Statechart</title>
+  <meta name="description" content="An espresso machine driven by a hand-written statechart: nested states, parallel regions, history, and guarded transitions. The diagram lights the active states. A switch counts the flat machine.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div class="top-row">
+      <div>
+        <p class="kicker">Nested, parallel, guarded</p>
+        <h1>Statechart</h1>
+      </div>
+      <p class="deck">A counter espresso machine. The boiler, the shot, and the wand run together. The group head remembers the phase it left. Brew will not start cold, and it will not start without a cup. The diagram is the same chart the buttons run.</p>
+    </div>
+  </header>
+
+  <div class="stage">
+    <section class="counter" aria-labelledby="machine-title">
+      <div class="machine-head">
+        <h2 id="machine-title">Northglass</h2>
+        <p id="readout" class="readout" role="status">Off</p>
+      </div>
+      <div class="machine" id="machine" data-power="off" data-boiler="off" data-cycle="off" data-wand="off">
+        <div class="hood">
+          <button type="button" id="power" class="power">Power</button>
+          <p class="lamp" id="lamp"><span class="bulb"></span><span id="lamp-word">Off</span></p>
+          <div class="gauge" aria-hidden="true">
+            <div class="tube"><div id="mercury" class="mercury"></div></div>
+            <p id="temp">20°</p>
+          </div>
+        </div>
+        <div class="face">
+          <button type="button" id="latch" class="latch">Latch</button>
+          <div class="group">
+            <div class="spout" id="spout"></div>
+            <div class="stream" id="stream"></div>
+          </div>
+          <button type="button" id="steam" class="wand-btn">Steam</button>
+        </div>
+        <div class="tray">
+          <button type="button" id="cup" class="cup-btn">Place cup</button>
+          <div class="shot" id="shot" aria-hidden="true"></div>
+        </div>
+        <div class="tank-row">
+          <button type="button" id="fill">Fill tank</button>
+          <p class="pips" id="pips" aria-hidden="true"></p>
+        </div>
+        <button type="button" id="brew" class="brew">Brew</button>
+      </div>
+      <div class="clock-row">
+        <button type="button" id="clock" aria-pressed="true">Clock on</button>
+        <button type="button" id="advance">Advance</button>
+      </div>
+    </section>
+
+    <section class="chart-panel" aria-labelledby="chart-title">
+      <div class="chart-head">
+        <h2 id="chart-title">The chart</h2>
+        <label class="flat-toggle">
+          <input type="checkbox" id="flat">
+          Count the flat machine
+        </label>
+      </div>
+      <div id="diagram" class="diagram"></div>
+      <div id="explosion" class="explosion" hidden></div>
+      <ol id="log" class="log" aria-label="Event log"></ol>
+    </section>
+  </div>
+
+  <p class="hint">Put a cup down and fill the tank, then brew. Open the latch mid-pour and close it: the shot returns to the phase it left. Switch the power off while steam is open and the pour is running, then switch it on: boiler, pour, and wand come back together. The clock heats, pours, and cools. Advance does that once. A refused button names the guard that held.</p>
+  <p class="colophon">From <a href="https://x.com/i/article/2116505997439053824">David Khourshid’s article, What is a “statechart”? State machines, but better.</a> A statechart is the finite-state machine David Harel extended so it can be nested, split into orthogonal regions, guarded, and restored from history, instead of growing a box for every combination. Here the boiler, the brew cycle, and the steam wand are parallel. Pulling contains preinfuse and pouring. H on the group head is shallow history. H* on the powered machine is deep history. Brew has two transitions on one event, and the guard picks. The diagram is drawn from that same chart, so the active states and the arrow that just fired are the running configuration. The flat count expands the three regions: 3 boiler states × 6 brew states × 2 wand states is 36, plus off, and each of the 22 arrows is copied onto every configuration where its source is active. The interpreter is hand-written. XState is not on this page. Nothing is fetched.</p>
+  <noscript><p class="deck">This page needs JavaScript to run the machine. Nothing is fetched.</p></noscript>
+  <script src="chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

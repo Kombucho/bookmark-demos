@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>UpSet plot</title>
+  <meta name="description" content="An interactive UpSet plot of forty-two invented projects and six skills. Sort intersections, filter by size, and compare a three-set Venn with the same rows at six sets.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Example data · exclusive intersections</p>
+    <h1>UpSet plot</h1>
+    <p class="deck">Forty-two invented projects and six skills. Each column is one exact combination. The bars above count projects. The dots say which skills. A three-circle Venn of the same rows sits beside the count a diagram of five or six sets would have to draw.</p>
+  </header>
+
+  <section class="controls" aria-label="Plot controls">
+    <div class="segment" role="group" aria-label="Sort intersections">
+      <button type="button" id="sort-size" aria-pressed="true">By size</button>
+      <button type="button" id="sort-degree" aria-pressed="false">By degree</button>
+    </div>
+    <label class="slider">Minimum size
+      <input id="min" type="range" min="1" max="5" value="1" step="1">
+      <span id="min-read">1</span>
+    </label>
+    <p id="filter-note" class="filter-note"></p>
+  </section>
+
+  <section class="plot-wrap" aria-labelledby="plot-title">
+    <h2 id="plot-title">Intersections</h2>
+    <div class="plot">
+      <div class="rail" id="rail"></div>
+      <div class="scroller" id="scroller" tabindex="0" aria-label="Intersection columns"></div>
+    </div>
+  </section>
+
+  <section class="members" aria-live="polite">
+    <h2 id="member-title">Members</h2>
+    <p id="member-note">Hover a column, or a Venn region. The projects in that combination are listed here.</p>
+    <ul id="member-list"></ul>
+  </section>
+
+  <section class="compare" aria-label="Venn compared with five or more sets">
+    <article class="card">
+      <p class="kicker">Three sets</p>
+      <h2 id="venn-title">A Venn still fits</h2>
+      <p class="card-copy">Pick three skills. Projects that differ only on the skills you left out share a region.</p>
+      <div class="chips" id="chips" role="group" aria-label="Skills in the Venn"></div>
+      <div id="venn" class="venn"></div>
+      <div id="regions" class="regions"></div>
+    </article>
+    <article class="card">
+      <p class="kicker">Five and six</p>
+      <h2>The circles run out</h2>
+      <p id="break-copy" class="card-copy"></p>
+      <ol id="degrees" class="degrees"></ol>
+    </article>
+  </section>
+
+  <p class="colophon">Example data, invented for this page. Forty-two projects, six skills, no survey behind them. The form is an UpSet plot: intersection size above the matrix, set size beside it, one dot per set in the combination, as set out by Lex, Gehlenborg, Strobelt, Vuillemot, and Pfister (IEEE TVCG, 2014). <a href="https://github.com/krassowski/complex-upset">ComplexUpset</a> is the ggplot2 extension that draws that form with ordinary geoms, and <a href="https://krassowski.github.io/complex-upset/">the gallery</a> is the picture this page is working from. This page does not run R. The bars, the dots, and the Venn are counted in the browser from the rows in the script.</p>
+  <noscript><p class="deck">This page needs JavaScript to draw the plot. Nothing is fetched.</p></noscript>
+  <script src="upset.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
