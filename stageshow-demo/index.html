@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Stage</title>
+  <meta name="description" content="A faux berth desk. Turn Stageshow’s rules on and off and watch an agent’s default mock become a cropped product still.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Faux UI · one still</p>
+    <h1>Stage</h1>
+    <p class="deck">Keel is a fictional berth desk. The shot starts as the mock an agent reaches for: purple, a letter in a square, every cell filled in. Each switch is one decision from Stageshow. Turn them on and the same pixels crop, quiet down, and move because something was pressed.</p>
+  </header>
+
+  <div class="layout">
+    <section class="rules" aria-labelledby="rules-title">
+      <div class="rule-head">
+        <h2 id="rules-title">Rules</h2>
+        <div class="presets">
+          <button type="button" id="none">AI default</button>
+          <button type="button" id="all">All the rules</button>
+        </div>
+      </div>
+      <div id="rule-list"></div>
+    </section>
+
+    <section class="shot" aria-labelledby="shot-title">
+      <div class="shot-head">
+        <h2 id="shot-title">The still</h2>
+        <p class="meter" id="count">1 real string in the window</p>
+      </div>
+      <div class="well" id="well" data-simplify="off" data-recognize="off" data-frame="off" data-weight="off" data-look="off" data-motion="off">
+        <div class="bento">
+          <div class="tile tile-hero">
+            <div class="window">
+              <div class="chrome">
+                <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="wordmark" aria-hidden="true">K</span>
+                <p class="wtitle"><span class="naive-title">Dashboard</span><span class="real-title">Berths</span></p>
+                <span class="spark" aria-hidden="true">✦</span>
+              </div>
+              <div class="body">
+                <div class="wire">
+                  <div class="blob"></div>
+                  <div class="blob short"></div>
+                  <div class="wire-hit">
+                    <div class="wire-btn">Continue</div>
+                    <span class="cursor" aria-hidden="true">
+                      <svg viewBox="0 0 16 20" width="16" height="20"><path d="M1 1 L1 15.2 L4.8 11.6 L8.1 18.2 L10.2 17.2 L6.8 10.6 L12.2 10.4 Z" fill="#1c1917"/></svg>
+                    </span>
+                  </div>
+                </div>
+                <div class="app">
+                  <div class="metrics" aria-hidden="true">
+                    <p><b>12,481</b><span>Users</span></p>
+                    <p><b>$84,210</b><span>Revenue</span></p>
+                    <p><b>318</b><span>Sessions</span></p>
+                    <p><b>10×</b><span>Growth</span></p>
+                  </div>
+                  <div class="rows">
+                    <div class="row subject">
+                      <span class="avatar av-m">MH</span>
+                      <span class="copy">
+                        <span class="name">Mira Holt</span>
+                        <span class="sub">Coastal grain</span>
+                        <span class="extra">Gate B · 240 t · confirmed for the evening tide</span>
+                      </span>
+                      <span class="hit">
+                        <span class="assign"><span class="lab-assign">Assign</span><span class="lab-gen">Generate insight</span></span>
+                        <span class="state">Assigned</span>
+                        <span class="cursor" aria-hidden="true">
+                          <svg viewBox="0 0 16 20" width="16" height="20"><path d="M1 1 L1 15.2 L4.8 11.6 L8.1 18.2 L10.2 17.2 L6.8 10.6 L12.2 10.4 Z" fill="#1c1917"/></svg>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="row filler">
+                      <span class="avatar av-j">JP</span>
+                      <span class="copy">
+                        <span class="name">Jonah Pell</span>
+                        <span class="sub">Dry dock</span>
+                        <span class="extra">inspection hold</span>
+                      </span>
+                      <span class="skel" aria-hidden="true"><i></i><i></i></span>
+                    </div>
+                    <div class="row filler">
+                      <span class="avatar av-a">AV</span>
+                      <span class="copy">
+                        <span class="name">Ada Voss</span>
+                        <span class="sub">Pilot boat</span>
+                        <span class="extra">waiting on fuel</span>
+                      </span>
+                      <span class="skel" aria-hidden="true"><i></i><i></i></span>
+                    </div>
+                    <div class="row filler">
+                      <span class="avatar av-l">LC</span>
+                      <span class="copy">
+                        <span class="name">Len Cho</span>
+                        <span class="sub">Customs</span>
+                        <span class="extra">papers due</span>
+                      </span>
+                      <span class="skel" aria-hidden="true"><i></i><i></i></span>
+                    </div>
+                    <div class="row filler bars-only"><span class="avatar"></span><span class="skel" aria-hidden="true"><i></i><i></i></span></div>
+                    <div class="row filler bars-only"><span class="avatar"></span><span class="skel" aria-hidden="true"><i></i><i></i></span></div>
+                    <div class="row filler bars-only"><span class="avatar"></span><span class="skel" aria-hidden="true"><i></i><i></i></span></div>
+                    <div class="row filler bars-only"><span class="avatar"></span><span class="skel" aria-hidden="true"><i></i><i></i></span></div>
+                    <div class="row filler bars-only"><span class="avatar"></span><span class="skel" aria-hidden="true"><i></i><i></i></span></div>
+                  </div>
+                  <aside class="slip slip-in">
+                    <p class="slip-kicker">Slip</p>
+                    <p class="slip-short">Evening tide</p>
+                    <p class="slip-long">Predicted throughput is up across every region this week</p>
+                  </aside>
+                </div>
+              </div>
+            </div>
+            <aside class="slip slip-out">
+              <p class="slip-kicker">Slip</p>
+              <p class="slip-short">Evening tide</p>
+              <p class="slip-long">Predicted throughput is up across every region this week</p>
+            </aside>
+          </div>
+          <article class="tile tile-stat">
+            <p class="stat-kicker stat-short">Pier</p>
+            <p class="stat-num">4</p>
+            <p class="stat-long"><b>12,481</b> users this week, across every harbor, plus revenue, sessions, and a 10× badge.</p>
+          </article>
+          <article class="tile tile-say">
+            <p class="say-short">One berth.</p>
+            <ul class="say-long">
+              <li>Real-time analytics</li>
+              <li>AI insights</li>
+              <li>Team collaboration</li>
+              <li>Custom dashboards</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+      <p id="reading" class="reading" role="status">Still failing: Wireframe, Boxed, Flat, Bland. The shot is holding the poster.</p>
+      <p class="rm-note">This browser asked for less motion, so the shot stays on the poster even when Motion is on.</p>
+    </section>
+  </div>
+
+  <p class="hint">Start from AI default, then turn the rules on one at a time. Crop should push the window off the bottom of the hero tile. Weight should make that tile the large one and pull the slip halfway off the window’s edge. Motion plays the assign. The poster, with Motion off, is the frame after it lands.</p>
+  <p class="colophon">From <a href="https://x.com/benjitaylor/status/2116593247854453244">Benji Taylor’s post</a> announcing Stageshow (<code>npx skills add benjitaylor/skills --skill stageshow</code>) and <a href="https://x.com/shannholmberg/status/2116957574008590445">Shann Holmberg’s breakdown</a>. The switches quote <a href="https://github.com/benjitaylor/skills/blob/main/stageshow/SKILL.md">stageshow/SKILL.md</a>: “It reads as a real product, simplified to what the viewer needs, framed with intent, and every motion has a cause.” Crop, the straddling slip, the word budget, the ban on sparkles and invented marks, and the poster are the rules in <code>references/framing.md</code>, <code>references/craft.md</code>, and <code>references/motion.md</code>. The grid beside the window is the bento idea in <code>references/bento.md</code>: one hero, and the other tiles are a number and a sentence, not more windows. Keel is fictional. This page does not run the skill, React, or the film scripts. Nothing is fetched.</p>
+  <noscript><p class="deck">This page needs JavaScript to switch the rules. Nothing is fetched.</p></noscript>
+  <script src="stage.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
