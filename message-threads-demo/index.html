@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Message threads</title>
+  <meta name="description" content="A simulated side-by-side of a stateless Messages request and a message thread. No API is called.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Simulated · nothing is sent</p>
+    <h1>Message threads</h1>
+    <p class="deck">Five turns of a fictional Northwind support chat. The left lane resends the whole conversation. The right lane sends the new message and the previous response id. The packets, the bytes, and the time-to-first-token bar are illustrations of that difference.</p>
+  </header>
+
+  <div class="toolbar">
+    <button type="button" id="next">Next turn</button>
+    <button type="button" id="play" aria-pressed="false">Play</button>
+    <button type="button" id="reset">Reset</button>
+    <p id="turn-label" class="turn-label">Nothing sent yet.</p>
+  </div>
+
+  <section class="server" id="server" aria-label="Simulated server">
+    <p class="kicker">api.anthropic.com/v1/messages</p>
+    <div class="slots">
+      <p id="slot-plain" class="slot slot-plain">Stateless lane · nothing stored between turns</p>
+      <p id="slot-thread" class="slot slot-thread">Thread lane · holding <span id="held">nothing yet</span></p>
+    </div>
+  </section>
+
+  <div class="lanes">
+    <section class="lane lane-plain" aria-labelledby="plain-title">
+      <header class="lane-head">
+        <h2 id="plain-title">Stateless</h2>
+        <p>System, tools, and every message, on every turn.</p>
+      </header>
+      <div class="origin" id="origin-plain"></div>
+      <dl class="meters">
+        <div><dt>This turn</dt><dd><span id="plain-bytes">0</span> bytes · <span id="plain-tokens">0</span> tokens</dd></div>
+        <div><dt>Cumulative</dt><dd><span id="plain-cbytes">0</span> bytes · <span id="plain-ctokens">0</span> tokens</dd></div>
+      </dl>
+      <div class="ttft">
+        <div class="ttft-label"><span>Time to first token</span><span id="plain-ttft">—</span></div>
+        <div class="track"><div class="fill" id="plain-fill"></div></div>
+      </div>
+      <p class="headers" id="plain-headers"></p>
+      <pre class="json" id="plain-json">Press Next turn.</pre>
+    </section>
+
+    <section class="lane lane-thread" aria-labelledby="thread-title">
+      <header class="lane-head">
+        <h2 id="thread-title">Thread</h2>
+        <p>Create once. Later turns send only the new message and the previous id.</p>
+      </header>
+      <div class="origin" id="origin-thread"></div>
+      <dl class="meters">
+        <div><dt>This turn</dt><dd><span id="thread-bytes">0</span> bytes · <span id="thread-tokens">0</span> tokens</dd></div>
+        <div><dt>Cumulative</dt><dd><span id="thread-cbytes">0</span> bytes · <span id="thread-ctokens">0</span> tokens</dd></div>
+      </dl>
+      <div class="ttft">
+        <div class="ttft-label"><span>Time to first token</span><span id="thread-ttft">—</span></div>
+        <div class="track"><div class="fill" id="thread-fill"></div></div>
+      </div>
+      <p class="headers" id="thread-headers"></p>
+      <pre class="json" id="thread-json">Press Next turn.</pre>
+    </section>
+  </div>
+
+  <p id="compare" class="compare">Nothing sent yet. Numbers below stay at zero until a turn goes out.</p>
+  <p class="fine">Bytes are the compact JSON body. Tokens are that string’s length divided by 4. Time to first token is 140 ms plus 0.42 ms for each body byte, standing in for upload and a fresh tokenize of what this request sends. Headers are shown and not counted. Prompt caching is a separate feature. A thread does not cache the prompt for you. The <code>cache_control</code> field is included because the docs send it on every turn of a thread. These figures are simulated.</p>
+  <p class="colophon">From <a href="https://x.com/ClaudeDevs/status/2117332449382510884">the Claude Developers post</a>: message threads are in public beta on the Messages API, the API keeps the conversation between turns, and a later request sends only the new messages and the previous message id. The bodies here follow <a href="https://platform.claude.com/docs/en/build-with-claude/message-threads">Message threads</a>. The beta header is <code>message-threads-2026-08-12</code>. Turn 1 uses <code>"thread": {"type": "create"}</code> with <code>system</code> and <code>tools</code>. Later turns use <code>"thread": {"type": "continue", "previous_message_id"}</code> and leave <code>system</code> and <code>tools</code> out. <code>model</code> stays. A thread is best-effort: the docs say it expires 5 minutes after its last request, and a continue that can no longer be served returns 404, so the app keeps its own copy and replays with a new create. Northwind, the order, and the message ids are fictional. No request leaves this page.</p>
+  <noscript><p class="deck">This page needs JavaScript to step the conversation. Nothing is fetched.</p></noscript>
+  <script src="thread.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
