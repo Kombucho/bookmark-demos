@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>NEAR intents</title>
+  <meta name="description" content="A simulation of an Aurora Intents swap or deposit. Solvers quote, the best quote that clears the minimum settles across chains, and a miss expires with funds untouched.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Simulation · made-up prices</p>
+    <h1>NEAR intents</h1>
+    <p class="deck">State a swap or a deposit. Simulated solvers send competing quotes. The best quote whose guarantee clears your minimum wins, then settlement walks from Solana through the NEAR Intents verifier to the destination. If none clears, the intent expires and the wallet is unchanged.</p>
+    <p class="banner">No wallet. No network. Prices, solvers, addresses, and Northglass are fictional.</p>
+  </header>
+
+  <section class="controls" aria-label="Intent">
+    <fieldset>
+      <legend>Intent</legend>
+      <label><input type="radio" name="kind" value="swap" checked> Swap</label>
+      <label><input type="radio" name="kind" value="deposit"> Deposit</label>
+    </fieldset>
+    <label class="field">Amount in
+      <span class="unit"><input id="amount" type="number" min="1" max="2500" step="1" value="100" inputmode="decimal"> USDC</span>
+    </label>
+    <label class="field">Minimum output
+      <span class="unit"><input id="minimum" type="number" min="0" step="0.001" value="1.81" inputmode="decimal"> <span id="min-unit">NEAR</span></span>
+    </label>
+    <label class="field grow">Solvers <b id="solver-count">4</b>
+      <input id="solvers" type="range" min="1" max="6" step="1" value="4">
+    </label>
+    <label class="check" id="custom-label" hidden>
+      <input id="custom" type="checkbox" checked>
+      Custom execution on arrival
+    </label>
+    <div class="buttons">
+      <button type="button" id="ask">Ask the solvers</button>
+      <button type="button" id="above">Above every quote</button>
+      <button type="button" id="floor">Reset the floor</button>
+    </div>
+  </section>
+
+  <p id="mid-note" class="mid">1 USDC is priced at 0.0185 NEAR here. That rate is made up.</p>
+  <p id="intent-line" class="intent-line"></p>
+  <p id="status" class="status" role="status"></p>
+
+  <section aria-labelledby="quote-heading">
+    <div class="section-head">
+      <h2 id="quote-heading">Quotes</h2>
+      <p>The relay waits up to 3000 ms and returns this set. A quote qualifies only when its <code>minAmountOut</code> — the expected output minus 100 bps — is at least your floor. The highest qualifying output wins.</p>
+    </div>
+    <ul id="quotes" class="quotes"></ul>
+  </section>
+
+  <section aria-labelledby="flow-heading">
+    <div class="section-head">
+      <h2 id="flow-heading">Settlement</h2>
+      <p id="flow-note">Sign to walk the states. Changing a control drops the preview and puts the balances back.</p>
+    </div>
+    <div class="transport">
+      <button type="button" id="sign" disabled>Sign and deposit</button>
+      <button type="button" id="play" disabled>Play</button>
+      <button type="button" id="step" disabled>Step</button>
+    </div>
+    <div class="flow" id="flow">
+      <svg id="routes" class="routes" aria-hidden="true"></svg>
+      <p id="stamp" class="stamp" hidden>Expired</p>
+      <article class="station" data-station="origin">
+        <p class="kicker">Origin chain</p>
+        <h3 id="origin-chain">Solana</h3>
+        <p class="role">Wallet · refundTo demo-user.invalid</p>
+        <p class="bal"><span>USDC</span> <strong id="wallet-bal">2,500</strong></p>
+        <p class="bal sub"><span>Deposit address</span> <strong id="deposit-bal">0</strong></p>
+      </article>
+      <article class="station station-intents" data-station="intents">
+        <p class="kicker">NEAR Intents</p>
+        <h3>Verifier</h3>
+        <p class="role">intents.near · simulated</p>
+        <p class="bal"><span id="intents-label">Held</span> <strong id="intents-bal">0</strong></p>
+        <p class="hash" id="quote-hash">No quote hash yet.</p>
+      </article>
+      <article class="station" data-station="destination">
+        <p class="kicker">Destination</p>
+        <h3 id="dest-chain">NEAR</h3>
+        <p class="role" id="dest-role">Recipient demo.near</p>
+        <p class="bal" id="recipient-row"><span id="recipient-label">NEAR</span> <strong id="recipient-bal">12.4</strong></p>
+        <p class="bal" id="app-row" hidden><span>App USDC</span> <strong id="app-bal">400</strong></p>
+        <p class="bal" id="vault-row" hidden><span>Northglass vault</span> <strong id="vault-bal">0</strong></p>
+      </article>
+      <div id="bead" class="bead" hidden>USDC</div>
+    </div>
+    <p id="funds" class="funds"></p>
+    <ol id="steps" class="steps"></ol>
+  </section>
+
+  <section class="packet" aria-labelledby="packet-heading">
+    <h2 id="packet-heading">The quote this page would lock</h2>
+    <pre id="json">Ask the solvers.</pre>
+  </section>
+
+  <p class="fine">Amounts in the JSON are illustrative 6-decimal atoms, including NEAR, so the card stays readable. Real NEAR amounts are yocto (10⁻²⁴). <code>quoteWaitingTimeMs</code> is 3000, the message-bus wait. Slippage is 100 bps, so <code>minAmountOut</code> is 99% of <code>amountOut</code>. <code>EXPIRED</code> here is the quote window closing before any deposit: nothing was transferred, so there is nothing to refund. A deposit that had already moved would be a different failure. Deposit with custom execution adds <code>OPERATION_PENDING</code> and <code>OPERATION_PROCESSING</code>, the destination call Intents Connect runs after the funds arrive. Northglass is not a real contract.</p>
+  <p class="colophon">From <a href="https://x.com/auroraisnear/status/2117296226571866245">Aurora’s post</a> on Aurora Intents for the NEAR Hackathon. The states and quote fields follow <a href="https://docs.intents.aurora.dev/">the Aurora Intents docs</a>.</p>
+  <noscript><p class="deck">This page needs JavaScript to run the simulation. Nothing is fetched.</p></noscript>
+  <script src="intents.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
