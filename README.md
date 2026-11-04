@@ -1,6 +1,6 @@
 # Bookmark demos
 
-Forty-seven static tools:
+Forty-nine static tools:
 
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
@@ -49,6 +49,8 @@ Forty-seven static tools:
 - [UpSet plot](upset-plot-demo/) — forty-two invented projects and six skills. Sort and filter the intersections, read the members, and set a three-skill Venn beside the same rows at five and six skills. From [ComplexUpset](https://github.com/krassowski/complex-upset). The rows are example data. R is not running.
 - [Stage](stageshow-demo/) — a faux berth desk that starts as the mock an agent reaches for. Simplification, a recognizable screen, a crop, weight, a quiet look, and a caused motion each switch on their own. From [Benji Taylor’s post](https://x.com/benjitaylor/status/2116593247854453244) and the [stageshow skill](https://github.com/benjitaylor/skills/blob/main/stageshow/SKILL.md), via [Shann Holmberg’s breakdown](https://x.com/shannholmberg/status/2116957574008590445). The page does not run the skill.
 - [Message threads](message-threads-demo/) — the same five turns, twice. One lane resends the conversation. The other sends the new message and the previous response id, in the shape from [Anthropic’s message threads](https://platform.claude.com/docs/en/build-with-claude/message-threads). Bytes and the time-to-first-token bar are simulated. From [the Claude Developers post](https://x.com/ClaudeDevs/status/2117332449382510884). No API is called.
+- [Sketch kit](sketch-kit-demo/) — a field card of buttons, a toggle, a checkbox, a slider, an input, tabs, and a progress bar. Outlines are pencil strokes from a seed. Roughness, stroke width, and the seed redraw them. The strokes are `createPencilPath` and `createPencilPoints` from [@inkra/react](https://www.npmjs.com/package/@inkra/react) 0.15.0, loaded from jsDelivr, with the same functions vendored if that module does not answer. From [YiJie’s post](https://x.com/yijie4188y/status/2116152311341092925) and [Inkra](https://inkrajs.github.io/). The React components are not loaded.
+- [NEAR intents](near-intents-demo/) — a simulated swap or deposit. Solvers quote, the best `minAmountOut` that clears the floor wins, and settlement walks Solana, the NEAR Intents verifier, and the destination. If none qualifies, the intent expires and the wallet is unchanged. From [Aurora’s post](https://x.com/auroraisnear/status/2117296226571866245) and the [Aurora Intents docs](https://docs.intents.aurora.dev/). Prices are made up. No wallet is connected and no request is sent.
 
 ## Open locally
 
@@ -63,7 +65,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js dither-bench-demo/dither.test.js humanlayer-demo/session.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js react-internals-demo/runtime.test.js portfolio-roguelike-demo/game.test.js statechart-demo/chart.test.js upset-plot-demo/upset.test.js stageshow-demo/stage.test.js message-threads-demo/thread.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js dither-bench-demo/dither.test.js humanlayer-demo/session.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js react-internals-demo/runtime.test.js portfolio-roguelike-demo/game.test.js statechart-demo/chart.test.js upset-plot-demo/upset.test.js stageshow-demo/stage.test.js message-threads-demo/thread.test.js sketch-kit-demo/sketch.test.js near-intents-demo/intents.test.js
 ```
 
 ## GitHub Pages
@@ -119,3 +121,5 @@ https://kombucho.github.io/bookmark-demos/
 - https://kombucho.github.io/bookmark-demos/upset-plot-demo/
 - https://kombucho.github.io/bookmark-demos/stageshow-demo/
 - https://kombucho.github.io/bookmark-demos/message-threads-demo/
+- https://kombucho.github.io/bookmark-demos/sketch-kit-demo/
+- https://kombucho.github.io/bookmark-demos/near-intents-demo/

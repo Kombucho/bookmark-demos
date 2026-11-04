@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Sketch kit</title>
+  <meta name="description" content="A field card of hand-drawn controls. Roughness, stroke width, and a seed redraw every pencil outline. The controls still work.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Pencil strokes</p>
+    <h1>Sketch kit</h1>
+    <p class="deck">A field card you can fill in. Every outline is a pencil stroke from a seed. Roughness, stroke width, and the seed redraw the card, and the controls underneath still click, check, and slide.</p>
+  </header>
+
+  <section class="bench" aria-label="Stroke settings">
+    <label class="tune">Roughness <b id="rough-out">1.6</b>
+      <input id="roughness" type="range" min="0" max="6" step="0.1" value="1.6">
+    </label>
+    <label class="tune">Stroke <b id="stroke-out">1.5</b>
+      <input id="stroke" type="range" min="0.6" max="3.2" step="0.1" value="1.5">
+    </label>
+    <label class="tune seed-tune">Seed
+      <input id="seed" type="number" min="1" max="9999" step="1" value="7">
+    </label>
+    <button type="button" id="reseed">New seed</button>
+    <svg id="sample" class="sample" aria-hidden="true"></svg>
+    <p id="sample-note" class="sample-note">One stroke, from this seed.</p>
+  </section>
+
+  <section class="stage" aria-label="Field card">
+    <div class="card" id="card" data-shape="rect" data-seed="card">
+      <svg class="ink" aria-hidden="true"></svg>
+      <div class="card-body">
+        <div class="card-head">
+          <h2 id="desk-title">Field desk</h2>
+          <p id="panel-copy">The kettle is on. Leave a title, then save it.</p>
+        </div>
+
+        <div class="tablist" role="tablist" aria-label="Note">
+          <button type="button" class="tab" id="tab-today" role="tab" data-shape="rect" data-seed="tab-today" aria-selected="true" aria-controls="panel" tabindex="0"><svg class="ink" aria-hidden="true"></svg><span>Today</span></button>
+          <button type="button" class="tab" id="tab-later" role="tab" data-shape="rect" data-seed="tab-later" aria-selected="false" aria-controls="panel" tabindex="-1"><svg class="ink" aria-hidden="true"></svg><span>Later</span></button>
+          <button type="button" class="tab" id="tab-margin" role="tab" data-shape="rect" data-seed="tab-margin" aria-selected="false" aria-controls="panel" tabindex="-1"><svg class="ink" aria-hidden="true"></svg><span>Margin</span></button>
+        </div>
+        <div id="panel" class="panel" data-shape="rect" data-seed="panel" role="tabpanel" aria-labelledby="tab-today">
+          <svg class="ink" aria-hidden="true"></svg>
+          <p id="panel-line">Today’s line stays on the card until you discard it.</p>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn primary" id="save" data-shape="rect" data-seed="save">
+            <svg class="ink" aria-hidden="true"></svg>
+            <span>Save the note</span>
+          </button>
+          <button type="button" class="btn" id="discard" data-shape="rect" data-seed="discard">
+            <svg class="ink" aria-hidden="true"></svg>
+            <span>Discard</span>
+          </button>
+          <p id="save-status" class="status" role="status">Nothing saved yet.</p>
+        </div>
+
+        <div class="row">
+          <button type="button" class="switch" id="night" role="switch" aria-checked="false">
+            <span class="track" data-shape="rect" data-seed="track">
+              <svg class="ink" aria-hidden="true"></svg>
+              <span class="knob" data-shape="circle" data-seed="knob"><svg class="ink" aria-hidden="true"></svg></span>
+            </span>
+            <span class="switch-name">Night paper <b id="night-word">Off</b></span>
+          </button>
+          <label class="check">
+            <span class="box" data-shape="check" data-seed="margin-box">
+              <svg class="ink" aria-hidden="true"></svg>
+              <input id="margin" type="checkbox">
+            </span>
+            <span>Keep the margin</span>
+          </label>
+        </div>
+
+        <label class="field">Title
+          <span class="input-wrap" data-shape="rect" data-seed="title">
+            <svg class="ink" aria-hidden="true"></svg>
+            <input id="title" type="text" maxlength="42" placeholder="A margin note" autocomplete="off">
+          </span>
+        </label>
+
+        <label class="field">Ink in the tray <b id="ink-out">42</b>
+          <span class="range" data-shape="range" data-seed="ink">
+            <svg class="ink" aria-hidden="true"></svg>
+            <input id="ink" type="range" min="0" max="100" step="1" value="42" aria-valuemin="0" aria-valuemax="100" aria-valuenow="42">
+          </span>
+        </label>
+
+        <div class="progress-block">
+          <div class="progress-label">
+            <span id="progress-name">Ink used</span>
+            <span id="progress-figure">42%</span>
+          </div>
+          <div id="progress" class="progress" data-shape="progress" data-seed="progress" role="progressbar" aria-labelledby="progress-name" aria-valuemin="0" aria-valuemax="100" aria-valuenow="42">
+            <svg class="ink" aria-hidden="true"></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="hint">Drag roughness down to nothing and the outlines go straight. Bring it back up and the same seed draws the same wobble. New seed changes every edge at once. Save writes the title onto the card. The margin rule is the checkbox. The slider fills the progress bar.</p>
+  <p class="colophon">From <a href="https://x.com/yijie4188y/status/2116152311341092925">YiJie’s post</a> introducing <a href="https://inkrajs.github.io/">Inkra</a>. The strokes are <code>createPencilPath</code> and <code>createPencilPoints</code> from <code>@inkra/react</code> 0.15.0.</p>
+  <p id="pencil-source" class="fine">Loading the pencil module.</p>
+  <noscript><p class="deck">This page needs JavaScript to draw the strokes. Nothing else is fetched except that pencil module.</p></noscript>
+  <script src="sketch.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
