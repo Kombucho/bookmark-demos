@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Interaction lab</title>
+  <meta name="description" content="Six original instruments: a damped spring, a cubic-bezier with 60 Hz ticks, a loupe, mercury you can fling, a torch cone, and a beaker whose surface stays level. Equations and readouts update as you drag.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">06 instruments</p>
+    <h1>Interaction lab</h1>
+    <p class="deck">A bench of small mechanisms. Drag the mass, the handles, the glass, the metal, the aim, and the beaker. Each tile keeps its equation in view, and the numbers are that instrument’s state.</p>
+  </header>
+
+  <div class="grid">
+    <article class="tile">
+      <header class="tile-head">
+        <p class="tag">[ SPRING ]</p>
+        <p class="hint">Drag the mass. Let go.</p>
+      </header>
+      <div class="stage">
+        <canvas id="spring" aria-label="A mass on a spring. Drag to pull it, release to let it move."></canvas>
+      </div>
+      <p class="eq">m·ẍ = −k(x − x₀) − c·ẋ</p>
+      <div class="dials">
+        <label class="dial">k <b id="k-out">32</b>
+          <input id="k" type="range" min="8" max="96" step="1" value="32" aria-valuemin="8" aria-valuemax="96">
+        </label>
+        <label class="dial">c <b id="c-out">2.4</b>
+          <input id="c" type="range" min="0" max="40" step="0.1" value="2.4">
+        </label>
+        <label class="dial">m <b id="m-out">1.2</b>
+          <input id="m" type="range" min="0.4" max="5" step="0.1" value="1.2">
+        </label>
+      </div>
+      <dl class="reads">
+        <div><dt>x</dt><dd id="spring-x">0.850</dd></div>
+        <div><dt>ẋ</dt><dd id="spring-v">0.00</dd></div>
+        <div><dt>ẍ</dt><dd id="spring-a">0.0</dd></div>
+        <div><dt>ζ</dt><dd id="spring-z">0.000</dd></div>
+        <div><dt>regime</dt><dd id="spring-regime">underdamped</dd></div>
+      </dl>
+    </article>
+
+    <article class="tile">
+      <header class="tile-head">
+        <p class="tag">[ EASE ]</p>
+        <p class="hint">Drag P₁ and P₂.</p>
+      </header>
+      <div class="stage">
+        <canvas id="ease" aria-label="Cubic-bezier editor. Drag the two handles. Frame ticks mark a 60 Hz second."></canvas>
+      </div>
+      <p class="eq">B(t) = (1−t)³P₀ + 3(1−t)²t P₁ + 3(1−t)t² P₂ + t³P₃</p>
+      <dl class="reads">
+        <div><dt>P₁</dt><dd id="ease-p1">0.22, 0.85</dd></div>
+        <div><dt>P₂</dt><dd id="ease-p2">0.16, 1.08</dd></div>
+        <div><dt>y(t)</dt><dd id="ease-y">0.000</dd></div>
+        <div><dt>frame</dt><dd id="ease-frame">0 / 60</dd></div>
+      </dl>
+    </article>
+
+    <article class="tile">
+      <header class="tile-head">
+        <p class="tag">[ LOUPE ]</p>
+        <p class="hint">Drag the glass. The type stays.</p>
+      </header>
+      <div class="stage">
+        <canvas id="loupe" aria-label="A magnifier over a galley of small type. Drag to move the glass."></canvas>
+      </div>
+      <p class="eq">M = h′ / h</p>
+      <label class="dial">M <b id="mag-out">3.2</b>
+        <input id="mag" type="range" min="1.6" max="6" step="0.1" value="3.2">
+      </label>
+      <dl class="reads">
+        <div><dt>M</dt><dd id="loupe-m">3.2</dd></div>
+        <div><dt>lens</dt><dd id="loupe-lens">104 px</dd></div>
+        <div><dt>source</dt><dd id="loupe-src">32 px</dd></div>
+        <div><dt>line</dt><dd id="loupe-line">—</dd></div>
+      </dl>
+    </article>
+
+    <article class="tile">
+      <header class="tile-head">
+        <p class="tag">[ MERCURY ]</p>
+        <p class="hint">Fling the metal.</p>
+      </header>
+      <div class="stage">
+        <canvas id="mercury" aria-label="Beads of mercury. Drag through them to pull, then fling."></canvas>
+      </div>
+      <p class="eq">Fᵢⱼ = κ (dᵢⱼ − d₀) r̂ᵢⱼ</p>
+      <label class="dial">κ <b id="cohesion-out">3.5</b>
+        <input id="cohesion" type="range" min="0.4" max="8" step="0.1" value="3.5">
+      </label>
+      <dl class="reads">
+        <div><dt>n</dt><dd id="merc-n">18</dd></div>
+        <div><dt>|v|</dt><dd id="merc-v">0.00</dd></div>
+        <div><dt>κ</dt><dd id="merc-k">3.5</dd></div>
+        <div><dt>KE</dt><dd id="merc-ke">0.0</dd></div>
+      </dl>
+    </article>
+
+    <article class="tile">
+      <header class="tile-head">
+        <p class="tag">[ TORCH ]</p>
+        <p class="hint">Aim from the notch.</p>
+      </header>
+      <div class="stage">
+        <canvas id="torch" aria-label="A cone of light over hidden text. Move to aim it."></canvas>
+      </div>
+      <p class="eq">I = I₀ (â·r̂)ⁿ / (1 + (d/R)²)</p>
+      <label class="dial">half-angle <b id="half-out">22°</b>
+        <input id="half" type="range" min="10" max="40" step="1" value="22">
+      </label>
+      <dl class="reads">
+        <div><dt>aim</dt><dd id="torch-ang">0°</dd></div>
+        <div><dt>I</dt><dd id="torch-i">0.00</dd></div>
+        <div><dt>cone</dt><dd id="torch-half">22°</dd></div>
+        <div><dt>n</dt><dd id="torch-n">2</dd></div>
+      </dl>
+    </article>
+
+    <article class="tile">
+      <header class="tile-head">
+        <p class="tag">[ LEVEL ]</p>
+        <p class="hint">Tilt the beaker.</p>
+      </header>
+      <div class="stage">
+        <canvas id="level" aria-label="A beaker of liquid. Drag sideways to tilt it. The surface stays level, and a hard tilt spills."></canvas>
+      </div>
+      <p class="eq">g = (sin θ, cos θ),&nbsp; surface ⊥ g</p>
+      <div class="dials dials-inline">
+        <label class="dial">θ <b id="tilt-out">20°</b>
+          <input id="tilt" type="range" min="-66" max="66" step="1" value="20">
+        </label>
+        <button type="button" id="refill">Refill</button>
+      </div>
+      <dl class="reads">
+        <div><dt>θ</dt><dd id="level-theta">20.0°</dd></div>
+        <div><dt>fill</dt><dd id="level-fill">139 ml</dd></div>
+        <div><dt>spilled</dt><dd id="level-spill">0 ml</dd></div>
+        <div><dt>surface</dt><dd id="level-surface">0.0°</dd></div>
+      </dl>
+    </article>
+  </div>
+
+  <p class="note">The beaker is marked to 240 ml. Spilled liquid does not climb back in. P₀ is (0, 0) and P₃ is (1, 1); the sixty ticks are one second at 60 Hz. If the system asks for reduced motion, the spring does not travel, the bead stays put, and the metal does not coast. The readouts still follow the pointer.</p>
+  <p class="colophon">In the spirit of <a href="https://x.com/emilkowalski/status/2117651655680463347">Emil Kowalski’s Interaction Lab</a> (<a href="https://aiforui.dev/lab">aiforui.dev/lab</a>). These six instruments are written in this folder. They do not use that page’s code or assets.</p>
+  <noscript><p class="deck">This page needs JavaScript to run the instruments. Nothing is fetched.</p></noscript>
+  <script src="lab.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
