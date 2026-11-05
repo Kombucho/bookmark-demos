@@ -103,10 +103,16 @@ jobs:
           test -f message-threads-demo/index.html
           test -f message-threads-demo/thread.js
           test -f message-threads-demo/app.js
+          test -f interaction-lab-demo/index.html
+          test -f interaction-lab-demo/lab.js
+          test -f interaction-lab-demo/app.js
+          test -f meme-mechanics-demo/index.html
+          test -f meme-mechanics-demo/mechanics.js
+          test -f meme-mechanics-demo/app.js
           test ! -f engine.js
           test ! -f main.js
       - name: Run rule tests
-        run: node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js scrollback-compress-demo/stream.test.js variation-lab-demo/variations.test.js variation-lab-demo/theories.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js statechart-demo/chart.test.js upset-plot-demo/upset.test.js stageshow-demo/stage.test.js message-threads-demo/thread.test.js
+        run: node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js scrollback-compress-demo/stream.test.js variation-lab-demo/variations.test.js variation-lab-demo/theories.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js statechart-demo/chart.test.js upset-plot-demo/upset.test.js stageshow-demo/stage.test.js message-threads-demo/thread.test.js interaction-lab-demo/lab.test.js meme-mechanics-demo/mechanics.test.js
 
   deploy:
     needs: test

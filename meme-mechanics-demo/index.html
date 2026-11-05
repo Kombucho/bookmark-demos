@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Meme mechanics</title>
+  <meta name="description" content="A simulated fair-launch curve for a fictional token, with a per-wallet cap, a staking pool that shares trade fees, a treasury buyback-and-burn, and a lock-then-mint bridge. No wallet and no network.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Simulation · no wallet · no network</p>
+    <h1>Meme mechanics</h1>
+    <p class="deck">KEEL is a fictional token on a desk that exists only in this page. The curve is constant-product. A per-wallet cap refuses an oversized order whole. Stakers share the trade fee. The treasury buys and burns when it fills. A transfer locks on Solana and mints on NEAR.</p>
+    <p class="banner">Nothing is signed or sent. OmniBridge and Chain Signatures are not contacted. The NEAR amounts are not a balance you can move.</p>
+  </header>
+
+  <div class="clock" role="group" aria-label="Simulated clock">
+    <button type="button" id="play">Play</button>
+    <button type="button" id="pause" disabled>Pause</button>
+    <button type="button" id="step">Step</button>
+    <div class="speeds" role="group" aria-label="Speed">
+      <button type="button" id="speed-1" aria-pressed="true">1×</button>
+      <button type="button" id="speed-4" aria-pressed="false">4×</button>
+    </div>
+    <p class="time">Tick <b id="tick">0</b></p>
+    <p id="event" class="event" role="status">The desk is quiet. Press play, or send an order.</p>
+  </div>
+
+  <div class="board">
+    <section class="panel curve" aria-labelledby="curve-heading">
+      <p class="fig">Fig. 1</p>
+      <div class="section-head">
+        <h2 id="curve-heading">Fair launch</h2>
+        <p class="eq">k = Rₙ · Rₜ<span></span>spot = Rₙ / Rₜ</p>
+      </div>
+      <p class="spot"><span id="spot">0.000500</span> <small>NEAR / KEEL</small></p>
+      <p id="delta" class="delta">At the open.</p>
+      <div class="chart-wrap">
+        <canvas id="chart" aria-label="Bonding curve of price against issued KEEL, and a tape of the spot price."></canvas>
+      </div>
+      <dl class="stats">
+        <div><dt>issued</dt><dd id="issued">0</dd></div>
+        <div><dt>burned</dt><dd id="burned">0</dd></div>
+        <div><dt>k</dt><dd id="k-val">3,200,000</dd></div>
+        <div><dt>reserve</dt><dd id="reserve">0.0000</dd></div>
+      </dl>
+      <div class="trade">
+        <label class="field">Amount
+          <input id="amount" type="number" min="1" step="1" value="800" inputmode="numeric">
+        </label>
+        <div class="buttons">
+          <button type="button" id="buy">Buy</button>
+          <button type="button" id="sell">Sell</button>
+        </div>
+      </div>
+      <p id="quote" class="quote">Enter an amount.</p>
+      <p class="fine">Per-wallet cap <b id="cap-label">4,000</b> KEEL, counting the curve balance, the stake, and the minted balance. An order past the cap is refused whole. The fee is <b id="fee-label">3.00%</b> of the NEAR side and does not enter the curve, so k stays the product of the reserves.</p>
+    </section>
+
+    <section class="panel wallets" aria-labelledby="wallet-heading">
+      <p class="fig">Fig. 2</p>
+      <h2 id="wallet-heading">Wallets</h2>
+      <p class="lede">Sniper asks for more than the cap, then buys the cap. Ladle buys and sells. Kiln stakes. Ferry bridges.</p>
+      <ol id="wallet-list" class="ledger"></ol>
+    </section>
+
+    <section class="panel stake" aria-labelledby="stake-heading">
+      <p class="fig">Fig. 3</p>
+      <h2 id="stake-heading">Staking</h2>
+      <p class="lede"><b id="staker-split">70%</b> of each fee accrues to stakers in proportion to KEEL staked. The rest goes to the treasury. With nobody staked, the whole fee goes to the treasury.</p>
+      <dl class="stats">
+        <div><dt>pool</dt><dd id="pool">0</dd></div>
+        <div><dt>your stake</dt><dd id="your-stake">0</dd></div>
+        <div><dt>claimable</dt><dd id="claimable">0.0000</dd></div>
+        <div><dt>index</dt><dd id="index">0.000000</dd></div>
+      </dl>
+      <div class="buttons">
+        <button type="button" id="stake-btn">Stake</button>
+        <button type="button" id="unstake-btn">Unstake</button>
+        <button type="button" id="claim">Claim</button>
+      </div>
+    </section>
+
+    <section class="panel treasury" id="treasury" aria-labelledby="treasury-heading">
+      <p class="fig">Fig. 4</p>
+      <h2 id="treasury-heading">Treasury rule</h2>
+      <p class="lede">When the treasury reaches <b id="threshold-label">0.1200 NEAR</b>, it spends the balance buying KEEL along the curve and burns what it receives. The price stays up, because those tokens are not sold back.</p>
+      <div class="meter" id="meter" role="meter" aria-valuemin="0" aria-valuemax="0.12" aria-valuenow="0" aria-label="Treasury against the rule">
+        <span id="meter-fill"></span>
+      </div>
+      <p class="meter-scale"><span id="treasury-now">0.0000</span> / <span id="treasury-max">0.1200</span> NEAR</p>
+      <p class="burned-hero"><span id="burned-hero">0</span> <small>KEEL burned</small></p>
+      <p id="rule-line" class="rule-line">The rule has not fired.</p>
+    </section>
+
+    <section class="panel bridge" aria-labelledby="bridge-heading">
+      <p class="fig">Fig. 5</p>
+      <h2 id="bridge-heading">Cross-chain</h2>
+      <p class="lede">Lock on the source, a simulated signature, mint on NEAR. The reverse burns on NEAR and unlocks the source. The curve reserves do not move. Escrow and minted supply stay equal.</p>
+      <div class="bridge-fig">
+        <article class="chain source">
+          <p class="chain-kicker">Source</p>
+          <h3>Solana</h3>
+          <p>Your KEEL <b id="src-bal">0</b></p>
+          <p>Locked escrow <b id="escrow">0</b></p>
+        </article>
+        <div class="track" id="track">
+          <span class="rail"></span>
+          <ol class="stations">
+            <li id="st-0">Lock</li>
+            <li id="st-1">Sign</li>
+            <li id="st-2">Mint</li>
+          </ol>
+          <span id="bead" class="bead">KEEL</span>
+        </div>
+        <article class="chain near">
+          <p class="chain-kicker">NEAR</p>
+          <h3>Mint</h3>
+          <p>Your minted <b id="near-bal">0</b></p>
+          <p>Minted supply <b id="minted">0</b></p>
+        </article>
+      </div>
+      <p id="bridge-caption" class="caption">No transfer yet.</p>
+      <div class="buttons">
+        <button type="button" id="bridge-go">Lock and mint</button>
+        <button type="button" id="bridge-back">Burn and unlock</button>
+      </div>
+    </section>
+  </div>
+
+  <p class="colophon">From <a href="https://x.com/memedotcooking/status/2117206516927168704">@memedotcooking</a> and <a href="https://x.com/NearBuilders/status/2117665200015057228">NEAR Builders</a> on the Memecoins With Mechanics track with Shitzu. The curve, the cap, the staking split, the treasury rule, and the bridge are simulated here. KEEL is not a real token, and it is not Shitzu.</p>
+  <noscript><p class="deck">This page needs JavaScript to run the simulation. Nothing is fetched.</p></noscript>
+  <script src="mechanics.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
