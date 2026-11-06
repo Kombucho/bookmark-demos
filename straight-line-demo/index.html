@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Straight lines</title>
+  <meta name="description" content="A portrait, a mountain range, and a spiral, shaded only with straight strokes. Angle, spacing, and weight redraw the plate. Drag to close a region and hatch it.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Segments only</p>
+      <h1>Straight lines</h1>
+      <p class="deck">A portrait, a range, and a spiral. The tone is the gap between strokes. Turn the angle, open the spacing, change the weight. The subject is redrawn from the same straight marks.</p>
+    </div>
+  </header>
+
+  <div class="bench">
+    <section class="stage" aria-labelledby="plate-heading">
+      <div class="section-head">
+        <div>
+          <h2 id="plate-heading">Plate</h2>
+          <p id="plate-meta"></p>
+        </div>
+      </div>
+      <div class="frame" id="frame">
+        <canvas id="plate" aria-label="A drawing made only of straight line segments. Switch the subject, or drag while Block in is on to hatch a region you close."></canvas>
+      </div>
+    </section>
+
+    <aside class="controls" aria-label="Hatch controls">
+      <fieldset>
+        <legend>Subject</legend>
+        <div class="modes" id="presets" role="group" aria-label="Subject"></div>
+      </fieldset>
+      <label class="slider">Angle
+        <span class="slider-top">
+          <input id="angle" type="range" min="0" max="180" value="34" aria-valuemin="0" aria-valuemax="180">
+          <output id="angle-out" for="angle">34°</output>
+        </span>
+      </label>
+      <label class="slider">Spacing
+        <span class="slider-top">
+          <input id="spacing" type="range" min="6" max="36" value="13" aria-valuemin="6" aria-valuemax="36">
+          <output id="spacing-out" for="spacing">13</output>
+        </span>
+      </label>
+      <label class="slider">Weight
+        <span class="slider-top">
+          <input id="weight" type="range" min="0.6" max="4.2" step="0.1" value="1.5" aria-valuemin="0.6" aria-valuemax="4.2">
+          <output id="weight-out" for="weight">1.5</output>
+        </span>
+      </label>
+      <div class="actions">
+        <button type="button" id="reroll">Reroll seed</button>
+        <button type="button" id="block" aria-pressed="false">Block in</button>
+        <button type="button" id="clear">Clear</button>
+      </div>
+      <p class="note" id="note">Angle turns the hatch. Spacing opens the tone. Weight is the stroke.</p>
+    </aside>
+  </div>
+
+  <footer>
+    <p>Each mark runs from one point to another. A darker passage is that same stroke, set closer, and past a point a second pass crosses it. Nothing here is a curve, and the shade is not a filled shape. The outline is segments too.</p>
+    <p>Block in lays a polyline on the sheet. On release the last point meets the first, and the hatch fills that region with the angle and spacing already on the bench. Reroll nudges the construction and shifts where the strokes start. The subject stays the one you picked.</p>
+    <p class="colophon">Straight strokes as the whole of the drawing, the constraint in Sunny Art’s line drawings, from <a href="https://x.com/pmamtraveller/status/2118294851431092442">@pmamtraveller’s post</a>. The three plates are built in this folder.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to draw the plate. Nothing is fetched.</p></noscript>
+  <script src="lines.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
