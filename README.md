@@ -1,7 +1,9 @@
 # Bookmark demos
 
-Fifty-one static tools:
+Fifty-three static tools:
 
+- [Straight lines](straight-line-demo/) — a portrait, a mountain range, and a spiral shaded only with straight strokes. Angle, spacing, and weight redraw the plate. Drag to close a region and hatch it. From [@pmamtraveller’s post](https://x.com/pmamtraveller/status/2118294851431092442) on Sunny Art’s straight-line drawings.
+- [Text morph](text-morph-demo/) — a currency figure, a status line, and three metrics. Digits roll by place, and a letter both phrases share slides. Snap cuts. From [@GabiDev98’s bookmark](https://x.com/GabiDev98/status/2118235307216601291) of [Torph](https://torph.lochie.me) by lochieaxon. This page does not install the package.
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
 - [Requirements review](requirements-demo/) — paste a note and see which of the 18 characteristics from [make-requirements-great](https://github.com/gnurio/nurijanian-skills/blob/main/skills/make-requirements-great/SKILL.md) fail, including verb + object duplicates.
 - [Named embeddings](jev-embed-demo/) — edit questions, document scores, and the query vector from [Kieran Klaassen’s note](https://x.com/kieranklaassen/status/2103522599414501550). Rank is cosine similarity. No model is called.
@@ -67,7 +69,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js dither-bench-demo/dither.test.js humanlayer-demo/session.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js react-internals-demo/runtime.test.js portfolio-roguelike-demo/game.test.js statechart-demo/chart.test.js upset-plot-demo/upset.test.js stageshow-demo/stage.test.js message-threads-demo/thread.test.js sketch-kit-demo/sketch.test.js near-intents-demo/intents.test.js interaction-lab-demo/lab.test.js meme-mechanics-demo/mechanics.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js dither-bench-demo/dither.test.js humanlayer-demo/session.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js react-internals-demo/runtime.test.js portfolio-roguelike-demo/game.test.js statechart-demo/chart.test.js upset-plot-demo/upset.test.js stageshow-demo/stage.test.js message-threads-demo/thread.test.js sketch-kit-demo/sketch.test.js near-intents-demo/intents.test.js interaction-lab-demo/lab.test.js meme-mechanics-demo/mechanics.test.js text-morph-demo/morph.test.js straight-line-demo/lines.test.js
 ```
 
 ## GitHub Pages
@@ -76,6 +78,8 @@ After this lands on `main`, the Pages workflow deploys the site. The project URL
 
 https://kombucho.github.io/bookmark-demos/
 
+- https://kombucho.github.io/bookmark-demos/straight-line-demo/
+- https://kombucho.github.io/bookmark-demos/text-morph-demo/
 - https://kombucho.github.io/bookmark-demos/auction-demo/
 - https://kombucho.github.io/bookmark-demos/requirements-demo/
 - https://kombucho.github.io/bookmark-demos/jev-embed-demo/
