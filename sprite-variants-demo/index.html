@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Sprite variants</title>
+  <meta name="description" content="Pick a National Dex number and load the raw PokeAPI sprite file. Front, back, shiny, and female are folders. Pixel, Dream World, official art, and Showdown each resolve to a different path. A missing file stays missing.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Raw files</p>
+    <h1>Sprite variants</h1>
+    <p class="deck">The sprites repository is folders of static files. A number is the filename. Back, shiny, and female are directories, and they combine. This page requests that file and shows the path, including when nothing is there.</p>
+  </header>
+
+  <section class="controls" aria-label="Sprite choices">
+    <div class="pick">
+      <label class="number" for="dex">Number
+        <input id="dex" type="number" min="1" max="1025" value="25" inputmode="numeric">
+      </label>
+      <p class="who" id="who">25 · Pikachu</p>
+      <button type="button" id="random">Random</button>
+    </div>
+    <div class="examples" role="group" aria-label="Examples">
+      <button type="button" data-id="25">25 Pikachu</button>
+      <button type="button" data-id="1">1 Bulbasaur</button>
+      <button type="button" data-id="1025">1025 Pecharunt</button>
+    </div>
+    <div class="styles" id="styles" role="group" aria-label="Art style"></div>
+    <div class="toggles" role="group" aria-label="Variant">
+      <button type="button" id="back" aria-pressed="false">Back</button>
+      <button type="button" id="shiny" aria-pressed="false">Shiny</button>
+      <button type="button" id="female" aria-pressed="false">Female</button>
+    </div>
+  </section>
+
+  <section class="sheet" aria-labelledby="stage-heading">
+    <div class="section-head">
+      <h2 id="stage-heading">This file</h2>
+      <p id="hint"></p>
+    </div>
+    <div class="stage" id="stage">
+      <p class="state" id="stage-state" aria-live="polite">Loading</p>
+      <img id="stage-img" alt="" hidden>
+    </div>
+    <p class="path-label">Resolved path</p>
+    <code id="stage-path"></code>
+  </section>
+
+  <section class="sheet grid-sheet" aria-labelledby="grid-heading">
+    <div class="section-head">
+      <h2 id="grid-heading">Side by side</h2>
+      <p>All eight combinations for this style. The highlighted cell is the one above. Each path starts at <code>sprites/pokemon/</code>. A missing picture is a path with no file.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <footer>
+    <p>Pixel and Showdown frames use <code>image-rendering: pixelated</code>, so a scaled PNG or GIF stays crisp. Dream World is an SVG and the official art is a smooth PNG, so those two are left to the browser.</p>
+    <p>25 has a female file in the default set. 1 does not. 1025 has a default PNG, a Dream World SVG, and official art, and no Showdown GIF. The grid is how you see which folders were actually filled in.</p>
+    <p class="colophon">The files are <a href="https://github.com/PokeAPI/sprites">PokeAPI/sprites</a>, from <a href="https://x.com/dextune/status/2119097545620410461">@dextune’s post</a>. Each image is loaded from <code>raw.githubusercontent.com</code>. This page does not call the PokéAPI.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to request the sprite files.</p></noscript>
+  <script src="sprites.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

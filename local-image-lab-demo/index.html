@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Local image lab</title>
+  <meta name="description" content="Resize an image, then compress it to JPEG or WebP and compare byte sizes. Sample a HEX palette. Re-encode and parse the bytes to show the EXIF APP1 segment is gone. Nothing is uploaded.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">On this device</p>
+    <h1>Local image lab</h1>
+    <p class="deck">Drop a picture, or start from the one drawn on this page. Three workflows, two steps each, all on a canvas. The file never leaves the tab.</p>
+    <p class="net" id="net"><span class="dot" aria-hidden="true"></span> Network requests: <strong id="net-count">0</strong></p>
+    <p class="net-note">The count is fetch, XHR, beacon, and http image URLs seen by this page. Decode, resize, palette, and re-encode stay in the canvas.</p>
+  </header>
+
+  <section class="sheet source-sheet" aria-labelledby="source-heading">
+    <div class="section-head">
+      <h2 id="source-heading">Picture</h2>
+      <p id="source-meta">Drawing a sample…</p>
+    </div>
+    <div class="drop" id="drop">
+      <img id="source-preview" alt="The picture this lab is working on" hidden>
+      <p class="drop-copy" id="drop-copy">Drop an image here, or choose a file. With no file, the lab uses a picture drawn on a canvas.</p>
+      <input id="file" type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+    </div>
+    <div class="actions">
+      <button type="button" id="use-sample">Drawn sample</button>
+    </div>
+    <p class="note" id="note" aria-live="polite"></p>
+  </section>
+
+  <section class="sheet" aria-labelledby="compress-heading">
+    <div class="section-head">
+      <h2 id="compress-heading">Resize, then compress</h2>
+      <p>Step 1 changes the long edge. Step 2 writes JPEG or WebP at the quality you set. Both sizes update as the slider moves.</p>
+    </div>
+    <div class="controls">
+      <label class="slider">Longest edge
+        <span class="slider-top">
+          <input id="edge" type="range" min="64" max="1280" step="16" value="480" aria-describedby="edge-out">
+          <output id="edge-out" for="edge">480 px</output>
+        </span>
+      </label>
+      <label class="slider">Quality
+        <span class="slider-top">
+          <input id="quality" type="range" min="5" max="100" step="1" value="72" aria-describedby="quality-out">
+          <output id="quality-out" for="quality">0.72</output>
+        </span>
+      </label>
+      <div class="formats" role="group" aria-label="Encoded format">
+        <button type="button" id="fmt-jpeg" aria-pressed="true">JPEG</button>
+        <button type="button" id="fmt-webp" aria-pressed="false">WebP</button>
+      </div>
+    </div>
+    <div class="pair">
+      <figure>
+        <figcaption>Started with</figcaption>
+        <div class="frame"><img id="before-preview" alt="" hidden></div>
+        <p class="bytes" id="before-bytes">—</p>
+      </figure>
+      <figure>
+        <figcaption>After this chain</figcaption>
+        <div class="frame"><img id="after-preview" alt="Resized and compressed result" hidden></div>
+        <p class="bytes" id="after-bytes" aria-live="polite">—</p>
+      </figure>
+    </div>
+    <p class="steps" id="compress-steps"></p>
+    <button type="button" class="download" id="download-compressed" disabled>Download compressed</button>
+  </section>
+
+  <section class="sheet" aria-labelledby="palette-heading">
+    <div class="section-head">
+      <h2 id="palette-heading">Sample, then palette</h2>
+      <p>Step 1 draws the resized image down to a small grid. Step 2 cuts that grid into HEX codes. The colors follow the size above.</p>
+    </div>
+    <label class="slider">Colors
+      <span class="slider-top">
+        <input id="colors" type="range" min="3" max="8" step="1" value="6">
+        <output id="colors-out" for="colors">6</output>
+      </span>
+    </label>
+    <p class="steps" id="sample-steps"></p>
+    <ul class="swatches" id="swatches"></ul>
+  </section>
+
+  <section class="sheet" aria-labelledby="strip-heading">
+    <div class="section-head">
+      <h2 id="strip-heading">Parse, then re-encode</h2>
+      <p>Step 1 reads the file bytes and lists JPEG markers, including an APP1 segment when one is there. Step 2 draws the pixels and writes a new JPEG. The canvas does not copy APP1.</p>
+    </div>
+    <div class="pair markers">
+      <div>
+        <h3>Original bytes</h3>
+        <p class="marker-line" id="before-markers"></p>
+        <ul class="exif" id="before-exif"></ul>
+      </div>
+      <div>
+        <h3>Re-encoded JPEG</h3>
+        <p class="marker-line" id="after-markers"></p>
+        <p class="verdict" id="verdict" aria-live="polite"></p>
+      </div>
+    </div>
+    <button type="button" class="download" id="download-stripped" disabled>Download stripped JPEG</button>
+  </section>
+
+  <footer>
+    <p>The sample is painted here, exported as JPEG, then given a short EXIF APP1 segment so the strip is visible with no file of your own. A picture you drop keeps the bytes it arrived with. Re-encoding flattens transparency onto white, because JPEG has no alpha.</p>
+    <p class="colophon">The idea is <a href="https://animg.vercel.app">Aimg</a>, from <a href="https://x.com/SubhanHQ">@SubhanHQ’s post</a>: the tools run on the device and the image is never uploaded. This page does not load that site. No library is fetched.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript. The tools run in the browser, and nothing is uploaded.</p></noscript>
+  <script src="lab.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
