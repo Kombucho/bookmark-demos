@@ -1,7 +1,9 @@
 # Bookmark demos
 
-Fifty-three static tools:
+Fifty-five static tools:
 
+- [Sprite variants](sprite-variants-demo/) — pick a National Dex number and read the file path for front, back, shiny, and female, across the default PNGs, Dream World SVGs, official artwork, and Showdown GIFs. A missing file stays missing. Pixel frames stay crisp. From [@dextune’s post](https://x.com/dextune/status/2119097545620410461) on the [PokeAPI sprites repository](https://github.com/PokeAPI/sprites). The images are loaded from that repo’s raw files.
+- [Local image lab](local-image-lab-demo/) — resize, then compress to JPEG or WebP and compare byte sizes. Sample a palette of HEX codes. Re-encode and parse the bytes to show the EXIF APP1 segment is gone. A sample picture is drawn on the page, so it runs with no file. From [@SubhanHQ’s post](https://x.com/SubhanHQ) sharing [Aimg](https://animg.vercel.app). Nothing is uploaded.
 - [Straight lines](straight-line-demo/) — a portrait, a mountain range, and a spiral shaded only with straight strokes. Angle, spacing, and weight redraw the plate. Drag to close a region and hatch it. From [@pmamtraveller’s post](https://x.com/pmamtraveller/status/2118294851431092442) on Sunny Art’s straight-line drawings.
 - [Text morph](text-morph-demo/) — a currency figure, a status line, and three metrics. Digits roll by place, and a letter both phrases share slides. Snap cuts. From [@GabiDev98’s bookmark](https://x.com/GabiDev98/status/2118235307216601291) of [Torph](https://torph.lochie.me) by lochieaxon. This page does not install the package.
 - [Auction anything](auction-demo/) — a multi-bidder proxy auction using the rules from [visualizevalue/auctionanything](https://github.com/visualizevalue/auctionanything): private maxima, 10% steps, earlier ties, a 48-hour close, and a 10-minute anti-snipe.
@@ -69,7 +71,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ## Check the rules
 
 ```bash
-node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js dither-bench-demo/dither.test.js humanlayer-demo/session.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js react-internals-demo/runtime.test.js portfolio-roguelike-demo/game.test.js statechart-demo/chart.test.js upset-plot-demo/upset.test.js stageshow-demo/stage.test.js message-threads-demo/thread.test.js sketch-kit-demo/sketch.test.js near-intents-demo/intents.test.js interaction-lab-demo/lab.test.js meme-mechanics-demo/mechanics.test.js text-morph-demo/morph.test.js straight-line-demo/lines.test.js
+node --test auction-demo/engine.test.js requirements-demo/engine.test.js jev-embed-demo/engine.test.js change-requests-demo/engine.test.js lisp-grow-demo/lisp.test.js theme-studio-demo/theme.test.js constraint-gate-demo/gate.test.js concept-first-demo/concept.test.js athanor-demo/alchemy.test.js ascii-stage-demo/pieces.test.js ascii-stage-demo/snippet.test.js brand-bot-demo/engine.test.js animation-cost-demo/bench.test.js solana-accounts-demo/ledger.test.js pair-token-demo/pool.test.js atomic-compose-demo/compose.test.js flash-motion-demo/motion.test.js upgrade-authority-demo/authority.test.js design-ops-demo/ops.test.js anchor-gotchas-demo/gotchas.test.js llm-kb-demo/wiki.test.js pele-diagram-demo/render.test.js benchmark-traps-demo/bench.test.js canvas-chat-demo/chat.test.js earshot-demo/sound.test.js verify-loop-demo/sim.test.js show-me-demo/show.test.js component-canvas-demo/board.test.js hackathon-plan-demo/plan.test.js seed-leak-demo/leak.test.js code-search-demo/search.test.js formal-proof-demo/check.test.js dither-bench-demo/dither.test.js humanlayer-demo/session.test.js calendar-design-demo/calendar.test.js cozy-worlds-demo/world.test.js react-internals-demo/runtime.test.js portfolio-roguelike-demo/game.test.js statechart-demo/chart.test.js upset-plot-demo/upset.test.js stageshow-demo/stage.test.js message-threads-demo/thread.test.js sketch-kit-demo/sketch.test.js near-intents-demo/intents.test.js interaction-lab-demo/lab.test.js meme-mechanics-demo/mechanics.test.js text-morph-demo/morph.test.js straight-line-demo/lines.test.js sprite-variants-demo/sprites.test.js local-image-lab-demo/lab.test.js
 ```
 
 ## GitHub Pages
@@ -78,6 +80,8 @@ After this lands on `main`, the Pages workflow deploys the site. The project URL
 
 https://kombucho.github.io/bookmark-demos/
 
+- https://kombucho.github.io/bookmark-demos/sprite-variants-demo/
+- https://kombucho.github.io/bookmark-demos/local-image-lab-demo/
 - https://kombucho.github.io/bookmark-demos/straight-line-demo/
 - https://kombucho.github.io/bookmark-demos/text-morph-demo/
 - https://kombucho.github.io/bookmark-demos/auction-demo/
