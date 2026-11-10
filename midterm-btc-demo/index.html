@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>After three midterms</title>
+  <meta name="description" content="Schematic Bitcoin paths for the 2014, 2018, and 2022 US midterms. A starting price scales the drawdowns and the one-year figures from the post. Not a forecast.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Schematic, not a forecast</p>
+    <h1>What BTC did after three midterms</h1>
+    <p class="deck">The last three US midterms, drawn as straight paths and scaled from a price you type. Each line falls to the low the post names, over the number of days it names, then rises or settles at the percent a year after the election.</p>
+  </header>
+
+  <section class="desk" aria-label="Price and years">
+    <label class="price" for="start">Starting price
+      <span class="field">
+        <span aria-hidden="true">$</span>
+        <input id="start" inputmode="decimal" value="78,000" autocomplete="off" aria-describedby="implied">
+      </span>
+    </label>
+    <p class="implied" id="implied">Implied by the post’s scaled lows, roughly $78,000. Not a live quote.</p>
+    <div class="chips" role="group" aria-label="Example starting prices">
+      <button type="button" data-start="78000">$78,000 implied</button>
+      <button type="button" data-start="50000">$50,000</button>
+      <button type="button" data-start="100000">$100,000</button>
+    </div>
+    <div class="years" id="years" role="group" aria-label="Show a midterm"></div>
+    <p class="warn" id="warn" role="status"></p>
+  </section>
+
+  <p class="caution">Three data points are not a forecast. The post describes three past midterms. It does not say the next one will do this.</p>
+
+  <section class="figure" aria-labelledby="chart-heading">
+    <div class="plot-col">
+      <h2 id="chart-heading">Scaled paths</h2>
+      <p class="schematic">Straight segments between the stated points. Not a daily price series. The year-after point is drawn at day 365, this page’s stand-in for “a year.”</p>
+      <div class="plot" id="plot" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="365" aria-valuenow="0" aria-label="Day after election day">
+        <div id="chart"></div>
+        <div class="hair" id="hair" hidden></div>
+        <div class="dots" id="dots"></div>
+      </div>
+      <p class="readout" id="readout">Hover the chart, or focus it and use the arrow keys. The readout is the schematic price on that day.</p>
+    </div>
+    <div class="notes" id="notes"></div>
+  </section>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://x.com/dealerdefi/status/2117163554105168082">@dealerdefi’s post</a>: “here’s what btc did after the last 3 [US midterms], scaled to today’s price: 2014: −48% in 71 days → ~$40.5K; 2018: −51% in 39 days → ~$38.4K; 2022: −15% in 13 days → ~$66.3K; each of those lows was the bear market bottom; a year after the election: +24% / +45% / +92%.”</p>
+    <p id="rounding"></p>
+    <p>The lines are Mermaid <code>xychart-beta</code>, drawn by <a href="https://github.com/obsidianmd/pele">Pele</a> 1.7.0 (MIT), vendored as <code>vendor/pele.global.js</code>. The license is <code>vendor/PELE-LICENSE.txt</code>. The hover readout and the annotation boxes are this page. No price feed is called.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to draw the chart.</p></noscript>
+  <script src="vendor/pele.global.js"></script>
+  <script src="paths.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

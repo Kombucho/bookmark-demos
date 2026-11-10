@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Micro-branches</title>
+  <meta name="description" content="A phone card whose look is a set of tokens. Fork a micro-branch from any iteration, compare two, reject one with a one-line reason, and tune corner radius on a panel that bakes into a new branch.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <div>
+      <p class="kicker">Review canvas</p>
+      <h1>Micro-branches</h1>
+      <p class="deck">The phone is a real screen, driven by tokens. Fork from any iteration and the last one stays. Tune the button on the phone, then remove the panel and keep the values as a new branch.</p>
+      <p class="status" id="status" aria-live="polite">The seed is on the phone. Fork it, or open the config panel.</p>
+    </div>
+  </header>
+
+  <div class="work" id="work">
+    <section class="stage" aria-label="Phone preview">
+      <div class="phones" id="phones"></div>
+    </section>
+    <div class="side">
+      <section class="inspector" id="inspector" aria-label="Selected branch"></section>
+      <section class="board" aria-labelledby="board-heading">
+        <div class="section-head">
+          <h2 id="board-heading">Canvas</h2>
+          <p>Each card is a micro-branch. Select one to put it on the phone. Fork from any card, including one you have left behind.</p>
+        </div>
+        <div class="canvas-wrap">
+          <div class="canvas" id="canvas"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <p>The agent is a short list of recipes in this folder. It does not call a model. Rejected branches stay on the canvas with their reason, and a later fork skips a recipe that would rebuild that exact screen.</p>
+    <p>The canvas is stored in this browser under <code>bookmark-demos.micro-branch.v1</code>.</p>
+    <p class="colophon">From <a href="https://x.com/VNallatamby/status/2118811242592907427">Vincent Nallatamby’s thread</a> on Quest’s AI iOS designer workflow. The designer prompts against the real screen. Iterations are micro-branches on a review canvas, so the designer and the product lead can move back and forth without the next pass erasing the last. A fine detail, such as a button’s corner radius, is tuned on a temporary panel in the prototype, then the panel is removed. A reply on the thread: put a one-line rejection on a branch so later exploration does not rebuild it.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript. The screen, the canvas, and the saved tree all run in the browser.</p></noscript>
+  <script src="branch.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
