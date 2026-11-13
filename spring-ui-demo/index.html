@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Spring UI</title>
+  <meta name="description" content="A toggle, a button, a card, a sheet, and a tab mark driven by one damped spring. Stiffness, damping, and mass are live. Stiff, just right, wobbly, and linear sit side by side.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Elasticity</p>
+    <h1>Spring UI</h1>
+    <p class="deck">Stiffness, damping, and mass drive every control below. The knob stretches, the button overshoots, the card snaps home, the sheet arrives with give, and the tab mark slides past its word.</p>
+    <p id="motion-note" class="note" hidden>Reduced motion is on. Controls jump to the target, with no bounce and no overshoot.</p>
+  </header>
+
+  <section class="bench" aria-label="Spring settings">
+    <div class="sliders">
+      <label class="tune">Stiffness <b id="k-out">260</b>
+        <input id="k" type="range" min="20" max="640" step="1" value="260" aria-valuemin="20" aria-valuemax="640">
+      </label>
+      <label class="tune">Damping <b id="c-out">15.2</b>
+        <input id="c" type="range" min="0" max="64" step="0.1" value="15.2">
+      </label>
+      <label class="tune">Mass <b id="m-out">0.90</b>
+        <input id="m" type="range" min="0.3" max="3" step="0.01" value="0.9">
+      </label>
+    </div>
+    <p class="eq">a = (−k (x − target) − c v) / m</p>
+    <p id="regime" class="regime">Underdamped.</p>
+    <div class="presets" role="group" aria-label="Presets">
+      <button type="button" data-preset="stiff" aria-pressed="false">Stiff</button>
+      <button type="button" data-preset="right" aria-pressed="true">Just right</button>
+      <button type="button" data-preset="wobbly" aria-pressed="false">Wobbly</button>
+      <button type="button" data-preset="linear" aria-pressed="false">No spring</button>
+    </div>
+  </section>
+
+  <section class="compare" aria-label="Presets side by side">
+    <div class="section-head">
+      <h2>Same release</h2>
+      <button type="button" id="replay">Replay</button>
+    </div>
+    <div class="lanes">
+      <div class="lane">
+        <div class="lane-top"><span>Stiff</span><span id="zeta-stiff"></span></div>
+        <div class="lane-track" id="track-stiff" aria-hidden="true"><span class="lane-knob" id="knob-stiff"></span></div>
+      </div>
+      <div class="lane">
+        <div class="lane-top"><span>Just right</span><span id="zeta-right"></span></div>
+        <div class="lane-track" id="track-right" aria-hidden="true"><span class="lane-knob" id="knob-right"></span></div>
+      </div>
+      <div class="lane">
+        <div class="lane-top"><span>Wobbly</span><span id="zeta-wobbly"></span></div>
+        <div class="lane-track" id="track-wobbly" aria-hidden="true"><span class="lane-knob" id="knob-wobbly"></span></div>
+      </div>
+      <div class="lane">
+        <div class="lane-top"><span>Linear</span><span id="zeta-linear">steady</span></div>
+        <div class="lane-track" id="track-linear" aria-hidden="true"><span class="lane-knob" id="knob-linear"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="widgets" aria-label="Controls">
+    <article class="widget">
+      <p class="tag">Toggle</p>
+      <button type="button" class="switch" id="lamp" role="switch" aria-checked="false">
+        <span class="track" id="lamp-track"><span class="knob" id="lamp-knob"></span></span>
+        <span class="switch-copy">Lamp <b id="lamp-word">Off</b></span>
+      </button>
+    </article>
+
+    <article class="widget">
+      <p class="tag">Button</p>
+      <button type="button" class="press" id="save" data-watch="Button">Save the note</button>
+      <p id="save-status" class="status" role="status">Nothing saved yet.</p>
+    </article>
+
+    <article class="widget wide">
+      <p class="tag">Card</p>
+      <div class="card-stage" id="card-stage">
+        <div class="ghost" aria-hidden="true"></div>
+        <div class="drag-card" id="card" tabindex="0" role="group" aria-label="Note card. Drag it, then let go. Arrow keys pull it, and releasing the key springs it home.">
+          <p class="card-kicker" id="card-kicker">Draft</p>
+          <p class="card-title">Drag, then let go</p>
+          <p class="card-text">It follows the finger. The spring starts when you release.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="widget">
+      <p class="tag">Tabs</p>
+      <div class="tab-widget">
+        <div class="num-window" aria-hidden="true">
+          <div id="num-strip">
+            <span>01</span>
+            <span>02</span>
+            <span>03</span>
+          </div>
+        </div>
+        <div>
+          <div class="tablist" id="tablist" role="tablist" aria-label="Weight">
+            <span class="indicator" id="indicator" aria-hidden="true"></span>
+            <button type="button" class="tab" id="tab-0" role="tab" aria-selected="true" aria-controls="tabpanel" tabindex="0">Quiet</button>
+            <button type="button" class="tab" id="tab-1" role="tab" aria-selected="false" aria-controls="tabpanel" tabindex="-1">Soft</button>
+            <button type="button" class="tab" id="tab-2" role="tab" aria-selected="false" aria-controls="tabpanel" tabindex="-1">Loud</button>
+          </div>
+          <p id="tabpanel" class="tabpanel" role="tabpanel" aria-labelledby="tab-0">The mark takes a short trip and sits on Quiet.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="widget">
+      <p class="tag">Sheet</p>
+      <p class="widget-copy">Open it, or drag it back down. The same spring carries the panel.</p>
+      <button type="button" class="press press-lite" id="open-sheet" aria-expanded="false" aria-controls="sheet">Open the sheet</button>
+    </article>
+  </section>
+
+  <section class="plot-section" aria-labelledby="plot-heading">
+    <div class="section-head">
+      <h2 id="plot-heading">Distance from the target</h2>
+    </div>
+    <p id="plot-caption" class="plot-caption"><span id="plot-name">Just right</span> · <span id="plot-now">0.00</span> now · overshoot <span id="plot-over">—</span></p>
+    <div class="plot-frame">
+      <canvas id="plot" aria-label="Spring displacement over the last three seconds. The center line is the target. A swing past that line is overshoot."></canvas>
+    </div>
+  </section>
+
+  <p class="hint">Drag the card and let go. Hold Save, then release. The four tracks are the same pull under each preset. The plot follows the last control you touched. Moving a slider leaves “No spring” and plays a spring again.</p>
+  <p class="colophon">From <a href="https://x.com/yui540/status/2120825584947487170">@yui540’s post</a>: 「個人的に程良く弾力があるUIが好き。」 Personally, I like UI with just the right amount of elasticity. The motion is a damped spring stepped every frame. Nothing is loaded from the network.</p>
+  <noscript><p class="deck">This page needs JavaScript to run the springs.</p></noscript>
+
+  <div id="scrim" class="scrim" hidden></div>
+  <div id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" aria-hidden="true" hidden>
+    <div class="grab" id="sheet-grab">
+      <span class="grab-bar"></span>
+    </div>
+    <h2 id="sheet-title">Put the note away</h2>
+    <p class="sheet-copy">The panel springs open and settles a little past the top when the damping is light. Drag down to dismiss it.</p>
+    <div class="sheet-actions">
+      <button type="button" class="press press-lite" id="close-sheet">Keep it</button>
+      <button type="button" class="press" id="discard">Discard</button>
+    </div>
+  </div>
+
+  <script src="spring.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
