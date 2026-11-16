@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Paper shaders</title>
+  <meta name="description" content="A product card, a headline band, and a pill button whose surfaces are live Paper Shaders. Mesh gradient, dot orbit, liquid metal on a built-in shape, paper texture, fluted glass over a local picture, and dithering. Nothing is loaded from the network.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Vanilla, pinned 0.0.82</p>
+    <h1>The surface is the shader</h1>
+    <p class="deck">A product card, the band behind the headline, and the pill button. Each one is a live Paper Shader, mounted with <code>ShaderMount</code> and that package’s fragment shader. It is not a wallpaper gallery, and it does not load React.</p>
+  </header>
+
+  <div class="bench">
+    <article class="card" id="card">
+      <div class="hero" id="hero" role="img" aria-label="Product surface"></div>
+      <div class="copy">
+        <p class="eyebrow">Studio object</p>
+        <h2 class="headline">
+          <span class="headline-shader" id="headline-shader" aria-hidden="true"></span>
+          <span class="headline-text">North lamp</span>
+        </h2>
+        <p class="pitch">A desk light with one switch. The picture, the word, and the button are the shader you pick.</p>
+        <button class="pill" type="button" id="bag" aria-pressed="false">
+          <span class="pill-shader" id="pill-shader" aria-hidden="true"></span>
+          <span class="pill-label">Add to bag</span>
+        </button>
+        <p class="blurb" id="blurb" role="status"></p>
+      </div>
+    </article>
+
+    <form class="controls" id="controls" aria-label="Shader controls">
+      <fieldset>
+        <legend>Shader</legend>
+        <div class="modes" id="shaders" role="radiogroup" aria-label="Shader"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Colors</legend>
+        <div class="swatches" id="swatches"></div>
+      </fieldset>
+      <label class="slider">Speed
+        <span class="slider-top">
+          <input id="speed" type="range" min="0" max="1.5" step="0.05" value="0.35" aria-describedby="speed-note">
+          <output id="speed-out" for="speed">0.35</output>
+        </span>
+      </label>
+      <p class="hint" id="speed-note">Speed is the shader clock. Pause holds the frame.</p>
+      <label class="slider">Scale
+        <span class="slider-top">
+          <input id="scale" type="range" min="0.25" max="2.5" step="0.05" value="1">
+          <output id="scale-out" for="scale">1</output>
+        </span>
+      </label>
+      <label class="slider" id="distortion-field">Distortion
+        <span class="slider-top">
+          <input id="distortion" type="range" min="0" max="1" step="0.01" value="0.7">
+          <output id="distortion-out" for="distortion">0.70</output>
+        </span>
+      </label>
+      <label class="slider" id="swirl-field">Swirl
+        <span class="slider-top">
+          <input id="swirl" type="range" min="0" max="1" step="0.01" value="0.45">
+          <output id="swirl-out" for="swirl">0.45</output>
+        </span>
+      </label>
+      <label class="slider" id="shape-field">Liquid-metal shape
+        <span class="slider-top">
+          <input id="shape" type="range" min="0" max="3" step="1" value="2" aria-valuetext="diamond">
+          <output id="shape-out" for="shape">diamond</output>
+        </span>
+      </label>
+      <label class="slider" id="dither-field">Dither type
+        <span class="slider-top">
+          <input id="dither" type="range" min="0" max="3" step="1" value="2" aria-valuetext="4x4">
+          <output id="dither-out" for="dither">4×4</output>
+        </span>
+      </label>
+      <button class="pause" type="button" id="pause" aria-pressed="false">Pause</button>
+      <p class="warn" id="warn" role="status"></p>
+    </form>
+  </div>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://github.com/paper-design/shaders">paper-design/shaders</a> and the docs at <a href="https://shaders.paper.design">shaders.paper.design</a>. The vanilla package <code>@paper-design/shaders</code> is vendored at 0.0.82, the version the README asks you to pin while 0.0.x can still break. <code>vendor/paper-shaders/LICENSE</code> is Apache-2.0 and <code>vendor/paper-shaders/NOTICE</code> is the notice that ships with it. Copyright Lost Coast Labs, Inc.</p>
+    <p>The page imports <code>ShaderMount</code> and the fragment shaders <code>meshGradientFragmentShader</code>, <code>dotOrbitFragmentShader</code>, <code>liquidMetalFragmentShader</code>, <code>paperTextureFragmentShader</code>, <code>flutedGlassFragmentShader</code>, and <code>ditheringFragmentShader</code>. Liquid metal uses a built-in shape (circle, daisy, diamond, metaballs) as the letter mark, with no uploaded logo. Fluted glass refracts <code>sample.png</code> in this folder. The noise texture is the one the package builds in memory. Nothing is loaded from the network.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to mount the shaders. The package is still the file in this folder.</p></noscript>
+  <script src="card.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
