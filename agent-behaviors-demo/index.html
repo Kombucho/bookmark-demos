@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Agent behaviors</title>
+  <meta name="description" content="Toggle press, hover intent, reorder, dismiss, roving focus, typeahead, and selection onto a plain list. A spec updates live, and an agent test scripts events and marks each behavior pass or fail.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Behaviors</p>
+    <h1>Agent behaviors</h1>
+    <p class="deck">The rows start plain. Turn a behavior on and try it. The spec is the small declaration an agent would emit, and Agent test scripts the events and marks each one pass or fail.</p>
+    <p id="motion-note" class="note" hidden>Reduced motion is on. The test runs straight through, with no pause between steps.</p>
+  </header>
+
+  <div class="workspace">
+    <section class="sheet switches" aria-labelledby="switch-heading">
+      <div class="section-head">
+        <h2 id="switch-heading">Behaviors</h2>
+        <div class="row">
+          <button type="button" id="all">All</button>
+          <button type="button" id="none">None</button>
+        </div>
+      </div>
+      <div id="switch-list"></div>
+    </section>
+
+    <section class="sheet stage-sheet" aria-labelledby="stage-heading">
+      <h2 id="stage-heading">Try them</h2>
+      <p id="help"></p>
+      <div id="stage">
+        <div class="anchor">
+          <button type="button" class="plain" id="trigger" aria-expanded="true" aria-controls="panel">Notes</button>
+          <div id="panel">
+            <div id="list" aria-label="Field notes"></div>
+          </div>
+        </div>
+        <button type="button" id="outside">Press outside</button>
+      </div>
+      <p id="status" role="status">The list is open.</p>
+    </section>
+
+    <section class="sheet spec-sheet" aria-labelledby="spec-heading">
+      <h2 id="spec-heading">Spec</h2>
+      <p class="fine">A sketch of what an agent would emit for the switches that are on. The names match UI SDK. The shape is this page’s, not that library’s API.</p>
+      <pre id="spec" tabindex="0"></pre>
+      <button type="button" id="test">Agent test</button>
+      <p id="summary" role="status"></p>
+      <ol id="results" aria-label="Agent test results"></ol>
+    </section>
+  </div>
+
+  <footer>
+    <p class="colophon">From <a href="https://x.com/jkup/status/2121025116436078633">@jkup’s post</a>, which points at <a href="https://github.com/vercel-labs/ui">vercel-labs/ui</a> (“a library of behaviors for agents to build the next generation of user interfaces”) and <a href="https://github.com/expo/exact">expo/exact</a> (“an AI agent can build it, run it, see it, and test it”). The test scripts tap, key, and clock, then reads the list back. Those words are this page’s. Exact’s driver has its own operations, and neither library is loaded.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript. The behaviors run in the browser.</p></noscript>
+  <script src="behaviors.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
