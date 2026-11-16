@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Orchard action</title>
+  <meta name="description" content="A schematic Orchard Action. Each action spends one note and creates one note on a depth-4 commitment tree. The chain shows cmx, nf, and a value-commitment blob. An incoming viewing key opens the amount and memo. Not a wallet, and not consensus crypto.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Schematic, not a wallet</p>
+    <h1>One spend, one output</h1>
+    <p class="deck">An Orchard action always spends one note and creates one note. That fixed shape is how a dummy hides. This page is a picture of that, on a depth-4 tree. It does not hold keys, funds, or a proof.</p>
+    <p class="banner">Every hash here is SHA-256 from WebCrypto, labelled as a stand-in for Sinsemilla or Poseidon. The Orchard crate is not on this page. This page is schematic and not consensus crypto.</p>
+  </header>
+
+  <div class="bench">
+    <section class="controls" aria-label="Actions">
+      <div class="views" role="radiogroup" aria-label="View" id="views">
+        <button type="button" role="radio" id="view-chain" aria-checked="true">Chain</button>
+        <button type="button" role="radio" id="view-ivk" aria-checked="false">Incoming viewing key</button>
+      </div>
+
+      <form id="create">
+        <h2>Create note</h2>
+        <p class="hint">A dummy spend plus one new note for this key. The chain does not say the spend was a dummy.</p>
+        <label>Amount <input name="amount" type="number" min="0" max="1000000" step="1" value="4" inputmode="numeric"></label>
+        <label>Memo <input name="memo" type="text" maxlength="48" value="lamp oil" autocomplete="off"></label>
+        <button type="submit">Create note</button>
+      </form>
+
+      <form id="send">
+        <h2>Send</h2>
+        <p class="hint">Spend one note this key holds. The new note is for someone else, so this incoming key does not open it.</p>
+        <label>Note
+          <select name="note" id="note"></select>
+        </label>
+        <label>Amount <input name="amount" type="number" min="0" max="1000000" step="1" value="2" inputmode="numeric"></label>
+        <label>Memo <input name="memo" type="text" maxlength="48" value="boat fee" autocomplete="off"></label>
+        <button type="submit" id="send-button">Send</button>
+      </form>
+
+      <button type="button" id="dummy">Dummy action</button>
+      <p class="hint">One dummy spend and one zero note. Count the public fields. They match a real action.</p>
+      <p class="status" id="status" role="status"></p>
+    </section>
+
+    <div class="stage">
+      <section class="panel" aria-labelledby="tree-heading">
+        <h2 id="tree-heading">Note-commitment tree</h2>
+        <p class="caption" id="tree-caption">Depth 4 is a readable stand-in for the depth-32 Orchard tree. A leaf marked 2 is the uncommitted value. The new cmx is appended. The spent leaf is not marked.</p>
+        <p class="anchor" id="anchor"></p>
+        <ol class="leaves" id="leaves" aria-label="Leaves, left to right"></ol>
+        <div class="diagram" id="tree" role="img" aria-labelledby="tree-caption"></div>
+        <h3>Authentication path of the latest leaf</h3>
+        <ol class="path" id="path"></ol>
+      </section>
+
+      <section class="panel" aria-labelledby="action-heading">
+        <h2 id="action-heading">Action</h2>
+        <p class="caption">The public picture is a nullifier, an extracted commitment, and a value-commitment blob. The blob is not an opened amount.</p>
+        <div class="diagram diagram-action" id="action" role="img" aria-label="Action diagram"></div>
+        <ul class="actions" id="actions"></ul>
+      </section>
+
+      <section class="panel" id="wallet" hidden>
+        <h2>Notes this key can read</h2>
+        <p class="caption">Spent means the note’s nullifier is in the set. That match uses the viewing key. The tree still does not point at the leaf.</p>
+        <ul class="wallet" id="wallet-list"></ul>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://github.com/zcash/orchard">zcash/orchard</a>. The design notes are in The Orchard Book: <a href="https://zcash.github.io/orchard/design/actions.html">Actions</a>, <a href="https://zcash.github.io/orchard/design/commitment-tree.html">Commitment tree</a>, and <a href="https://zcash.github.io/orchard/design/nullifiers.html">Nullifiers</a>.</p>
+    <p>This page is schematic and not consensus crypto.</p>
+    <p>The tree and the action diagram are Mermaid flowcharts drawn by <a href="https://github.com/obsidianmd/pele">Pele</a> 1.7.0 (MIT), vendored as <code>vendor/pele.global.js</code>. The license is <code>vendor/PELE-LICENSE.txt</code>. SHA-256 via <code>crypto.subtle</code> stands in for Sinsemilla (commitments, MerkleCRH) and Poseidon (the nullifier PRF). The ciphertext is a labelled toy seal, not the Orchard note cipher. No proof is built. The Rust crate is not vendored.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript. It still would not be a wallet.</p></noscript>
+  <script src="vendor/pele.global.js"></script>
+  <script src="orchard.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
