@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>BLAKE3 tree</title>
+  <meta name="description" content="BLAKE3 in the browser. The input splits into 1024-byte chunks, each with a chaining value, and a parent tree up to the root. Flip one bit and see which nodes change. Chunks can be walked in parallel or one at a time.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Hash</p>
+    <h1>BLAKE3 tree</h1>
+    <p class="deck">Type text or drop a file. The page splits it into 1024-byte chunks, hashes each chunk, and draws the parent nodes up to the root. Hover a node for its value and its flags.</p>
+    <p id="badge" class="badge" role="status">Checking the test vectors…</p>
+    <p id="motion-note" class="note" hidden>Reduced motion is on. The walk jumps, and nothing fades.</p>
+  </header>
+
+  <section class="sheet" aria-labelledby="input-heading">
+    <div class="section-head">
+      <h2 id="input-heading">Input</h2>
+      <p id="source-meta">Pattern</p>
+    </div>
+    <div class="modes" role="group" aria-label="What to hash">
+      <button type="button" id="mode-pattern" aria-pressed="true">Pattern</button>
+      <button type="button" id="mode-text" aria-pressed="false">Text</button>
+      <button type="button" id="mode-file" aria-pressed="false">File</button>
+    </div>
+    <label class="slider" id="pattern-label">Length
+      <span class="slider-top">
+        <input id="length" type="range" min="0" max="8192" step="1" value="4096" aria-describedby="length-out">
+        <output id="length-out" for="length">4096 bytes</output>
+      </span>
+    </label>
+    <p class="fine">The pattern is the official test-vector input: byte i is i mod 251. Lengths on a chunk boundary are 1024, 2048, 3072, 4096, and 8192.</p>
+    <label class="text-label" for="text">Text, encoded as UTF-8</label>
+    <textarea id="text" rows="3" spellcheck="false">The quick brown fox jumps over the lazy dog.</textarea>
+    <label class="drop" id="drop">
+      <span id="drop-copy">Drop a file here, or choose one. It is hashed in this tab.</span>
+      <input id="file" type="file">
+    </label>
+    <p id="file-note" class="fine" aria-live="polite"></p>
+  </section>
+
+  <section class="sheet" aria-labelledby="hash-heading">
+    <div class="section-head">
+      <h2 id="hash-heading">Digest</h2>
+      <button type="button" id="copy">Copy</button>
+    </div>
+    <p id="hash" class="hash" aria-live="polite"></p>
+    <p id="size-line" class="fine"></p>
+    <div class="flip-row">
+      <button type="button" id="flip" aria-pressed="false">Flip one bit</button>
+      <label class="slider byte-slider">Byte
+        <span class="slider-top">
+          <input id="byte" type="range" min="0" max="4095" step="1" value="0">
+          <output id="byte-out" for="byte">0</output>
+        </span>
+      </label>
+    </div>
+    <p id="flip-note" class="fine" aria-live="polite">Flips the low bit of that byte, then hashes again.</p>
+  </section>
+
+  <section class="sheet" aria-labelledby="tree-heading">
+    <div class="section-head">
+      <h2 id="tree-heading">Tree</h2>
+      <div class="modes" role="group" aria-label="Walk">
+        <button type="button" id="mode-parallel" aria-pressed="true">Parallel chunks</button>
+        <button type="button" id="mode-serial" aria-pressed="false">No multithreading</button>
+      </div>
+    </div>
+    <p id="walk-note" class="fine">Every chunk can be hashed at the same time. Parents wait until both children exist.</p>
+    <div class="play-row">
+      <button type="button" id="prev">Previous</button>
+      <button type="button" id="play">Play</button>
+      <button type="button" id="next">Next</button>
+      <p id="step-caption" aria-live="polite"></p>
+    </div>
+    <div id="chunks" class="chunks" aria-label="Chunks"></div>
+    <div class="tree-scroll">
+      <svg id="tree" role="img" aria-labelledby="tree-heading tree-summary"></svg>
+    </div>
+    <p id="tree-summary" class="fine"></p>
+    <div id="legend" class="legend">
+      <span><i class="swatch chunk"></i> Chunk</span>
+      <span><i class="swatch parent"></i> Parent</span>
+      <span><i class="swatch root"></i> Root</span>
+      <span><i class="swatch changed"></i> Changed</span>
+    </div>
+    <h3>Flags and value</h3>
+    <div id="detail" aria-live="polite">
+      <p>Choose a node.</p>
+    </div>
+    <h3 id="order-heading">Order</h3>
+    <ol id="order" aria-labelledby="order-heading"></ol>
+  </section>
+
+  <footer>
+    <p class="colophon">From <a href="https://x.com/zooko/status/2121054707812843928">Zooko’s post</a> and the <a href="https://github.com/servil-software-factory/BLAKE3/blob/next/docs/announce-0.9.md">BLAKE3-Servil 0.9 announcement</a>. That release puts everything except multithreading in a core that stays on the calling thread, and a second crate adds the thread pool. The “no multithreading” walk is the single-threaded order. This page runs the BLAKE3 hash in the browser. It does not run the Servil crate. Nothing is uploaded.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to hash and draw the tree.</p></noscript>
+  <script src="blake3.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
