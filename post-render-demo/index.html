@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Post render</title>
+  <meta name="description" content="Edit a post and paint it on a canvas. The page breaks the lines itself, times the render, downloads a PNG, and hashes two passes of the pixels.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Canvas · not xeet</p>
+    <h1>Post render</h1>
+    <p class="deck">Edit the post. The page measures the text, breaks the lines, and paints a PNG on a canvas. Same fields, same pixels, in this tab. Download it, or render twice and compare a hash.</p>
+    <p class="banner">This is a browser illustration of the idea. It is not <a href="https://github.com/rauchg/xeet">xeet</a>, and it does not run the Rust renderer.</p>
+  </header>
+
+  <div class="layout">
+    <section class="sheet" aria-labelledby="fields-heading">
+      <div class="section-head">
+        <h2 id="fields-heading">Post</h2>
+        <button type="button" id="reset">Reset sample</button>
+      </div>
+      <div class="pair">
+        <label class="field">Display name
+          <input id="name" type="text" autocomplete="off" spellcheck="false" maxlength="50" value="Ada North">
+        </label>
+        <label class="field">Handle
+          <input id="handle" type="text" autocomplete="off" spellcheck="false" maxlength="16" value="northglass" inputmode="text">
+        </label>
+      </div>
+      <div class="pair tight">
+        <label class="field">Time stamp
+          <input id="stamp" type="text" autocomplete="off" spellcheck="false" maxlength="12" value="3h">
+        </label>
+        <label class="check"><input id="verified" type="checkbox" checked> Verified mark</label>
+      </div>
+      <label class="field">Text
+        <textarea id="text" rows="8" spellcheck="false" maxlength="2000">✨ @rauchg #xeet https://github.com/rauchg/xeet
+A post, painted without a browser. The page measures the text, breaks the lines, and fills a PNG. xeet does this in safe Rust so the bytes can match on every machine. This page is only the picture of that idea, and a second pass hashes the pixels.</textarea>
+      </label>
+      <p class="fine">Mentions, hashtags, and URLs are colored while the lines are broken. The stamp is the text you type. The page does not read the clock.</p>
+
+      <h3>Frame</h3>
+      <div class="control">
+        <span id="theme-label">Theme</span>
+        <div class="modes" id="theme" role="group" aria-labelledby="theme-label">
+          <button type="button" data-value="light" aria-pressed="true">Light</button>
+          <button type="button" data-value="dark" aria-pressed="false">Dark</button>
+        </div>
+      </div>
+      <div class="control">
+        <span id="width-label">Width</span>
+        <div class="modes" id="width" role="group" aria-labelledby="width-label">
+          <button type="button" data-value="390" aria-pressed="true">390</button>
+          <button type="button" data-value="600" aria-pressed="false">600</button>
+        </div>
+      </div>
+      <div class="control">
+        <span id="scale-label">Scale</span>
+        <div class="modes" id="scale" role="group" aria-labelledby="scale-label">
+          <button type="button" data-value="1" aria-pressed="false">1×</button>
+          <button type="button" data-value="2" aria-pressed="true">2×</button>
+          <button type="button" data-value="3" aria-pressed="false">3×</button>
+        </div>
+      </div>
+      <div class="control">
+        <span id="media-label">Media placeholders</span>
+        <div class="modes" id="media" role="group" aria-labelledby="media-label">
+          <button type="button" data-value="0" aria-pressed="false">0</button>
+          <button type="button" data-value="1" aria-pressed="true">1</button>
+          <button type="button" data-value="2" aria-pressed="false">2</button>
+          <button type="button" data-value="3" aria-pressed="false">3</button>
+          <button type="button" data-value="4" aria-pressed="false">4</button>
+        </div>
+      </div>
+      <label class="check"><input id="show-more" type="checkbox" checked> Show more truncation</label>
+    </section>
+
+    <div class="stage">
+      <section class="sheet preview-sheet" aria-labelledby="preview-heading">
+        <div class="section-head">
+          <h2 id="preview-heading">PNG</h2>
+          <p id="stats" class="stats" aria-live="polite">Drawing…</p>
+        </div>
+        <div class="frame">
+          <canvas id="post" aria-describedby="post-text"></canvas>
+        </div>
+        <p id="post-text" class="sr-only"></p>
+        <div class="actions">
+          <button type="button" id="download" class="solid">Download PNG</button>
+        </div>
+      </section>
+
+      <section class="sheet" aria-labelledby="hash-heading">
+        <div class="section-head">
+          <h2 id="hash-heading">Determinism check</h2>
+          <button type="button" id="compare">Compare two passes</button>
+        </div>
+        <p id="hash-summary" class="hash-summary" role="status">Comparing the pixel buffer…</p>
+        <pre id="hash-detail" class="hash-detail"></pre>
+        <p class="note">A match means the two passes painted the same pixels in this browser. xeet ships its own faces — Chirp subsets, an emoji strike, and fallbacks — because a system font measures and hints differently on each machine, and then the PNG bytes differ. This page uses Segoe UI, system-ui, or the generic sans-serif, whichever is installed. It will not match another computer.</p>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <p class="colophon">From <a href="https://x.com/rauchg/status/2122184794209714368">Guillermo Rauch’s post</a> and <a href="https://github.com/rauchg/xeet">xeet</a>. The real renderer is safe Rust, one native binary and one WebAssembly core, and it does not use a browser, the network, the filesystem, the clock, or system fonts. The <a href="https://xeet-rs.vercel.app">playground</a> is the real one. This page only paints a canvas.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to measure the text and paint the canvas.</p></noscript>
+  <script src="post.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Zcash connect</title>
+  <meta name="description" content="A simulated RainbowKit-style connect button for Noir, Zelcore, Zucchini, and Zashi. A shortened unified address, a Sapling and t-addr toggle, and an illustrative React snippet.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Simulation · no wallet · no network</p>
+    <h1>Zcash connect</h1>
+    <p class="deck">Press connect. Pick Noir, Zelcore, Zucchini, or Zashi. A short pause stands in for the handshake, then a chip shows a shortened unified address. Switch that address to Sapling or a t-addr.</p>
+    <p class="banner">Simulation. No wallet is opened, no key is created, and no request is sent. The addresses are fake.</p>
+  </header>
+
+  <div class="stage">
+    <section class="app" aria-labelledby="app-heading">
+      <div class="appbar">
+        <div class="brand">
+          <span class="shield" aria-hidden="true"></span>
+          <h2 id="app-heading">Orchard desk</h2>
+        </div>
+        <button type="button" id="connect" class="connect">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2.4 4.8 5.4v6.1c0 4.3 3 7.4 7.2 9.1 4.2-1.7 7.2-4.8 7.2-9.1V5.4L12 2.4z"/></svg>
+          <span id="connect-label">Connect Zcash Wallet</span>
+        </button>
+        <div id="chip" class="chip" hidden>
+          <span class="net"><i class="dot" aria-hidden="true"></i> mainnet</span>
+          <span class="bal"><b id="chip-bal">12.40</b> ZEC</span>
+          <span class="who"><i class="mark" id="chip-mark" aria-hidden="true">N</i> <span id="chip-addr"></span></span>
+        </div>
+      </div>
+      <div class="body">
+        <p id="status" class="status" role="status">Connect a wallet to see a receive address.</p>
+        <div id="account" hidden>
+          <p class="kicker">Address type</p>
+          <div id="kinds" class="kinds" role="group" aria-label="Address type"></div>
+          <p id="full" class="full"></p>
+          <p id="explain" class="explain"></p>
+          <p class="fine">12.40 ZEC is a fictional balance. This page does not price ZEC.</p>
+          <div class="row">
+            <button type="button" id="copy-address" class="solid">Copy address</button>
+            <button type="button" id="disconnect">Disconnect</button>
+            <p id="copy-address-status" class="inline-status" role="status"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sheet code" aria-labelledby="code-heading">
+      <div class="section-head">
+        <h2 id="code-heading">Equivalent React</h2>
+        <button type="button" id="copy-code">Copy</button>
+      </div>
+      <p class="note">Illustrative. <code>CiceroProvider</code>, <code>CiceroConnectButton</code>, <code>useAccount</code>, and the four wallet objects are exported by <code>@cicero-zcash/react</code>. <code>getDefaultWallets()</code> also returns Ywallet, a viewing key, and a burner. This page does not load the package, and the button does not call <code>connect</code>.</p>
+      <pre id="snippet" tabindex="0"></pre>
+      <p id="copy-code-status" class="inline-status" role="status"></p>
+    </section>
+  </div>
+
+  <div id="modal" class="modal" hidden>
+    <div class="sheet dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="dialog-head">
+        <h2 id="modal-title">Connect a wallet</h2>
+        <button type="button" id="close" class="close" aria-label="Close">Close</button>
+      </div>
+      <p class="dialog-note">Nothing is installed. The handshake stays in this page.</p>
+      <div id="wallets" class="wallets" role="group" aria-label="Wallets"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="colophon">From <a href="https://x.com/kc_deblocksmith/status/2122236660431864201">@kc_deblocksmith’s post</a> on the IWB BlockchainUNN hackathon and <a href="https://github.com/Kaycee276/cicero">Cicero</a> (<code>@cicero-zcash/react</code>). The modal lists the four wallets named in that post. The prefix rules follow <code>getAddressType</code> in the repo: <code>u1</code> unified, <code>zs1</code> Sapling, <code>t1</code> / <code>t3</code> transparent. This page does not load the package.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to open the simulated connect modal.</p></noscript>
+  <script src="connect.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
