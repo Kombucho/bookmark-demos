@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Painted world</title>
+  <meta name="description" content="Walk a generated landscape. Hills, trees, rocks, and a sky, then a paint pass. Brush size, a raw comparison, and the frame rate. WebGPU when the browser has it, otherwise WebGL2.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">A short walk</p>
+    <h1>Painted world</h1>
+    <p class="deck">Hills, trees, and rocks from a seed. Walk through them. A paint pass turns the picture into strokes. The badge names the backend this browser actually used.</p>
+  </header>
+
+  <div class="stage">
+    <div class="frame">
+      <canvas id="view" aria-label="A painted walk. Drag to look. WASD or arrows to move."></canvas>
+      <div class="hud">
+        <span id="backend">Starting</span>
+        <span id="mode">Painted</span>
+        <span id="fps">— fps</span>
+      </div>
+      <div class="touch">
+        <div class="stick" id="move-stick" role="group" aria-label="Move stick">
+          <span class="stick-name">Move</span>
+          <div class="knob"></div>
+        </div>
+        <div class="stick" id="look-stick" role="group" aria-label="Look stick">
+          <span class="stick-name">Look</span>
+          <div class="knob"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <label class="brush">Brush
+        <input id="brush" type="range" min="0" max="100" value="72" aria-describedby="brush-readout">
+      </label>
+      <p id="brush-readout" class="readout">Brush 2</p>
+      <button type="button" id="paint" aria-pressed="true">Painted</button>
+      <label class="seed-field">Seed
+        <input id="seed" type="text" maxlength="48" spellcheck="false" autocomplete="off" value="ridge-walk">
+      </label>
+      <button type="button" id="walk">Walk</button>
+      <button type="button" id="reroll">Another place</button>
+    </div>
+  </div>
+
+  <p id="status" class="status" role="status">WASD or arrows walk. Drag the picture to look. On a phone, the left stick walks and the right stick looks.</p>
+  <p class="hint">The seed is the URL hash, so a copied link opens the same hills. The paint pass is a Kuwahara filter: each pixel keeps the steadiest nearby color, which reads as a stroke. Raw skips that pass.</p>
+  <p class="colophon">From <a href="https://x.com/dhof/status/2092660391113310524">@dhof’s post</a> on a wasm and WebGPU painted world, <a href="https://bash.tv/dhof/painted-world">bash.tv/dhof/painted-world</a>. This page is a short walk in a landscape generated here, with its own paint pass. It does not load that world, and it does not load Three.js.</p>
+  <noscript><p class="deck">This page needs JavaScript to walk the landscape.</p></noscript>
+  <script src="world.js"></script>
+  <script src="render.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

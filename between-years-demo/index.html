@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Between Years</title>
+  <meta name="description" content="An unofficial 32-door wallet-pass mock. Doors unlock at midnight Pacific from 1 December through 1 January. Open one for a small piece. A rules check counts network calls.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Unofficial mock · files only</p>
+    <h1>Between Years</h1>
+    <p class="deck">A phone-sized pass with 32 doors. One unlocks at each midnight in America/Los_Angeles, from 1 December through 1 January. Open a door for a small piece that lives in this page.</p>
+    <p class="banner">Unofficial mock. This is not an Apple Wallet or Google Wallet pass. Nothing is signed, nothing connects a wallet, and nothing here is on a chain.</p>
+  </header>
+
+  <div class="layout">
+    <div class="pass-col">
+      <article class="pass" id="pass" aria-label="Unofficial wallet pass">
+        <header class="pass-head">
+          <p class="pass-kicker">Wallet pass</p>
+          <h2>Between Years</h2>
+          <p class="pass-sub" id="season-label">32 doors</p>
+        </header>
+        <div class="pass-meta">
+          <p id="today-label">Today</p>
+          <p id="count-label">0 of 32 unlocked</p>
+        </div>
+        <div class="grid" id="grid" role="group" aria-label="32 doors"></div>
+        <p id="door-status" class="door-status" role="status">Drag today forward to unlock a door.</p>
+        <p id="countdown" class="countdown" role="status"></p>
+        <div class="strip" aria-hidden="true">
+          <span>Files only</span>
+          <span>No wallet</span>
+          <span>No chain</span>
+        </div>
+        <div class="barcode" aria-hidden="true"></div>
+        <p class="mock-note">Mock barcode. Not scannable.</p>
+      </article>
+
+      <div class="scrub">
+        <label class="scrub-field" for="scrub">Today
+          <input id="scrub" type="range" min="0" value="0" step="1" aria-describedby="scrub-readout">
+        </label>
+        <p id="scrub-readout" class="scrub-readout"></p>
+        <div class="scrub-actions">
+          <button type="button" id="today">Real today</button>
+          <button type="button" id="reset">Reset opened doors</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="side">
+      <section class="sheet" id="stage" aria-labelledby="piece-title">
+        <p class="kicker" id="piece-kicker">Piece</p>
+        <h2 id="piece-title">Open an unlocked door</h2>
+        <p id="piece-blurb" class="blurb">Locked doors stay shut. The slider moves the date this pass uses, so you can look ahead of the real day.</p>
+        <div id="piece-host"></div>
+      </section>
+
+      <section class="sheet rules" aria-labelledby="rules-heading">
+        <h2 id="rules-heading">Door rules check</h2>
+        <ul id="rules"></ul>
+        <p id="inspect" class="inspect"></p>
+      </section>
+    </div>
+  </div>
+
+  <p class="colophon">From <a href="https://x.com/BetweenYears26/status/2122724119431238076">@BetweenYears26’s post</a> on Between Years, a 32-door calendar meant to live in a wallet pass. Community pieces would sit behind the doors. The rules named there: no wallet connection and no signatures, files only, no server, no outside calls, no trackers, fast on a phone, and saves kept in the browser. This page is an unofficial mock of that pass. It does not create a pass.</p>
+  <noscript><p class="deck">This page needs JavaScript to unlock the doors.</p></noscript>
+  <script src="doors.js"></script>
+  <script src="pieces.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
