@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Textual machinery</title>
+  <meta name="description" content="A character model reads five letters and guesses the next. Wrong guesses train it. An isometric wireframe shows the letters, the lanes, and the red correction.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="screen">
+    <canvas id="view" aria-label="Isometric text machine. Letters travel the tracks, drop through the ribbon cables, and a wrong guess sends red letters back through the lower arrays."></canvas>
+  </div>
+  <footer class="dock">
+    <div class="row">
+      <a class="home" href="../index.html">All demos</a>
+      <h1>Textual machinery</h1>
+      <button type="button" id="play" aria-pressed="true">Pause</button>
+      <label class="speed">Speed
+        <input id="speed" type="range" min="1" max="16" value="1" step="1" aria-valuemin="1" aria-valuemax="16" aria-valuenow="1" aria-valuetext="1×">
+      </label>
+      <span id="speed-readout">1×</span>
+      <button type="button" id="reset">Reset weights</button>
+      <label class="preset">Preset
+        <select id="preset">
+          <option value="metaphor">Metaphor</option>
+          <option value="alice">Alice</option>
+          <option value="times">Two cities</option>
+          <option value="custom">Custom</option>
+        </select>
+      </label>
+      <button type="button" id="sample">Sample</button>
+    </div>
+    <label class="text-label" for="text">Training text</label>
+    <textarea id="text" rows="3" spellcheck="false" autocapitalize="none" autocorrect="off" maxlength="4000"></textarea>
+    <p class="sample-label">SAMPLE</p>
+    <pre id="sample-out" class="sample" aria-live="polite">Sample runs eighty characters from the weights as they are.</pre>
+    <p id="status" class="status"></p>
+    <p class="colophon">From <a href="https://x.com/poetengineer__/status/2122844917076840929">@poetengineer__'s post</a>, textual machinery. The guesser lives in this page: five characters in, one character out. A wrong guess is the only time a correction runs back through the weights.</p>
+  </footer>
+  <noscript><p class="colophon">This page needs JavaScript to train the character model.</p></noscript>
+  <script src="model.js"></script>
+  <script src="viz.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
