@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>States and break</title>
+  <meta name="description" content="A connection card with a grouped state switcher, and an issue card stress-tested for overflow, clipped text, and missing fallbacks. Edit the mock data and the checks run again.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Component bench</p>
+    <h1>States, then break</h1>
+    <p class="deck">Two sample cards. States flips one live instance from a grouped switcher, or lays every state out at once. Break renders that card across a long title, an unbroken id, a huge count, empty fields, right-to-left text, and emoji, at a width and type size you set. Each case is marked pass or flag.</p>
+    <p class="motion-note">Reduced motion is on. The loading skeleton stays still.</p>
+  </header>
+
+  <div class="toolbar">
+    <fieldset>
+      <legend>Component</legend>
+      <div class="choices" role="radiogroup" aria-label="Component">
+        <label class="choice"><input type="radio" name="component" value="connection" checked> <span>Connection</span></label>
+        <label class="choice"><input type="radio" name="component" value="issue"> <span>Issue</span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Mode</legend>
+      <div class="choices" role="radiogroup" aria-label="Mode">
+        <label class="choice"><input type="radio" name="mode" value="states" checked> <span>States</span></label>
+        <label class="choice"><input type="radio" name="mode" value="break"> <span>Break</span></label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div id="states-panel">
+    <div class="states-layout">
+      <section aria-labelledby="switch-heading">
+        <div class="section-head">
+          <h2 id="switch-heading">States</h2>
+          <button type="button" id="grid-toggle" aria-pressed="false" aria-controls="state-grid">Show every state</button>
+        </div>
+        <p class="hint">Arrow keys move inside a group. One card updates. The grid shows the rest.</p>
+        <div id="switcher"></div>
+      </section>
+      <section class="live" aria-labelledby="live-heading">
+        <h2 id="live-heading">Live</h2>
+        <p id="live-status" role="status"></p>
+        <div id="live"></div>
+      </section>
+    </div>
+    <div id="state-grid" class="state-grid" hidden></div>
+  </div>
+
+  <div id="break-panel" hidden>
+    <section class="stress" aria-labelledby="stress-heading">
+      <div class="section-head">
+        <h2 id="stress-heading">Break</h2>
+        <p id="summary" role="status"></p>
+      </div>
+      <div class="stress-controls">
+        <label class="slider" for="width">Card width
+          <output id="width-out" for="width">320px</output>
+          <input id="width" type="range" min="160" max="480" step="10" value="320">
+        </label>
+        <fieldset>
+          <legend>Text size</legend>
+          <div class="choices" role="radiogroup" aria-label="Text size">
+            <label class="choice"><input type="radio" name="zoom" value="1" checked> <span>100%</span></label>
+            <label class="choice"><input type="radio" name="zoom" value="2"> <span>200%</span></label>
+          </div>
+        </fieldset>
+      </div>
+      <div id="cases" class="cases"></div>
+    </section>
+
+    <section class="editor" aria-labelledby="mock-heading">
+      <h2 id="mock-heading">Mock data</h2>
+      <p class="hint">Cases start from this object. A case can replace a field. Checks run again on each change.</p>
+      <div class="editor-grid">
+        <div id="fields-connection">
+          <label for="field-project">Project <input id="field-project" autocomplete="off"></label>
+          <label for="field-environment">Environment <input id="field-environment" autocomplete="off"></label>
+          <label for="field-replays">Session replays <input id="field-replays" autocomplete="off"></label>
+        </div>
+        <div id="fields-issue" hidden>
+          <label for="field-title">Title <input id="field-title" autocomplete="off"></label>
+          <label for="field-body">Description <textarea id="field-body" rows="3"></textarea></label>
+          <label for="field-priority">Priority <input id="field-priority" autocomplete="off"></label>
+          <label for="field-count">Count <input id="field-count" inputmode="numeric" autocomplete="off"></label>
+        </div>
+        <label class="json" for="mock">JSON
+          <textarea id="mock" rows="12" spellcheck="false"></textarea>
+        </label>
+      </div>
+      <p id="json-error" class="warn" role="status"></p>
+    </section>
+  </div>
+
+  <footer>
+    <p>From <a href="https://x.com/jakubkrehel/status/2123466165204758831">@jakubkrehel’s post</a> and <a href="https://jakub.kr/skills">jakub.kr/skills</a>. <code>/state-machine</code> renders every state of a component with mock data and a switcher. <code>/break</code> renders it across stress cases. Overflow is <code>scrollWidth &gt; clientWidth</code>. Clipped text is <code>scrollHeight &gt; clientHeight</code>. A missing fallback is an empty field that did not render its stand-in: Untitled problem, No description provided, Unknown. This page does not run the skills, and it does not call a model.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to switch states and run the checks.</p></noscript>
+  <script src="break.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
