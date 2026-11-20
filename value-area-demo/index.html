@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Value area</title>
+  <meta name="description" content="A seeded synthetic price path that rotates inside balance zones and runs quickly through the gap between them. The profile marks the point of control, the 70% value area, and time at each price. Not trading advice.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Synthetic · not trading advice</p>
+    <h1>Quick between, slow inside</h1>
+    <p class="deck">Auction market theory, as a path you can replay. Inside a balance zone the price rotates. Between zones it runs. The profile counts time at each price: the point of control, the 70% value area, and the thin gap. These numbers are this made-up path.</p>
+  </header>
+
+  <p class="caution">Synthetic and educational. This is not bitcoin, not a price history, and not trading advice. Nothing is loaded from the network.</p>
+  <p class="motion-note" id="motion-note">Reduced motion is on. The path stays put until you press play or step.</p>
+
+  <section class="desk" aria-label="Playback and path settings">
+    <div class="transport" role="group" aria-label="Playback">
+      <button type="button" id="play" aria-pressed="false">Play</button>
+      <button type="button" id="pause" disabled>Pause</button>
+      <button type="button" id="step">Step</button>
+      <button type="button" id="reset">Reset</button>
+    </div>
+    <div class="speeds" role="radiogroup" aria-label="Speed">
+      <label class="choice"><input type="radio" name="speed" value="1"> <span>1×</span></label>
+      <label class="choice"><input type="radio" name="speed" value="2" checked> <span>2×</span></label>
+      <label class="choice"><input type="radio" name="speed" value="4"> <span>4×</span></label>
+    </div>
+    <div class="sliders">
+      <label class="slider" for="balance">Balance length
+        <output id="balance-out" for="balance">46</output>
+        <input id="balance" type="range" min="12" max="120" step="1" value="46">
+      </label>
+      <label class="slider" for="breakout">Breakout probability
+        <output id="breakout-out" for="breakout">16%</output>
+        <input id="breakout" type="range" min="0" max="1" step="0.01" value="0.16">
+      </label>
+      <label class="slider" for="volatility">Volatility
+        <output id="volatility-out" for="volatility">0.70</output>
+        <input id="volatility" type="range" min="0" max="2" step="0.05" value="0.7">
+      </label>
+    </div>
+    <div class="seed-row">
+      <label class="seed" for="seed">Seed
+        <input id="seed" inputmode="numeric" value="20261112" autocomplete="off">
+      </label>
+      <button type="button" id="reroll">New seed</button>
+      <button type="button" id="force">Force breakdown</button>
+    </div>
+    <p class="warn" id="warn" role="status"></p>
+  </section>
+
+  <p class="ticker" id="ticker" aria-hidden="true"></p>
+
+  <section class="figure" aria-labelledby="chart-heading">
+    <div class="plot-col">
+      <h2 id="chart-heading">Price path</h2>
+      <p class="schematic">Flat stretches are balance. Steep stretches are the move between zones. Bands mark the 70% value area, the point of control, and the gap.</p>
+      <div class="plot" id="price-plot">
+        <div class="bands" id="bands"></div>
+        <div id="price"></div>
+      </div>
+      <ul class="legend">
+        <li><span class="swatch price"></span> Price</li>
+        <li><span class="swatch value"></span> Value area, 70%</li>
+        <li><span class="swatch poc"></span> Point of control</li>
+        <li><span class="swatch gap"></span> Inefficiency</li>
+      </ul>
+    </div>
+    <div class="profile-col">
+      <h2>Time at price</h2>
+      <p class="schematic">Price runs upward. Longer bars spent more time there. Gold bars are the thin gap, where the path barely stopped.</p>
+      <div class="profile-row">
+        <div class="scale" id="scale" aria-hidden="true"></div>
+        <div id="profile"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="measure" aria-labelledby="measure-heading">
+    <div>
+      <h2 id="measure-heading">Pace</h2>
+      <div class="paces">
+        <div class="pace pace-in">
+          <p class="pace-kicker">Inside zones</p>
+          <p class="pace-num" id="pace-in">0</p>
+          <p class="pace-unit">per step</p>
+        </div>
+        <div class="pace pace-out">
+          <p class="pace-kicker">Between zones</p>
+          <p class="pace-num" id="pace-out">0</p>
+          <p class="pace-unit">per step</p>
+        </div>
+      </div>
+      <p class="claim" id="claim"></p>
+      <p class="dwell" id="dwell"></p>
+      <p class="status" id="status" role="status"></p>
+    </div>
+    <div>
+      <h2>Time per price</h2>
+      <div class="table-wrap">
+        <table>
+          <caption>Steps spent in each price bucket of the visible path.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Price</th>
+              <th scope="col">Steps</th>
+              <th scope="col">Share</th>
+              <th scope="col">Mark</th>
+            </tr>
+          </thead>
+          <tbody id="buckets"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="zones" id="zones" aria-label="Balance zones and the gaps between them"></section>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://x.com/bull_genius/status/2120778501934440952">@bull_genius’s post</a>: “auction market theory teaches you that price moves QUICK between two equilibrium zones (market inefficiency zone/expansion) and SLOW inside them (market balance zone/contraction) the volume profile shows you the two balance zones market was auctioning in. it also shows you the gap where prices moved inefficiently.”</p>
+    <p>The post goes on to read a bitcoin chart. This page does not use that chart, those prices, or that liquidation figure. The generator is seeded and deterministic. Time at a price stands in for volume. The value area is 70% of the time in a balance zone, grown from the busiest price. A tie takes both neighboring prices. The lower price wins when two prices are equally busy.</p>
+    <p>The price line and the time-at-price bars are Mermaid <code>xychart-beta</code>, drawn by <a href="https://github.com/obsidianmd/pele">Pele</a> 1.7.0 (MIT), vendored as <code>vendor/pele.global.js</code>. The license is <code>vendor/PELE-LICENSE.txt</code>. The bars are turned sideways so they share an upward price scale with the path. The bands and the annotation boxes are this page.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to draw the path.</p></noscript>
+  <script src="vendor/pele.global.js"></script>
+  <script src="market.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
