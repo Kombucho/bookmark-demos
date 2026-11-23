@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Data ink</title>
+  <meta name="description" content="An example chart of cups at four harbor stalls, stripped with Edward Tufte’s rules. A meter sums the ink. The thin lines are drawn by Pele.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Example data · visual display</p>
+    <h1>Show the data</h1>
+    <p class="deck">Twelve weeks of cups at four harbor stalls, drawn first as chartjunk and then taken apart. Each rule changes the picture. The meter reads the ink that is left.</p>
+  </header>
+
+  <p class="caution">Example data. These cup counts are made up. They are not a shop, and they are not a survey.</p>
+
+  <div class="layout">
+    <section class="controls" aria-label="Rules">
+      <h2>Rules</h2>
+      <div class="steps" id="steps" role="group" aria-label="Apply the rules in order"></div>
+      <div class="toggles" id="toggles" role="group" aria-label="Toggle a rule"></div>
+    </section>
+
+    <div class="stage-col">
+      <section class="meter" aria-live="polite">
+        <div>
+          <p class="meter-kicker">Data-ink ratio</p>
+          <p class="meter-num" id="ratio">0%</p>
+          <p class="meter-read" id="read">Data ink divided by every mark on the figure.</p>
+        </div>
+        <div class="meter-side">
+          <div class="meter-bar" id="bar" aria-hidden="true">
+            <span class="seg data" id="seg-data"></span>
+            <span class="seg redundant" id="seg-redundant"></span>
+            <span class="seg nondata" id="seg-nondata"></span>
+          </div>
+          <ul class="key">
+            <li><i class="swatch data"></i> Data</li>
+            <li><i class="swatch redundant"></i> Redundant</li>
+            <li><i class="swatch nondata"></i> Non-data</li>
+          </ul>
+          <p class="pixel" id="pixel"></p>
+        </div>
+      </section>
+
+      <p class="step-copy" id="step-copy"></p>
+
+      <figure class="figure">
+        <div id="stage"></div>
+        <figcaption id="caption">Example data. Cups poured. The cream page is not counted as ink.</figcaption>
+      </figure>
+
+      <p class="sentence" id="spark" hidden></p>
+    </div>
+  </div>
+
+  <section class="method" aria-labelledby="method-heading">
+    <h2 id="method-heading">How the meter counts</h2>
+    <p>The ratio is necessary data ink divided by all the ink in the figure. A mark is <strong>data</strong> when it is the one encoding of a number or a name: the top of a bar, the stem, the line, the sparkline, the stall name sitting on that line. <strong>Redundant</strong> ink repeats a number the position already shows: a filled bar body, the digit printed on the bar, a legend swatch. <strong>Non-data</strong> ink would look the same if the cups changed: the grid, the ground, the border, the 3D sides, the moiré hatch, the legend box, the axis frame.</p>
+    <p>Redundant ink stays in the denominator and out of the numerator. Erasing it raises the ratio. The cream page is not ink. Blank paper never enters the sum.</p>
+    <p>The number is the sum of those marks. A stroked mark counts as its length times its stroke width. A filled rectangle or polygon counts as its area. A hatch counts as its strokes, not the bar underneath. A label counts as each character’s share of an em box, 0.45 by 0.7 of the font size squared. The same marks are painted onto a hidden canvas, one color per role, later marks covering earlier ones, and the pixel line is that count. When Pele draws the lines, the pixel sample uses those paths.</p>
+    <p>Switching from forty-eight stems to one line can ease the ratio: a line is shorter than the stems it replaces. Small multiples add four short axes, so they spend a little non-data ink on purpose. The sparkline sentence is almost all data, and the ratio rises again.</p>
+  </section>
+
+  <section class="table-wrap" aria-labelledby="table-heading">
+    <h2 id="table-heading">The numbers</h2>
+    <div class="scroll">
+      <table>
+        <caption>Example data. Cups poured at four harbor stalls over a made-up spring.</caption>
+        <thead>
+          <tr id="head-row"></tr>
+        </thead>
+        <tbody id="body-rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From the skill <a href="https://github.com/gnurio/tufte-vdqi-plugin">“Give your AI agents the skill of visualizing data the way Edward Tufte intended”</a> (<a href="https://github.com/gnurio/tufte-vdqi-plugin">gnurio/tufte-vdqi-plugin</a>), the post’s rules as a skill for <em>The Visual Display of Quantitative Information</em>. The page applies them in order: erase non-data ink, erase redundant data ink, put the labels on the marks, use a range frame, maximize the data-ink ratio, then small multiples and a sparkline. No passage from the book is reproduced. Sparklines were introduced later, in <em>Beautiful Evidence</em>, and the last step says so.</p>
+    <p>The thin multi-series line is Mermaid <code>xychart-beta</code>, drawn by <a href="https://github.com/obsidianmd/pele">Pele</a> 1.7.0 (MIT), vendored as <code>vendor/pele.global.js</code>. The license is <code>vendor/PELE-LICENSE.txt</code>. Pele’s chart always keeps a full frame, tick labels, and a legend gutter, and it will not draw a word-sized sparkline or a range frame that stops at the data. Those layers, the chartjunk, and the small multiples are hand-written SVG. On the thin-line step the range frame is still on, so the page hides Pele’s axis and draws the two lines that stop at 22 and 84 cups.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to draw the chart and count the ink.</p></noscript>
+  <script src="vendor/pele.global.js"></script>
+  <script src="ink.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
