@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>MiniChain</title>
+  <meta name="description" content="A simulated MiniChain: one contract holds the ETH, a 16-register counter runs inside it, and each operation hashes into the head. No wallet and no network.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">One contract · simulated</p>
+    <h1>Inside one contract</h1>
+    <p class="deck">Deposit ETH, deploy a guest, call it, transfer, withdraw. The guest lives in the contract’s state and runs in a tiny interpreter. Each operation writes one block. The head is the hash of the head before it.</p>
+  </header>
+
+  <p class="caution">A simulation on this page. No wallet opens, no request is sent, and there is no token. The ETH is a number in the ledger.</p>
+
+  <section class="desk" aria-label="Ledger">
+    <div class="scale">
+      <div class="jar">
+        <div class="glass" aria-hidden="true"><div class="liquid held" id="held-liquid"></div></div>
+        <p class="jar-num" id="held-num">0</p>
+        <p class="jar-label">Held by the contract</p>
+      </div>
+      <div class="lamp" id="lamp">
+        <span class="bulb" id="bulb"></span>
+        <p class="lamp-text" id="lamp-text">In balance</p>
+        <p class="lamp-sub">Held equals owed</p>
+      </div>
+      <div class="jar">
+        <div class="glass" aria-hidden="true"><div class="liquid owed" id="owed-liquid"></div></div>
+        <p class="jar-num" id="owed-num">0</p>
+        <p class="jar-label">Owed inside</p>
+      </div>
+    </div>
+    <ul class="accounts" id="accounts"></ul>
+  </section>
+
+  <section class="keys" aria-label="Operations">
+    <div class="who" role="group" aria-label="Whose account">
+      <button type="button" id="who-alice" aria-pressed="true">Alice</button>
+      <button type="button" id="who-bob" aria-pressed="false">Bob</button>
+    </div>
+    <label class="field" for="amount">ETH
+      <input id="amount" inputmode="decimal" value="1" autocomplete="off">
+    </label>
+    <div class="ops">
+      <button type="button" id="deposit">Deposit</button>
+      <button type="button" id="deploy">Deploy</button>
+      <button type="button" id="call">Call</button>
+      <button type="button" id="transfer">Transfer to Bob</button>
+      <button type="button" id="withdraw">Withdraw</button>
+    </div>
+    <button type="button" id="tour" class="tour">Run the four calls</button>
+    <p class="status" id="status" role="status"></p>
+  </section>
+
+  <section class="vm" aria-labelledby="vm-heading">
+    <div class="vm-copy">
+      <h2 id="vm-heading">MiniVM counter</h2>
+      <p>Sixteen registers, instructions four bytes wide. Deploy stores this program. Call runs it. The first word of the input is added to storage slot zero, then returned. Five instructions, so a budget under 5 stops short and the write rolls back.</p>
+      <p class="guest-id">Guest <code id="guest-addr">not deployed</code></p>
+      <p class="slot" id="slot">Slot 0 is empty.</p>
+    </div>
+    <div>
+      <ol class="bytes" id="bytes" aria-label="Program bytes"></ol>
+      <ol class="tape" id="tape"></ol>
+    </div>
+    <div class="callbox">
+      <label class="field" for="word">Word to add
+        <input id="word" inputmode="numeric" value="7" autocomplete="off">
+      </label>
+      <label class="field grow" for="budget">Step budget
+        <span class="budget-line">
+          <input id="budget" type="range" min="1" max="16" value="8">
+          <output id="budget-out" for="budget">8</output>
+        </span>
+      </label>
+      <label class="field" for="call-value">ETH sent to the guest
+        <input id="call-value" inputmode="decimal" value="0" autocomplete="off">
+      </label>
+      <p class="hint" id="halt">The counter uses 5 steps. STOP would halt with nothing returned. This program ends on RETURN.</p>
+    </div>
+    <ol class="regs" id="regs" aria-label="Registers"></ol>
+  </section>
+
+  <section class="history" aria-labelledby="history-heading">
+    <h2 id="history-heading">Blocks</h2>
+    <p class="formula">head = SHA-256( previous head | height | operation )</p>
+    <div class="strip" id="strip" tabindex="0" aria-label="Block history"></div>
+    <pre class="detail" id="detail"></pre>
+  </section>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://minichain.tech">minichain.tech</a>, <a href="https://x.com/Rhynotic">@Rhynotic</a>’s “minichain: an entire blockchain in an ethereum smart contract.” A whole chain lives in one Ethereum contract. Users deposit ETH, deploy guest contracts, call them, transfer, and withdraw. Guest code and storage sit in the chain’s state and run in an interpreter. MiniVM has 16 registers and four-byte instructions. An EVM interpreter is the other built-in engine. Execution is bounded by a step budget on the call, separate from gas. ETH is the only asset, and every internal wei is backed by ETH the contract holds. A fee is a transfer inside that same ledger, so “held by the contract” stays equal to “owed inside.” Each operation commits one block: the head becomes the hash of the previous head, the height, and the operation, and the height goes up by one. There is no token, no sequencer, and no bridge.</p>
+    <p>The counter is the 20-byte program from the docs: <code>0x130100001602000003020201170002001a020000</code>. It loads the first input word, adds the slot, stores it, and returns. This page runs that bytecode. The fee here is a flat 0.001 ETH on deploy, call, and transfer, so the internal transfer is easy to see. On the real chain the fee is about a tenth of the host gas, split between the chain’s owner and the owner of MiniChain #1, and deposits and withdrawals pay none. The hash is SHA-256 from <code>crypto.subtle</code>, not the chain’s hash. The guest address is a label for this page, not a CREATE address. Nothing is sent to Ethereum.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to run the ledger and the interpreter.</p></noscript>
+  <script src="chain.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
