@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Unravel</title>
+  <meta name="description" content="128 moving tapestries. Bands of thread drift and never loop. Transfer a token and the weave wears on a hidden, seed-dependent schedule. A sketch of Anna Lucia’s Unravel. No wallet and no network.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">128 tapestries · simulated wear</p>
+    <h1>Unravel</h1>
+    <p class="deck">Bands of coloured thread, in motion that does not come back to the start. Each token is one weave. Hand it to another wallet and it wears, on a schedule that token keeps to itself.</p>
+  </header>
+
+  <p class="caution">A sketch of Anna Lucia’s idea, drawn on this page. The addresses are made up. Nothing is minted, and no request is sent.</p>
+  <p class="motion-note" id="motion-note">Reduced motion is on. The tapestry holds still until you press play.</p>
+
+  <div class="layout">
+    <div class="loom-col">
+      <div class="loom-wrap">
+        <canvas id="loom" aria-label="Woven tapestry"></canvas>
+      </div>
+      <p class="loom-meta"><span id="dye">Dye</span><span id="fps"></span></p>
+    </div>
+
+    <div class="side">
+      <p class="preview-flag" id="preview-flag" hidden>Preview</p>
+      <p class="condition" id="condition" data-condition="Mint">Mint</p>
+      <p class="blurb" id="blurb" role="status"></p>
+
+      <dl class="facts">
+        <div>
+          <dt>Token</dt>
+          <dd id="token-label">#0–127</dd>
+        </div>
+        <div>
+          <dt>Transfers</dt>
+          <dd id="transfer-count">0</dd>
+        </div>
+        <div>
+          <dt>Holder</dt>
+          <dd id="holder"></dd>
+        </div>
+      </dl>
+      <div class="swatches" id="swatches" aria-hidden="true"></div>
+
+      <label class="slider" for="token">Token
+        <output id="token-out" for="token">#0</output>
+        <input id="token" type="range" min="0" max="127" step="1" value="0">
+      </label>
+
+      <div class="row">
+        <button type="button" id="prev">Previous</button>
+        <button type="button" id="next">Next</button>
+        <button type="button" id="transfer">Transfer</button>
+        <button type="button" id="reset">Reset</button>
+        <button type="button" id="play" aria-pressed="true">Pause</button>
+      </div>
+
+      <label class="slider" for="scrub">Preview transfers
+        <output id="scrub-out" for="scrub">0</output>
+        <input id="scrub" type="range" min="0" max="32" step="1" value="0">
+      </label>
+      <p class="preview-note" id="preview-note"></p>
+
+      <h2>Ledger</h2>
+      <ol class="ledger" id="ledger"></ol>
+    </div>
+  </div>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>After <a href="https://catalogue.gallery/stories/anna-lucia-unravel-art-blocks/">Anna Lucia’s Unravel</a>, a series of 128 moving tapestries on Art Blocks. The threads stay in motion and do not loop. As a token passes from wallet to wallet it loses its mint condition and frays into a new form, rather than dissolving. This page is a sketch of that idea. The palettes, the hidden wear thresholds, and the addresses are this folder’s, not the contract’s.</p>
+    <p>Mint, lightly worn, frayed, and unravelling are labels on the wear so far. How much one transfer adds depends on the token and on which threshold the piece has already crossed. The scrubber only previews that wear. Reset returns the token to the address that minted it.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to weave the tapestry.</p></noscript>
+  <script src="weave.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

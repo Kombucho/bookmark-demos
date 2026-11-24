@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Crash lab</title>
+  <meta name="description" content="How deep a loss is: the gain it takes to get back, and the years at a yearly return. Then a seeded path with an injected crash and four protection layers. Simulated educational data, not advice.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Simulated · not advice</p>
+    <h1>How deep is the hole</h1>
+    <p class="deck">A loss of x leaves 1 − x. Getting back takes a gain of x / (1 − x), and at a yearly return r that is ln(1 / (1 − x)) / ln(1 + r) years. Below, the same idea on a seeded path: four layers you can switch, and the drawdown they leave behind.</p>
+  </header>
+
+  <p class="caution">Simulated educational data. This is not a price history, not a forecast, and not advice. Nothing is loaded from the network.</p>
+
+  <section class="hole" aria-labelledby="hole-heading">
+    <div>
+      <h2 id="hole-heading">The gain that fills it</h2>
+      <p class="schematic">Start from 100. The curve is the gain required after the loss. It steepens because the same points have to be earned back by a smaller sum.</p>
+      <div class="sliders two">
+        <label class="slider" for="loss">Loss
+          <output id="loss-out" for="loss">50%</output>
+          <input id="loss" type="range" min="0" max="90" step="1" value="50">
+        </label>
+        <label class="slider" for="ret">Yearly return
+          <output id="ret-out" for="ret">8%</output>
+          <input id="ret" type="range" min="1" max="20" step="0.5" value="8">
+        </label>
+      </div>
+      <div class="readouts">
+        <div>
+          <p class="read-kicker">Still there</p>
+          <p class="read-num" id="left">$50</p>
+        </div>
+        <div>
+          <p class="read-kicker">Gain needed</p>
+          <p class="read-num" id="gain">100%</p>
+        </div>
+        <div>
+          <p class="read-kicker">Years to recover</p>
+          <p class="read-num" id="years">9.0</p>
+        </div>
+      </div>
+      <p class="sentence" id="hole-sentence"></p>
+    </div>
+    <figure>
+      <div id="hole-chart"></div>
+      <figcaption>Gain needed after a loss. The wash marks the loss on the slider. Educational formula, not a forecast.</figcaption>
+    </figure>
+  </section>
+
+  <section class="lab" aria-labelledby="lab-heading">
+    <h2 id="lab-heading">Four layers, one crash</h2>
+    <p class="schematic">Geometric Brownian motion, plus an injected fall. Buy and hold stays fully invested. The protected book decides tomorrow’s exposure from today’s close. Cash earns nothing. The cap limits every layer.</p>
+
+    <div class="seed-row">
+      <label class="seed" for="seed">Seed
+        <input id="seed" inputmode="numeric" value="7" autocomplete="off">
+      </label>
+      <button type="button" id="regenerate">New path</button>
+    </div>
+
+    <div class="sliders four">
+      <label class="slider" for="mu">Drift
+        <output id="mu-out" for="mu">7%</output>
+        <input id="mu" type="range" min="0" max="20" step="0.5" value="7">
+      </label>
+      <label class="slider" for="sigma">Volatility
+        <output id="sigma-out" for="sigma">18%</output>
+        <input id="sigma" type="range" min="5" max="45" step="1" value="18">
+      </label>
+      <label class="slider" for="crash">Crash depth
+        <output id="crash-out" for="crash">−35%</output>
+        <input id="crash" type="range" min="5" max="90" step="1" value="35">
+      </label>
+      <label class="slider" for="crash-days">Crash length
+        <output id="crash-days-out" for="crash-days">20 days</output>
+        <input id="crash-days" type="range" min="1" max="60" step="1" value="20">
+      </label>
+    </div>
+
+    <div class="layers" role="group" aria-label="Protection layers">
+      <button type="button" id="layer-vol" aria-pressed="true">Volatility target</button>
+      <button type="button" id="layer-brake" aria-pressed="true">Drawdown brake</button>
+      <button type="button" id="layer-trend" aria-pressed="true">Trend filter</button>
+      <button type="button" id="layer-kelly" aria-pressed="true">Kelly cap</button>
+    </div>
+    <p class="rule" id="rule"></p>
+
+    <div class="layer-grid">
+      <fieldset>
+        <legend>Volatility target</legend>
+        <label class="slider" for="target-vol">Target volatility
+          <output id="target-vol-out" for="target-vol">10%</output>
+          <input id="target-vol" type="range" min="4" max="25" step="1" value="10">
+        </label>
+        <label class="slider" for="vol-cap">Exposure cap
+          <output id="vol-cap-out" for="vol-cap">1.50×</output>
+          <input id="vol-cap" type="range" min="0.5" max="2" step="0.1" value="1.5">
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Drawdown brake</legend>
+        <label class="slider" for="dd-limit">Cut past
+          <output id="dd-limit-out" for="dd-limit">10%</output>
+          <input id="dd-limit" type="range" min="5" max="50" step="1" value="10">
+        </label>
+        <label class="slider" for="dd-floor">Then hold
+          <output id="dd-floor-out" for="dd-floor">25%</output>
+          <input id="dd-floor" type="range" min="0" max="100" step="5" value="25">
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Trend filter</legend>
+        <label class="slider" for="lookback">Moving average
+          <output id="lookback-out" for="lookback">200 days</output>
+          <input id="lookback" type="range" min="20" max="252" step="1" value="200">
+        </label>
+        <label class="slider" for="trend-floor">Hold when under
+          <output id="trend-floor-out" for="trend-floor">0%</output>
+          <input id="trend-floor" type="range" min="0" max="100" step="5" value="0">
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Kelly cap</legend>
+        <label class="slider" for="kelly-scale">Fraction of Kelly
+          <output id="kelly-scale-out" for="kelly-scale">0.50</output>
+          <input id="kelly-scale" type="range" min="0" max="1" step="0.05" value="0.5">
+        </label>
+        <label class="slider" for="kelly-window">Window
+          <output id="kelly-window-out" for="kelly-window">63 days</output>
+          <input id="kelly-window" type="range" min="20" max="126" step="1" value="63">
+        </label>
+      </fieldset>
+    </div>
+
+    <figure>
+      <h2 class="chart-title">Growth of 1</h2>
+      <div id="equity-chart"></div>
+      <figcaption>Teal is buy and hold. Green is the protected book. The shaded band is the injected crash.</figcaption>
+    </figure>
+
+    <figure>
+      <h2 class="chart-title">Under water</h2>
+      <div id="under-chart"></div>
+      <figcaption>Drawdown from the running peak. Simulated educational data, not advice.</figcaption>
+    </figure>
+
+    <div class="stats-wrap">
+      <table>
+        <caption>Statistics of this seeded path. Sharpe-ish uses a risk-free rate of zero.</caption>
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Buy and hold</th>
+            <th scope="col">Protected</th>
+          </tr>
+        </thead>
+        <tbody id="stats"></tbody>
+      </table>
+      <p class="exposure" id="exposure"></p>
+    </div>
+  </section>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://hft.md/crash/">Every free resource on how elite funds survive a crash</a> at hft.md/crash. Gain needed is x / (1 − x). Years to recover is ln(1 / (1 − x)) / ln(1 + r). Volatility targeting is σ target / σ now, from an EWMA of daily squared returns with λ = 0.94. The brake cuts exposure once the protected book is X% under its own peak. The trend layer holds less while price is under its moving average. The Kelly cap is a fraction of μ / σ², estimated from a trailing window of daily returns, and it never goes below zero.</p>
+    <p>The path is geometric Brownian motion with an injected crash multiplied through the crash window, so the injected factor compounds to the depth on the slider. The same seed draws the same path. A layer that steps aside after a fall can also miss the rebound. These figures are simulated educational data. They are not advice.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to draw the charts.</p></noscript>
+  <script src="crash.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
