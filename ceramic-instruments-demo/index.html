@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Ceramic instruments</title>
+  <meta name="description" content="Dial, gauge, ruler, and knob outlines from SVG, extruded into clearcoat ceramic. Lines draw in. A divider splits glaze from an override material.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">SVG · ceramic · draw range · scissor</p>
+    <h1>Ceramic instruments</h1>
+    <p class="deck">Four faces, written as SVG paths and extruded into clearcoat ceramic. Their outlines draw themselves in. Drag the bar: glaze on one side, and a wireframe, normals, or flat clay on the other.</p>
+  </header>
+
+  <div class="stage-wrap">
+    <div class="stage">
+      <canvas id="view" aria-label="Ceramic instruments. Left of the divider is glazed. Right of the divider uses the override material."></canvas>
+      <p class="side-label left" id="label-left">Glaze</p>
+      <p class="side-label right" id="label-right">Wireframe</p>
+      <div class="seam" id="seam" role="slider" tabindex="0" aria-valuemin="8" aria-valuemax="92" aria-valuenow="56" aria-orientation="horizontal" aria-label="Divider between glaze and the reading">
+        <div class="seam-line" aria-hidden="true"></div>
+        <span class="knob" aria-hidden="true"></span>
+      </div>
+    </div>
+    <p class="status" id="status" role="status">The outlines are drawing.</p>
+    <div class="controls">
+      <button type="button" id="replay">Replay lines</button>
+      <div class="picks" id="picks" role="group" aria-label="Instrument"></div>
+      <button type="button" id="material">Right side: Wireframe</button>
+      <button type="button" id="spin" aria-pressed="true">Auto-rotate</button>
+    </div>
+    <p class="hint" id="hint">Drag the empty glaze to orbit. Drag the bar, or focus it and use the arrow keys, to wipe. On a touch screen, drag to turn and drag the bar to wipe.</p>
+  </div>
+
+  <ol class="techniques">
+    <li><strong>SVG</strong><span>Dial, gauge, ruler, and knob are paths in this page. SVGLoader reads them. The drawings sit under the view.</span></li>
+    <li><strong>Ceramic</strong><span>Each path is extruded. MeshPhysicalMaterial, clearcoat, and a soft room environment make the glaze.</span></li>
+    <li><strong>drawRange</strong><span>The outlines are buffer geometries. setDrawRange grows from nothing to the full line.</span></li>
+    <li><strong>Scissor</strong><span>The canvas is drawn twice with setScissor. The right pass sets scene.overrideMaterial.</span></li>
+  </ol>
+
+  <div class="sheet">
+    <p class="kicker">Paths in the page</p>
+    <div class="sources" id="sources"></div>
+  </div>
+
+  <p class="fail" id="fail" hidden>WebGL or the three.js module did not start. The instrument drawings are still in the page.</p>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://x.com/0xcinzano/status/2124933842192502905">@0xcinzano’s post</a>: “/instruments — svg → three.js ceramic → drawRange lines → scissor test + override material”. The paths, the glaze, and this scene are this folder’s. three.js 0.170 is loaded from jsDelivr.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript, and a browser with WebGL, to extrude the instruments.</p></noscript>
+  <script src="instruments.js"></script>
+  <script>
+    setTimeout(function () {
+      if (!window.__ceramicReady) {
+        var fail = document.getElementById('fail');
+        if (fail) fail.hidden = false;
+      }
+    }, 12000);
+  </script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="scene.js"></script>
+</body>
+</html>
