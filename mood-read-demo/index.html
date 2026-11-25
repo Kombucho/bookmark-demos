@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Mood read</title>
+  <meta name="description" content="A checkout with a locked Pay button, a strict date, a buried setting, and a silent save. Pointer, scroll, and typing over eight seconds become five moods, and the page adapts.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="mood-chip" id="mood-chip" href="#signals">Neutral</a>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Five moods · on this page</p>
+    <h1>Mood read</h1>
+    <p class="deck">Pay stays off, the date is strict, a setting is buried, and the save says nothing. The last eight seconds of how you move, press, scroll, and type become five moods, four times a second. The desk answers the one that leads.</p>
+  </header>
+
+  <div class="desk">
+    <form class="order" id="order-form" novalidate>
+      <div class="order-head">
+        <p class="shop">Marrow Goods</p>
+        <p class="hold" id="hold-readout">Desk hold <strong id="hold">4:00</strong></p>
+      </div>
+      <ul class="items">
+        <li>
+          <span class="swatch" aria-hidden="true"></span>
+          <span>Ash pourer</span>
+          <span class="price">48</span>
+        </li>
+        <li>
+          <span class="swatch spoon" aria-hidden="true"></span>
+          <span>Cedar spoon</span>
+          <span class="price">16</span>
+        </li>
+        <li class="packing">
+          <span>Packing</span>
+          <span class="price">6</span>
+        </li>
+      </ul>
+      <p class="total"><span>To pay</span><span class="price">70</span></p>
+      <p class="fine">Prices are for this desk. Nothing is charged.</p>
+
+      <div class="fields">
+        <label class="field">Name
+          <input id="name" name="name" autocomplete="name" data-control value="Ada Marin">
+        </label>
+        <label class="field">Street
+          <input id="street" name="street" autocomplete="street-address" data-control value="18 Kiln Lane">
+        </label>
+        <div class="pair">
+          <label class="field">Ship date
+            <input id="date" name="date" inputmode="numeric" autocomplete="off" data-control placeholder="Date" aria-describedby="date-note">
+          </label>
+          <label class="field">Email
+            <input id="email" name="email" type="email" autocomplete="email" data-control placeholder="Optional">
+          </label>
+        </div>
+        <p class="date-note" id="date-note"></p>
+        <div class="promo">
+          <label class="field">Code
+            <input id="promo" name="promo" autocomplete="off" data-control>
+          </label>
+          <button type="button" id="apply" data-control data-disabled="true" aria-disabled="true">Apply</button>
+        </div>
+        <p class="date-note" id="promo-note"></p>
+      </div>
+
+      <details id="delivery">
+        <summary data-control>Delivery notes</summary>
+        <label class="check">
+          <input id="terms" type="checkbox" data-control>
+          <span>Warehouse terms. The pourer ships in a crate. Pay stays off until this is checked.</span>
+        </label>
+      </details>
+
+      <div class="actions">
+        <button type="button" id="save" data-control>Save address</button>
+        <button type="submit" id="pay" data-control data-disabled="true" aria-disabled="true">Pay 70</button>
+      </div>
+      <p class="pay-note" id="pay-note"></p>
+    </form>
+
+    <aside class="signals" id="signals" data-signal>
+      <p class="kicker">Reading</p>
+      <h2 id="mood-name" data-mood="neutral">Neutral</h2>
+      <p class="mood-line" id="mood-line" role="status">The desk stays as it is.</p>
+      <div class="meters" id="meters" role="group" aria-label="Mood probabilities"></div>
+      <p class="tick" id="tick">Every 250 ms</p>
+      <canvas id="trail" width="640" height="240" aria-hidden="true"></canvas>
+      <p class="trail-cap">Pointer path, last 8 seconds, in this window.</p>
+      <button type="button" id="features-toggle" aria-pressed="false" aria-controls="features">Show features</button>
+      <div id="features" hidden></div>
+      <div class="finder" id="finder" hidden>
+        <p class="finder-kicker">A way to the buried setting</p>
+        <div class="jumps" id="jumps"></div>
+        <label class="field">Search settings
+          <input id="find" type="search" autocomplete="off" placeholder="Lot numbers, gift note, terms">
+        </label>
+      </div>
+      <button type="button" id="clear">Clear the reading</button>
+      <details class="weights">
+        <summary>How the score is made</summary>
+        <p id="formula"></p>
+        <div id="weight-list"></div>
+      </details>
+      <p class="touch-note">On a touch screen there is little hovering. Taps, scrolling, typing, and idle still count.</p>
+    </aside>
+  </div>
+
+  <section class="archive" aria-labelledby="account-heading">
+    <h2 id="account-heading">Account</h2>
+    <details id="account">
+      <summary data-control>Account</summary>
+      <details id="prefs">
+        <summary data-control>Preferences</summary>
+        <details id="receipts">
+          <summary data-control>Receipts</summary>
+          <label class="check" id="lots-label">
+            <input id="lots" type="checkbox" data-control>
+            <span>Include lot numbers on the paper receipt</span>
+          </label>
+          <label class="field">Gift note
+            <textarea id="gift" rows="2" data-control placeholder="A line for the crate"></textarea>
+          </label>
+        </details>
+      </details>
+    </details>
+
+    <h2>Past orders</h2>
+    <details>
+      <summary data-control>March crate</summary>
+      <p>Two cups. One of them waited on the dock.</p>
+    </details>
+    <details>
+      <summary data-control>April firing</summary>
+      <p>A bowl that came back salted. The note is in Receipts.</p>
+    </details>
+    <details>
+      <summary data-control>June spoons</summary>
+      <p>Four spoons, packed flat. The lot line was left off.</p>
+    </details>
+    <details>
+      <summary data-control>August hold</summary>
+      <p>The desk released this one. Nothing shipped.</p>
+    </details>
+  </section>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://x.com/Jakubantalik/status/2125273238414721460">Jakub Antalik’s post</a> on <a href="https://libraries.dev/mood-recognition">libraries.dev/mood-recognition</a>. That library is a gradient-boosted model that stays in the page. This one is a separate weighted sum and a softmax over the features in the panel. It does not load their code. Positions and timings stay in this tab. The repeated-submit check remembers only whether the same lock came back, not the letters you typed.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to read the pointer and adapt the desk.</p></noscript>
+  <script src="mood.js"></script>
+  <script src="checkout.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

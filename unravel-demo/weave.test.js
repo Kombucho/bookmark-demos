@@ -87,7 +87,7 @@ test('the index, the readme, and the page name Anna Lucia', function () {
   assert.match(html, /Anna Lucia/);
   assert.match(html, /https:\/\/catalogue\.gallery\/stories\/anna-lucia-unravel-art-blocks\//);
   assert.match(index, /href="unravel-demo\/"/);
-  assert.match(index, /Seventy-three/);
+  assert.match(index, /Seventy-five/);
   assert.match(readme, /\[Unravel\]\(unravel-demo\/\)/);
-  assert.match(readme, /Seventy-three static tools/);
+  assert.match(readme, /Seventy-five static tools/);
 });
