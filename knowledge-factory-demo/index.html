@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Knowledge factory</title>
+  <meta name="description" content="A fictional week at Northline. Three agents flag stale knowledge, and a night curator rewrites the cards. The other switch lets the agents edit the store themselves.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Fictional week · no model</p>
+    <h1>Knowledge factory</h1>
+    <p class="deck">Context is what an agent has for this run. Knowledge is the card that should still be right tomorrow. Three agents work the same jobs each morning. They can flag a stale card. They do not edit it. At night a curator reads the flags, the traces, and the raw notes, and rewrites the store.</p>
+  </header>
+
+  <p class="fiction">Fictional example. Northline Analytics, Mara Chen, Ivo Park, the agents, the warehouse names, and every figure are made up. No model is called.</p>
+
+  <div class="switch" role="group" aria-label="Who may edit the store">
+    <button type="button" id="mode-curator" aria-pressed="true">Curator owns the store</button>
+    <button type="button" id="mode-self" aria-pressed="false">Agents edit it themselves</button>
+  </div>
+  <p class="mode-line" id="mode-line"></p>
+
+  <section class="chart-block" aria-labelledby="chart-heading">
+    <h2 id="chart-heading">Seven days, two ways</h2>
+    <p id="blurb"></p>
+    <div id="chart"></div>
+    <details>
+      <summary>Seven-day numbers</summary>
+      <div class="scroll" id="table"></div>
+    </details>
+  </section>
+
+  <section class="floor" id="floor">
+    <div class="dayhead">
+      <p class="day-label" id="day-label">Day 1 · morning</p>
+      <ol class="days" id="days"></ol>
+    </div>
+    <div class="desks" id="desks"></div>
+    <div class="split">
+      <div>
+        <p class="shelf-note">The format is the least of it. The same cards could be a file, a wiki, or a graph. The loop is the same.</p>
+        <div id="store"></div>
+      </div>
+      <aside class="side">
+        <div id="context"></div>
+        <div id="inbox"></div>
+        <div id="traces"></div>
+        <div id="sources"></div>
+      </aside>
+    </div>
+    <div id="trace"></div>
+    <p class="status" id="status" role="status"></p>
+    <div class="controls">
+      <button type="button" id="run-day" class="primary">Run the day</button>
+      <button type="button" id="run-night">Run curator (night)</button>
+      <button type="button" id="skip" hidden>Skip to the result</button>
+      <button type="button" id="reset">Reset the week</button>
+    </div>
+  </section>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://x.com/hwchase17/status/2124181216719151585">Harrison Chase’s post</a> and <a href="https://www.langchain.com/blog/knowledge-factory">How to build a knowledge factory</a>. Skills are how the work is done. Domain knowledge is how the business works. Data-access guidance is where the current numbers live and how to query them. Workers flag what is missing or wrong, and optionally suggest a fix. A curator runs on a cadence, that night, with the flags, the traces, and the raw notes. The blog’s scene is day one here: a renamed column, a finance lead’s header, and the night update. The company and the other days are fictional. No model is called.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to run the day and the night curator.</p></noscript>
+  <script src="factory.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
