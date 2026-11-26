@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Engineering shelf</title>
+  <meta name="description" content="Fourteen book spines, from the machine up to AI. Hover tilts a spine, click pulls the book out, and marking it read lights a layer on the stack. The marks stay in this browser.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Fourteen books · systems to AI</p>
+    <h1>Engineering shelf</h1>
+    <p class="deck">The shelf runs from the machine up to AI. Hover a spine and it tips. Click it and the book comes off the shelf, open to its stage and one line on what it covers. Mark the ones you have read. A layer on the stack lights when its books are marked, and this browser remembers.</p>
+  </header>
+
+  <div class="studio">
+    <div class="case" id="case"></div>
+    <aside class="path" aria-labelledby="path-heading">
+      <p class="kicker">Reading path</p>
+      <h2 id="path-heading">From the machine up</h2>
+      <p id="path-line" class="path-line" role="status"></p>
+      <ol id="stack" class="stack"></ol>
+      <p class="saved" id="saved">Marks stay in this browser.</p>
+      <button type="button" id="clear">Clear read marks</button>
+    </aside>
+    <article class="open" id="book" aria-live="polite"></article>
+  </div>
+
+  <p class="hint">Arrow keys move along the shelf. Enter pulls the book out. Escape puts it back. The one-line note is the shelf’s summary, not a review.</p>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://x.com/vineerpasam/status/2124902293254594759">@vineerpasam’s post</a> and the <a href="https://layoffsandhires.com/engineering">engineering shelf</a>. The fourteen books, the stage names, and the one-line summaries are that shelf’s. The topics are its map of what each book covers. This page does not add a review. Read marks stay under <code>bookmark-demos.engineering-shelf.v1</code> in localStorage.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to pull a book off the shelf.</p></noscript>
+  <script src="shelf.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -183,7 +183,22 @@ test('the page, the index, and the readme name the post and the five moods', fun
   assert.match(app, /Mood\.WINDOW_MS/);
   assert.match(app, /data-signal/);
   assert.match(index, /href="mood-read-demo\/"/);
-  assert.match(index, /Seventy-five/);
   assert.match(readme, /\[Mood read\]\(mood-read-demo\/\)/);
-  assert.match(readme, /Seventy-five static tools/);
+  assertCatalogCount(index, readme);
 });
+
+function assertCatalogCount(index, readme) {
+  const ones = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+  const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+  const cards = index.match(/href="[a-z0-9-]+-demo\/"/g) || [];
+  const entries = readme.match(/^- \[[^\]]+\]\([a-z0-9-]+-demo\/\)/gm) || [];
+  assert.equal(cards.length, entries.length);
+  assert.ok(cards.length >= 20 && cards.length < 100);
+  const ten = Math.floor(cards.length / 10);
+  const one = cards.length % 10;
+  const words = (one ? tens[ten] + '-' + ones[one] : tens[ten]);
+  const label = words.charAt(0).toUpperCase() + words.slice(1);
+  assert.match(index, new RegExp('>' + label + ' tools<'));
+  assert.match(index, new RegExp(label + ' browser tools'));
+  assert.match(readme, new RegExp('^' + label + ' static tools:', 'm'));
+}
