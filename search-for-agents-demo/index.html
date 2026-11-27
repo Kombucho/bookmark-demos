@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Search for agents</title>
+  <meta name="description" content="A fictional documentation site. One toggle crawls the pages, turns them into Markdown, and answers /.well-known/search with scored chunks. The scores come from an index in this tab.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="home" href="../index.html">All demos</a>
+    <p class="kicker">Zone toggle · in-browser index</p>
+    <h1>Search for agents</h1>
+    <p class="deck">One switch on a zone. The edge crawls the site, converts each page to Markdown, chunks it, and advertises a search endpoint. The endpoint returns the chunks it found, with scores. It does not write an answer.</p>
+  </header>
+
+  <p class="fiction">Fictional example. Fieldglass, the harbours, the oil grades, and the API are made up. The index is BM25 in this tab, standing in for Cloudflare AI Search. No request leaves the page.</p>
+
+  <section class="zone" aria-labelledby="zone-heading">
+    <div class="zone-row">
+      <button type="button" id="zone-toggle" class="zone-toggle" aria-pressed="false" aria-describedby="zone-status">
+        <span class="switch" aria-hidden="true"><span class="knob"></span></span>
+        <span class="zone-copy">
+          <span class="zone-kicker" id="zone-heading">Quick action</span>
+          <span class="zone-name">Search for Agents</span>
+          <span class="zone-host">docs.fieldglass.example</span>
+        </span>
+      </button>
+      <div class="zone-meta">
+        <p class="status" id="zone-status" role="status">Off. Pages are ordinary HTML, and /.well-known/search is a 404.</p>
+        <p class="instance" id="instance">No AI Search instance for this zone.</p>
+        <button type="button" id="recrawl" hidden>Crawl again</button>
+      </div>
+    </div>
+    <ol class="pipeline" id="pipeline">
+      <li data-step="fetch">Fetch</li>
+      <li data-step="markdown">HTML to Markdown</li>
+      <li data-step="chunk">Chunk</li>
+      <li data-step="index">Index</li>
+    </ol>
+  </section>
+
+  <div class="layout">
+    <section class="tree-card" aria-labelledby="tree-heading">
+      <div class="card-head">
+        <h2 id="tree-heading">Pages</h2>
+        <p id="tree-count">11 pages · not indexed</p>
+      </div>
+      <div id="tree" class="tree" role="tree" aria-label="Site pages"></div>
+    </section>
+
+    <section class="inspector" aria-labelledby="inspect-heading">
+      <div class="card-head">
+        <h2 id="inspect-heading">Page response</h2>
+        <div class="seg" role="radiogroup" aria-label="Accept header">
+          <button type="button" id="accept-html" role="radio" aria-checked="true">Accept: text/html</button>
+          <button type="button" id="accept-md" role="radio" aria-checked="false">Accept: text/markdown</button>
+        </div>
+      </div>
+      <p class="inspect-note" id="inspect-note"></p>
+      <pre id="inspect-body" class="well"></pre>
+    </section>
+  </div>
+
+  <section class="console" aria-labelledby="console-heading">
+    <div class="card-head">
+      <h2 id="console-heading">Agent console</h2>
+      <div class="seg" role="radiogroup" aria-label="Search request">
+        <button type="button" id="method-get" role="radio" aria-checked="true">GET ?q=</button>
+        <button type="button" id="method-text" role="radio" aria-checked="false">QUERY text</button>
+        <button type="button" id="method-json" role="radio" aria-checked="false">QUERY JSON</button>
+      </div>
+    </div>
+    <p class="method-note" id="method-note"></p>
+    <form id="search-form" class="search-form">
+      <label for="query">Query</label>
+      <div class="query-row">
+        <input id="query" name="q" type="text" autocomplete="off" spellcheck="false" value="How do I verify webhook signatures?">
+        <button type="submit" class="primary" id="search-btn">Search</button>
+      </div>
+    </form>
+    <div class="chips" id="chips"></div>
+    <div class="split-wells">
+      <div>
+        <h3>Request</h3>
+        <pre id="curl" class="well"></pre>
+      </div>
+      <div>
+        <h3>Response <span id="result-status" class="badge"></span></h3>
+        <pre id="result" class="well"></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare" aria-labelledby="compare-heading">
+    <h2 id="compare-heading">What the agent spends</h2>
+    <p id="compare-note"></p>
+    <div class="meters">
+      <article>
+        <h3>Crawl each page</h3>
+        <p class="meter-stat" id="crawl-stat"></p>
+        <div class="meter" aria-hidden="true"><span id="crawl-bar"></span></div>
+      </article>
+      <article>
+        <h3>One search call</h3>
+        <p class="meter-stat" id="search-stat"></p>
+        <div class="meter" aria-hidden="true"><span id="search-bar"></span></div>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>From <a href="https://x.com/Cloudflare/status/2125591595965702452">@Cloudflare’s post</a> and <a href="https://blog.cloudflare.com/search-for-agents/">Introducing Search for Agents</a> (25 November 2026). The advertisement is the four <code>agent:*</code> tags, or the same fields as YAML when the request asks for <code>text/markdown</code>. The endpoint is <code>/.well-known/search</code>. GET takes <code>q</code>. QUERY (<a href="https://www.rfc-editor.org/rfc/rfc10008">RFC 10008</a>) takes a plain-text body or <code>{"q":"..."}</code>. Both are safe and idempotent, and both return retrieved Markdown with scores, not a generated answer. The documentation link in the tags is <a href="https://developers.cloudflare.com/ai-search/how-to/search-for-agents/">Cloudflare’s Search for Agents docs</a>. This page does not call Cloudflare. The scores are BM25 in the tab, normalised so the top hit is 1.000.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to crawl the fictional site and run the index.</p></noscript>
+  <script src="site.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
