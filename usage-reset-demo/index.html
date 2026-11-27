@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Usage reset</title>
+  <meta name="description" content="A fake macOS menu bar. Antigravity, Claude, Codex, and Cursor each show simulated usage, what is left, and a live countdown to reset.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="chrome">
+    <header class="menubar">
+      <div class="menus">
+        <span class="mark" aria-hidden="true"></span>
+        <span class="appname">Desk</span>
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">View</span>
+      </div>
+      <div class="tray">
+        <p class="next-chip" id="next-chip"></p>
+        <button type="button" id="gauge" aria-haspopup="true" aria-expanded="false" aria-controls="panel" aria-label="Usage limits">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+            <circle cx="8" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.3"></circle>
+            <path id="needle" d="M8 9 L8 4.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+          </svg>
+        </button>
+        <time id="clock"></time>
+      </div>
+    </header>
+    <div class="lab">
+      <label class="speed" for="speed">Clock speed
+        <input id="speed" type="range" min="0" max="1000" step="1" value="0">
+      </label>
+      <span id="speed-read">1× · 1 real second is 1 simulated second</span>
+      <button type="button" id="timeline-toggle" aria-pressed="false" aria-controls="timeline">Timeline</button>
+      <button type="button" id="reset">Reset simulated usage</button>
+    </div>
+  </div>
+
+  <section id="panel" class="panel" hidden tabindex="-1" aria-label="Usage limits">
+    <p class="next" id="next"></p>
+    <div id="tools"></div>
+    <p class="sim-note">Simulated data. A 5-hour window and a weekly window stay separate. A prompt spends the same amount on each of that tool’s windows.</p>
+  </section>
+
+  <main class="page">
+    <header class="top">
+      <a class="home" href="../index.html">All demos</a>
+      <p class="kicker">Simulated menu bar · four tools</p>
+      <h1>Usage reset</h1>
+      <p class="deck">One panel for Antigravity, Claude, Codex, and Cursor. Each limit has its own bar, what you’ve used, what’s left, and a countdown to the reset. Speed the clock and watch a window roll back to empty.</p>
+    </header>
+
+    <p class="fiction">Fictional readings. Nothing is read from a session on this computer, and no provider is called. The gauge in the menu bar opens and closes the panel.</p>
+
+    <section id="timeline" class="timeline" hidden aria-labelledby="timeline-heading">
+      <div class="timeline-head">
+        <h2 id="timeline-heading">Resets, next 7 days</h2>
+        <p>Dots are 5-hour windows. Diamonds are weekly. They drift toward now as the simulated clock runs.</p>
+      </div>
+      <div id="axis" class="axis"></div>
+    </section>
+
+    <p id="announce" class="sr" role="status"></p>
+  </main>
+
+  <footer>
+    <p class="source-kicker">Source</p>
+    <p>This page is a simulation of the Uzzy concept: one menu bar panel with what you’ve used, what’s left, and when each limit resets. The figures are made up and stay in this browser under <code>bookmark-demos.usage-reset.v1</code>. It does not read a Claude, Codex, Cursor, or Antigravity session, and it does not call a provider. From <a href="https://x.com/akacronos/status/2123645811116687846">@akacronos’s post</a>. Uzzy is free and open source for macOS: <a href="https://uzzy.app/">uzzy.app</a>, <a href="https://github.com/aka-cronos/uzzy">aka-cronos/uzzy</a>.</p>
+  </footer>
+  <noscript><p class="deck">This page needs JavaScript to run the simulated clock.</p></noscript>
+  <script src="usage.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
